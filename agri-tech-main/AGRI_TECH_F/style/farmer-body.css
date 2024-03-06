@@ -1,0 +1,94 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-container{
+  display: flex;
+  margin-top: 20px;
+}
+
+.card-container .loan-section{
+  display: flex;
+  height: 30vh;
+  background-color:rgb(184, 247, 184);
+  border-radius: 10px;
+  padding: 10px 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.loan-section .left{
+  width: 50%;
+}
+.loan-section h3{
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.loan-section p{
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.loan-section p span{
+  color: rgb(1,62,1);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.loan-section button{
+  height: 25px;
+  width: 110px;
+  margin-top: 30px;
+  border-radius: 5px;
+  background-color: rgb(1, 62, 1);
+  color: white;
+  font-weight: bold;
+}
+
+.loan-section .right{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.countdown-container {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.countdown-item {
+  text-align: center;
+}
+
+#days, #hours, #minutes, #seconds {
+  background-color: rgba(3, 72, 3, 0.639);
+  color: #fff;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.right button{
+  height: 40px;
+  width: 90px;
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: rgb(1, 62, 1);
+  color: white;
+  font-weight: bold;
+}
+
+button{
+  cursor: pointer;
+  transition: 0.2s ease all;
+}
+button:hover{
+  background-color: rgb(1, 62, 1,0.8);
+  transform: scale(1.02);
+}

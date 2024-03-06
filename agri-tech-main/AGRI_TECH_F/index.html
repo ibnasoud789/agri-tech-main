@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to the digital world of Agriculture!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/homebody.css">
+    <link rel="stylesheet" href="style/contact.css">
+    <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain attribute:*/
+          file = elmnt.getAttribute("include-html");
+          if (file) {
+            /*make an HTTP request using the attribute value as the file name:*/
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) {
+                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                /*remove the attribute, and call this function once more:*/
+                elmnt.removeAttribute("include-html");
+                includeHTML();
+              }
+            }      
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /*exit the function:*/
+            return;
+          }
+        }
+      };
+      </script>
+  </head>
+
+  <body>
+<!--Header section-->
+  <div include-html="header.html"></div>
+<!-- Carousel section-->
+    <div class="home-page-body-section">
+      <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-css" data-bs-ride="carousel" style="height: 450px; margin-top: 5px;">
+       
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="images/pexels-omer-faruq-khan-12903472.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/pexels-pixabay-235731.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="third-slide-title">Grow Your Business With Us</h5>
+              <p class="third-slide-des">Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/pexels-omer-faruq-khan-10133695.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/pexels-ariful-haque-3560020.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />      
+          </div>
+          
+          <div class="carousel-item">
+            <img src="images/pexels-quang-nguyen-vinh-2131784.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="images/pexels-quang-nguyen-vinh-2162170.jpg" class="d-block w-100" style="height: 450px;object-fit: cover;" alt="..." />
+            
+          </div>
+          <div class="carousel-item">
+            <img src="images/money-1604921_1920.jpg" class="d-block w-100" style="height: 450px;    width:100%; object-fit: cover; " alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="images/money-2724237_1920.jpg" class="d-block w-100" style="height: 450px;object-fit: cover;" alt="..." />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <div class="stats">
+          <div class="farmers-info">
+            <p class="num">200000+</p>
+            <p>Registered Farmers</p>
+          </div>
+          <div class="investors-info">
+            <p class="num">1000+</p>
+            <p>Investors</p>
+          </div>
+          <div class="finance-info">
+            <p class="num">BDT 20M+</p>
+            <p>Finance Faciliated</p>
+          </div>
+          <div class="insurance-info">
+            <p class="num">1000+</p>
+            <p>Insurance Provided</p>
+          </div>
+        </div>
+      </div>
+
+<!--About us section-->
+
+      <div class="about-us-home">
+        <div class="left-section">
+          <h3 class="about-heading">Who We Are</h3>
+          <p class="about-description">
+            We are the bridge connecting farmers to a brighter financial future. Our innovative fintech platform is specifically designed for the unique challenges and opportunities of the agricultural sector. We offer a comprehensive suite of financial tools, including microloans to bridge short-term needs, tailored insurance solutions to protect against unforeseen events, and curated investment opportunities for long-term growth. We are committed to empowering farmers by simplifying access to financial resources and fostering a thriving community for knowledge sharing and collaboration. Join us and unlock the full potential of your farm.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="right-section">
+           <div class="farmer-user">
+            <h1 class="header">Farmer</h1>
+            <p>Our primary vision is to work for the betterment of the farmers. Through our platfrom they can avail micro loan, investment, insurance etc. financial services.</p>
+           </div>
+           <div class="bank-user">
+            <h1 class="header">Bank</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate provident doloribus debitis, consequuntur repudiandae incidunt dolorum alias veritatis.</p>
+           </div>
+           <div class="investor-user">
+            <h1 class="header">Investor</h1>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla iusto consectetur totam non obcaecati sed necessitatibus ex?</p>
+           </div>
+           <div class="insurance-user">
+            <h1 class="header">Insurance</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos delectus dignissimos rerum officiis ipsa expedita asperiores deserunt beatae in.</p>
+           </div>
+        </div>
+      </div>
+
+<!--Beneficiary info section-->
+      <div class="beneficiary-info">
+        <h3 style="text-align: center;">What Our Beneficiaries Had To Say!</h3>
+        <div class="">
+          <div class="beneficiary-image">
+            <img src="images/farmer/pexels-kelly-2321837.jpg">
+            <p>Morjina Begum, Dinajpur</p>
+          </div>
+          <div class="comment">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+          </div>
+        </div>
+        <div class="">
+          <div class="comment">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+          </div>
+          <div class="beneficiary-image">
+            <img src="images/farmer/agriculture-3327299_1920.jpg">
+            <p>Morjina Begum, Dinajpur</p>
+          </div>
+          
+        </div>
+        <div class="">
+          <div class="beneficiary-image">
+            <img src="images/farmer/bangladesh-3535015_1920.jpg">
+            <p>Morjina Begum, Dinajpur</p>
+          </div>
+          <div class="comment">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+          </div>
+        </div>
+        <div class="">
+          <div class="comment">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+          </div>
+          <div class="beneficiary-image">
+            <img src="images/farmer/fisherman-5970480_1920.jpg">
+            <p>Morjina Begum, Dinajpur</p>
+          </div>
+        </div>
+        <div class="beneficiary-btn-cls">
+          <a href="blog.html"><button class="beneficiary-btn">Show More</button>
+        </div></a>
+      </div>
+
+<!--Partners section-->
+      <div class="partner">
+        <h3 style="text-align: center;">Our Valuable Partners</h3>
+        <div class="partner-info">
+          <div class="banks">
+            <img src="images/partners/bangladesh-development-bank-logo-6E49EE8D30-seeklogo.com.png">
+            <img src="images/partners/download (1).png">
+            <img src="images/partners/download.jpeg">
+            <img src="images/partners/download.png">
+            <img src="images/partners/National_Bank_Limited_Logo.png">
+            <img src="images/partners/rupali-bank-logo-B85FFF29B3-seeklogo.com.png">
+            <img src="images/partners/Seal_of_Janata_Bank_PLC.svg.png">
+            <img src="images/partners/sonalibank_pad_logo-blue-txt.png">
+            <img src="images/partners/asia.jpeg">
+            <img src="images/partners/city.jpeg">
+            <img src="images/partners/exim.png">
+            <img src="images/partners/grameen.png">
+            <img src="images/partners/ific.jpeg">
+            <img src="images/partners/isdb.jpeg">
+            <img src="images/partners/mercantile.png">
+            <img src="images/partners/nabard.png">
+            <img src="images/partners/prime.jpeg">
+            <img src="images/partners/sbac.png">
+            <img src="images/partners/sibl.png">
+            <img src="images/partners/uttara.jpeg">
+            <img src="images/partners/nitol.jpeg">
+          </div>
+          <div class="insurance-companies">
+            <img src="images/partners/insurance/_storage_emulated_0_Download_download (4).png">
+            <img src="images/partners/insurance/download (2).png">
+            <img src="images/partners/insurance/download (3).png">
+            <img src="images/partners/insurance/download (5).png">
+            <img src="images/partners/insurance/Pragati-Insurance-2106170653-2207200605.jpg">
+            <img src="images/partners/insurance/SFSA logo.jpg">
+            <img src="images/partners/insurance/takaful_islami_insurance_ltd.jpg">
+          </div>
+         
+        </div>
+      </div>
+<!--Contact us section-->
+      <div class="contact" id="contact">
+        <h1 class="heading">Contact <span>Us</span></h1>
+        <form action="#">
+          <div class="input-box">
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Email Address">
+          </div>
+          <div class="input-box">
+            <input type="text" placeholder="Phone Number">
+            <input type="text" placeholder="Email Subject">
+          </div>
+          <textarea name="" id="" cols="30" rows="20" placeholder="Your Query" ></textarea>
+          <button type="submit" id="submit" class="contact-button">Send Message</button>
+        </form>
+      </div>
+    </div>
+<!--Footer section-->
+    <footer>
+      
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    >
+    </script>
+    <script>
+      includeHTML();
+      </script>
+  </body>
+</html>

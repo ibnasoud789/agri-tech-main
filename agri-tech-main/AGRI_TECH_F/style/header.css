@@ -1,0 +1,100 @@
+.header-section{
+  position: fixed;
+  z-index: 1000;
+  background-color: rgb(135, 253, 135);
+  display: flex;
+  flex-direction: row;
+  height: 75px;
+  width: 100%;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, rgba(135,253,135,1),rgba(135,253,135,0.3));
+}
+
+.logo-section{
+  width: 210px;
+  height: 70px;
+}
+
+.logo{
+  object-fit: contain;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.menu-section{
+  background-color: transparent;
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-toggle{
+  background-color: transparent;
+  border: none;
+  color: rgb(1, 62, 1);
+  font-weight: bold;
+}
+
+.dropdown-toggle:hover,.dropdown-toggle:active{
+  background-color: transparent;
+}
+.dropdown-menu{
+  background-color: rgba(120, 196, 120, 0.947);
+}
+
+.home,.help,.about-us{
+  color:rgb(1, 62, 1);
+  background-color: transparent;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: 0.4s ease all;
+}
+
+.loan,.insurance,.investment{
+  color: rgb(4, 129, 4);
+  font-weight: bold;
+}
+.home:hover,.loan:hover,.insurance:hover,.investment:hover,.help:hover,.about-us:hover{
+  font-weight: bold;
+  color:white;
+  text-decoration: solid;
+  
+}
+
+.button-section{
+  display: flex;
+  justify-content: end;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.login-button,.signup-button{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18 px;
+  height: 50px;
+  color: rgb(1, 62, 1);
+  background-color: rgb(135, 253, 135);
+  padding:7px 20px;
+  margin-top: 15px;
+  border: 3px solid green;
+  border-radius: 25px;
+  transition: 0.5s ease all;
+  margin-left: 10px;
+}
+
+.login-button:hover,.signup-button:hover{
+  transform: scale(1.1);
+  border: 3px solid white;
+  color:rgb(135, 253, 135) ;
+  background-color: rgb(1,62,1);
+}
+
+.login-button:active,.signup-button:active{
+  transform: scale(0.9);
+}

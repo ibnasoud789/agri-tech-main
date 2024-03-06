@@ -1,0 +1,103 @@
+body{
+  background-color: black;
+  color: #006838;
+  display: flex;
+  justify-content: center;
+  background:linear-gradient(90deg,rgba(7, 97, 19, 0.916)0%,rgb(46, 237, 129)35%,rgb(132, 218, 117)100%);
+
+}
+form{
+  width: 50%;
+  font-size: 12px;
+  margin-top: 30px;
+  text-align: center;
+  border: 2px solid #006838;
+  box-shadow: 0 0 5px #006838;
+
+}
+
+label{
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+input{
+  color: #006838;
+  background-color: transparent;
+  border: 1px solid black;
+  width: 200px;
+  height: 15px;
+  border-radius: 5px;
+  padding: 5px;
+  
+}
+
+form .name-input-box{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.name-input-box div{
+  display: flex;
+  flex-direction: column;
+}
+
+form .address-input-box{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.address-input-box div{
+  display: flex;
+  flex-direction: column;
+}
+
+form .email-phone-input-box{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.email-phone-input-box div{
+    display: flex;
+    flex-direction: column;
+  }
+
+form .gender-usertype-input-box{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+.gender-usertype-input-box div{
+  display: flex;
+  flex-direction: row;
+}
+.password-input-box{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.password-input-box div{
+  display: flex;
+  flex-direction: column;
+}
+
+button{
+  height: 35px;
+  width: 420px;
+  margin-top: 20px;
+  margin-left: 8px;
+  margin-bottom: 10px;
+  background: #006838;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

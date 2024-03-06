@@ -1,0 +1,181 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100vh;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  background:linear-gradient(90deg,rgba(7, 97, 19, 0.916)0%,rgb(46, 237, 129)35%,rgb(132, 218, 117)100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 55%;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+}
+
+
+.text{
+  text-align: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  background-color:transparent;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  padding: 50px;
+
+
+}
+
+form div{
+  margin-bottom: 0;
+  position: relative;
+}
+
+.title{
+  color: rgb(3, 13, 70);
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  outline: none;
+}
+
+.question{
+  font-size: 15px;
+}
+
+span{
+  color: rgb(2, 39, 1);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+
+form div{
+  margin-top: 5px;
+}
+
+.login-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+form div h1{
+   text-align: center;
+   margin-bottom: 10px;
+   color: #006838;
+}
+
+label{
+  display: block;
+  margin-bottom: 5px;
+  color: #006838;
+}
+
+input{
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid #c4c4c4;
+  padding: 0 30px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  
+}
+
+input:focus{
+  border: 2px solid black;
+  transform: scale(1.05);
+}
+
+i{
+  position: absolute;
+  padding: 10px;
+}
+
+.failure-icon,.success-icon{
+  right: 0;
+  opacity: 0;
+}
+
+.failure-icon,.error{
+  color: red;
+}
+
+.success-icon{
+  color: green;
+}
+
+.error{
+  font-size: 14.5px;
+}
+
+.btn{
+  width: 100%;
+  height: 45px;
+  background-color: rgb(135, 253, 135);
+  color: rgb(1, 62, 1);
+  font-size: 17px;
+  font-weight: bold;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btn:hover{
+  transform: scale(1.05);
+  color:black;
+  border: 2px solid black;
+}
+
+@media (max-width: 900px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .content,
+  form{
+    width: 100%;
+  }
+  .btn{
+    display: flex;
+    flex-direction: column;
+  }
+
+}
