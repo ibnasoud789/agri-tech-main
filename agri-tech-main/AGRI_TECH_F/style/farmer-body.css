@@ -9,10 +9,11 @@
 
 .card-container{
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
 }
 
-.card-container .loan-section{
+.card-container .loan-section, .insurance-section{
   display: flex;
   height: 30vh;
   background-color:rgb(184, 247, 184);
@@ -24,11 +25,11 @@
 .loan-section .left{
   width: 50%;
 }
-.loan-section h3{
+.loan-section h3,.insurance-section h3{
   font-size: 22px;
   margin-bottom: 10px;
 }
-.loan-section p{
+.loan-section p, .insurance-section p{
   font-size: 15px;
   margin-bottom: 5px;
 }
@@ -91,4 +92,9 @@ button{
 button:hover{
   background-color: rgb(1, 62, 1,0.8);
   transform: scale(1.02);
+}
+
+.insurance-section{
+  display: flex;
+  flex-direction: column;
 }
