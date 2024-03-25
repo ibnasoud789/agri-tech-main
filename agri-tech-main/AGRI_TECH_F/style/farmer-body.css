@@ -15,6 +15,7 @@
 
 .card-container .loan-section, .insurance-section{
   display: flex;
+  flex-direction: column;
   height: 30vh;
   background-color:rgb(184, 247, 184);
   border-radius: 10px;
@@ -22,24 +23,28 @@
   margin-bottom: 1rem;
   width: 100%;
 }
-.loan-section .left{
+.loan-section .loan-details, .insurance-section .insurance-details{
+  display: flex;
+}
+.loan-section .left,.insurance-details .receiver{
   width: 50%;
 }
 .loan-section h3,.insurance-section h3{
   font-size: 22px;
   margin-bottom: 10px;
+  text-align: center;
 }
 .loan-section p, .insurance-section p{
   font-size: 15px;
   margin-bottom: 5px;
 }
-.loan-section p span{
+.loan-section p span, .insurance-section p span{
   color: rgb(1,62,1);
   font-weight: bold;
   font-size: 18px;
 }
 
-.loan-section button{
+.loan-section button, .insurance-section button{
   height: 25px;
   width: 110px;
   margin-top: 30px;
@@ -49,7 +54,7 @@
   font-weight: bold;
 }
 
-.loan-section .right{
+.loan-section .right,.insurance-details .insurance-provider{
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -96,5 +101,13 @@ button:hover{
 
 .insurance-section{
   display: flex;
+  height: 42vh;
+}
+.insurance-section .receiver{
+  display: flex;
   flex-direction: column;
+}
+.insurance-section button{
+  width: 150px;
+  height: 30px;
 }
