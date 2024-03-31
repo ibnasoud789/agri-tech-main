@@ -13,7 +13,7 @@
   margin-top: 20px;
 }
 
-.card-container .loan-section, .insurance-section{
+.loan-section, .insurance-section, .grant-section, .investment-section{
   display: flex;
   flex-direction: column;
   height: 30vh;
@@ -23,28 +23,28 @@
   margin-bottom: 1rem;
   width: 100%;
 }
-.loan-section .loan-details, .insurance-section .insurance-details{
+.loan-section .loan-details, .insurance-section .insurance-details, .grant-section .grant-details{
   display: flex;
 }
-.loan-section .left,.insurance-details .receiver{
+.loan-section .left,.insurance-details .receiver,.grant-details .receiver{
   width: 50%;
 }
-.loan-section h3,.insurance-section h3{
+.loan-section h3,.insurance-section h3,.grant-section h3,.investment-section h3{
   font-size: 22px;
   margin-bottom: 10px;
   text-align: center;
 }
-.loan-section p, .insurance-section p{
+.loan-section p, .insurance-section p, .grant-section p, .investment-section p{
   font-size: 15px;
   margin-bottom: 5px;
 }
-.loan-section p span, .insurance-section p span{
+.loan-section p span, .insurance-section p span, .grant-section p span, .investment-section p span{
   color: rgb(1,62,1);
   font-weight: bold;
   font-size: 18px;
 }
 
-.loan-section button, .insurance-section button{
+.loan-section button, .insurance-section button, .investment-section button{
   height: 25px;
   width: 110px;
   margin-top: 30px;
@@ -54,7 +54,7 @@
   font-weight: bold;
 }
 
-.loan-section .right,.insurance-details .insurance-provider{
+.loan-section .right,.insurance-details .insurance-provider, .grant-details .grant-provider{
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -99,11 +99,11 @@ button:hover{
   transform: scale(1.02);
 }
 
-.insurance-section{
+.insurance-section,.grant-section{
   display: flex;
   height: 42vh;
 }
-.insurance-section .receiver{
+.insurance-section .receiver,.grant-section .receiver{
   display: flex;
   flex-direction: column;
 }
@@ -111,3 +111,12 @@ button:hover{
   width: 150px;
   height: 30px;
 }
+
+.grant-section{
+  height: 20vh;
+}
+
+.investment-section{
+  height: 35vh;
+}
+
