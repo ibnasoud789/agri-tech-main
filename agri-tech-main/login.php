@@ -1,3 +1,8 @@
+<?php
+   include("database.php")
+
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,7 +13,7 @@
   <body>
     <div class="container">
 
-      <form id="form" action="login.php" method="post">
+      <form id="form" action="loginlogic.php" method="post">
         <div class="login-logo">
           <img src="login-page/login-logo/KRISHI-removebg-preview.png" height="70px" width="70px">
         </div>
