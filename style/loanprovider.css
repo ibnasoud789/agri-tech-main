@@ -109,3 +109,14 @@ h2{
   font-weight: bold;
   font-size: 18px;
 }
+
+.loanApplication{
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  background-color:rgb(184, 247, 184);
+  border-radius: 10px;
+  padding: 10px 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
