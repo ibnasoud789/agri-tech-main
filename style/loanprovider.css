@@ -120,3 +120,9 @@ h2{
   margin-bottom: 1rem;
   width: 100%;
 }
+
+.user-info button{
+  width: 30px;
+  height: 15px;
+  background-color: aqua;
+}

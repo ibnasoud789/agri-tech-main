@@ -16,7 +16,7 @@
 .loan-section, .insurance-section, .grant-section, .investment-section{
   display: flex;
   flex-direction: column;
-  height: 30vh;
+  height: 50vh;
   background-color:rgb(184, 247, 184);
   border-radius: 10px;
   padding: 10px 2rem;
@@ -35,7 +35,7 @@
   text-align: center;
 }
 .loan-section p, .insurance-section p, .grant-section p, .investment-section p{
-  font-size: 15px;
+  font-size: 13px;
   margin-bottom: 5px;
 }
 .loan-section p span, .insurance-section p span, .grant-section p span, .investment-section p span{
@@ -44,7 +44,7 @@
   font-size: 18px;
 }
 
-.loan-section button, .insurance-section button, .investment-section button{
+.loan-section button, .insurance-section button, .investment-section button, .grant-section button{
   height: 25px;
   width: 110px;
   margin-top: 30px;
@@ -120,4 +120,3 @@ button:hover{
   height: 35vh;
   
 }
-
