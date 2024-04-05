@@ -4,17 +4,36 @@
   
    $query = "SELECT * FROM loan WHERE Farmer_ID=1000005";
    $result = mysqli_query($conn, $query);
+
+   //farmer name 
+   $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID=1000005";
+   $nameResult = mysqli_query($conn, $nameQuery);
+   $nameRow = mysqli_fetch_assoc($nameResult);
+   $farmerName = $nameRow['farmer_name'];
+
    //loan details 
    $loanQuery = "SELECT SUM(amount) AS total_loan_received FROM loan WHERE Farmer_ID=1000005";
    $loanResult = mysqli_query($conn, $loanQuery);
    $loanRow = mysqli_fetch_assoc($loanResult);
    $totalLoanReceived = $loanRow['total_loan_received'];
 
-  //farmer name 
-   $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID=1000005";
-   $nameResult = mysqli_query($conn, $nameQuery);
-   $nameRow = mysqli_fetch_assoc($nameResult);
-   $farmerName = $nameRow['farmer_name'];
+   //insurance details
+   $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= 1000005";
+   $insuranceResult = mysqli_query($conn, $insuranceQuery);
+   $insuranceRow = mysqli_fetch_assoc($insuranceResult);
+   $insuranceId= $insuranceRow["insurance_id"];
+   $insurancePolicy= $insuranceRow["policy_type"];
+   $insuranceCoverage = $insuranceRow["coverage_amount"];
+   $premiumAmount = $insuranceRow["premium_amount"];
+   $policyPeriod= $insuranceRow["policy_period"];
+
+   $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000005";
+   $insuranceProviderResult= mysqli_query($conn, $insuranceProviderQuery);
+   $insuranceProviderRow= mysqli_fetch_assoc($insuranceProviderResult);
+   $insuranceProviderId= $insuranceProviderRow["FSPid"];
+   $insuranceProviderName= $insuranceProviderRow["name"];
+
+
 
 ?>
 
@@ -237,17 +256,17 @@ button:hover{
           <div><h3>Insurance Details</h3></div>
           <div class="insurance-details">
             <div class="receiver">
-              <p>Insurance ID:<span>1</span></p>
-              <p>Current Insurance Policy : <span>Revenue Based Policy</span></p>
-              <p>Coverage Amount : <span> BDT 150000</span></p>
-              <p>Premium Amount : <span>BDT 4000</span></p>
-              <p>Policy Period : <span>1 year</span></p>
+              <p>Insurance ID:<span><?php echo $insuranceId; ?></span></p>
+              <p>Current Insurance Policy : <span><?php echo $insurancePolicy; ?></span></p>
+              <p>Coverage Amount : <span> BDT <?php echo $insuranceCoverage; ?></span></p>
+              <p>Premium Amount : <span>BDT <?php echo $premiumAmount; ?></span></p>
+              <p>Policy Period : <span><?php echo $policyPeriod; ?></span></p>
               <p>Next Payment Date : <span>12/10/2024</span></p>
               <button>Pay Premium Amount</button>
             </div>
             <div class="insurance-provider">
-              <p>Provider Name:<span>Sonali Bank</span></p>
-              <p>Provider ID:<span>1000023</span></p>
+              <p>Provider Name:<span><?php echo $insuranceProviderName; ?></span></p>
+              <p>Provider ID:<span><?php echo $insuranceProviderId; ?></span></p>
             </div>
           </div>
         </div>
@@ -261,7 +280,7 @@ button:hover{
               <button> Apply for grant</button>
             </div>
             <div class="grant-provider">
-              <p>Provider Name:<span>Sonali Bank</span></p>
+              <p>Provider Name:<span></span></p>
               <p>Provider ID:<span>1000023</span></p>
             </div>
           </div>
