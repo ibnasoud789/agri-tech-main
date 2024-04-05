@@ -13,7 +13,7 @@
   <body>
     <div class="container">
 
-      <form id="form" action="loginlogic.php" method="post">
+      <form id="form" action="loginlogic.php" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="login-logo">
           <img src="login-page/login-logo/KRISHI-removebg-preview.png" height="70px" width="70px">
         </div>
@@ -33,6 +33,18 @@
           <i class="fas fa-circle-exclamation failure-icon"></i>
           <i class="far fa-check-circle success-icon"></i>
           <div class="error"></div>
+        </div>
+        <div class="user-type">
+          <label for="usertype">Choose your User Type</label>
+          <select>
+            <option>Select</option>
+            <option>Farmer</option>
+            <option>Loan Provider</option>
+            <option>Insurance Provider</option>
+            <option>Investor</option>
+            <option>Grant Proider</option>
+
+          </select>
         </div>
         <input type="submit" class="btn" name="login" id="login" value="Login" required>
       </form>

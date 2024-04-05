@@ -17,12 +17,9 @@
    $loanRow = mysqli_fetch_assoc($loanResult);
    $totalLoanReceived = $loanRow['total_loan_received'];
 
-<<<<<<< Updated upstream
-   //insurance details
-=======
+
    //insurance details-user side
->>>>>>> Stashed changes
-   $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= 1000005";
+   $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= 1000012";
    $insuranceResult = mysqli_query($conn, $insuranceQuery);
    $insuranceRow = mysqli_fetch_assoc($insuranceResult);
    $insuranceId= $insuranceRow["insurance_id"];
@@ -31,11 +28,8 @@
    $premiumAmount = $insuranceRow["premium_amount"];
    $policyPeriod= $insuranceRow["policy_period"];
 
-<<<<<<< Updated upstream
-=======
    //insuran details- provider side
->>>>>>> Stashed changes
-   $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000005";
+   $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000012";
    $insuranceProviderResult= mysqli_query($conn, $insuranceProviderQuery);
    $insuranceProviderRow= mysqli_fetch_assoc($insuranceProviderResult);
    $insuranceProviderId= $insuranceProviderRow["FSPid"];
@@ -239,7 +233,7 @@ button:hover{
               <p>Total loan repaid: <span>BDT <?php echo $totalLoanReceived; ?></span></p>
               <p>Current loan amount: <span>BDT 60000</span></p>
               <div>
-                <button>Show Details</button>
+                <a href="farmerloandetails.php"><button>Show Details</button></a>
                 <button>Loan Statement</button>
                 <button>Apply for loan</button>
               </div>
