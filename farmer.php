@@ -17,7 +17,11 @@
    $loanRow = mysqli_fetch_assoc($loanResult);
    $totalLoanReceived = $loanRow['total_loan_received'];
 
+<<<<<<< Updated upstream
    //insurance details
+=======
+   //insurance details-user side
+>>>>>>> Stashed changes
    $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= 1000005";
    $insuranceResult = mysqli_query($conn, $insuranceQuery);
    $insuranceRow = mysqli_fetch_assoc($insuranceResult);
@@ -27,6 +31,10 @@
    $premiumAmount = $insuranceRow["premium_amount"];
    $policyPeriod= $insuranceRow["policy_period"];
 
+<<<<<<< Updated upstream
+=======
+   //insuran details- provider side
+>>>>>>> Stashed changes
    $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000005";
    $insuranceProviderResult= mysqli_query($conn, $insuranceProviderQuery);
    $insuranceProviderRow= mysqli_fetch_assoc($insuranceProviderResult);
