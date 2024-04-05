@@ -170,7 +170,7 @@ h2{
       </div>
       <div class="user-info">
         <h4>Welcome, Agrani Bank!</h4>
-        <button>Log Out</button>
+        <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>
     <div class="card-container">
