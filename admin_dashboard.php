@@ -1,3 +1,30 @@
+<?php
+include 'admin.php';
+
+if (isset($_POST['Add'])) {
+
+    $user_id = $_POST['user_id'];
+    $city = $_POST['city'];
+    $postcode = $_POST['postcode'];
+    $type = $_POST['type'];
+
+    // Insert data into database
+    $sql = "INSERT INTO user (user_id, city, postcode, type) VALUES ('$user_id','$city','$postcode','$type')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    // Close connection
+    $conn->close();
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,9 +132,10 @@ $(document).ready(function(){
 		$(this).attr("disabled", "disabled");
 		var index = $("table tbody tr:last-child").index();
         var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+            '<td><input type="text" class="form-control" name="user_id" id="user_id"></td>' +
+            '<td><input type="text" class="form-control" name="city" id="city"></td>' +
+            '<td><input type="text" class="form-control" name="postcode" id="postcode"></td>' +
+            '<td><input type="text" class="form-control" name="type" id="type"></td>' +
 			'<td>' + actions + '</td>' +
         '</tr>';
     	$("table").append(row);		
@@ -166,54 +194,18 @@ $(document).ready(function(){
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>User ID</th>
-                        <th>Area</th>
-                        <th>City</th>
-                        <th>Postcode</th>
-                        <th>Contact</th>
-                        <th>User Type</th>
+                        <th>user_id</th>
+                        <th>city</th>
+                        <th>postcode</th>
+                        <th>type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1000001</td>
-                        <td>Road no 6</td>
-                        <td>Dhaka</td>
-                        <td>1205</td>
-                        <td>171517211</td>
-                        <td>Financial Service Provider</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1000002</td>
-                        <td>Road no 1</td>
-                        <td>Dhaka</td>
-                        <td>1205</td>
-                        <td>171517221</td>
-                        <td>Financial Service Provider</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1000003</td>
-                        <td>Road no 9</td>
-                        <td>Dhaka</td>
-                        <td>1205</td>
-                        <td>171517211</td>
-                        <td>Financial Service Provider</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
                 </tbody>
             </table>
         </div>
