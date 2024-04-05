@@ -16,7 +16,6 @@
    $nameRow = mysqli_fetch_assoc($nameResult);
    $farmerName = $nameRow['farmer_name'];
 
-
 ?>
 
 
