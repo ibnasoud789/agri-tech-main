@@ -28,12 +28,19 @@
    $premiumAmount = $insuranceRow["premium_amount"];
    $policyPeriod= $insuranceRow["policy_period"];
 
-   //insuran details- provider side
+   //insurance details- provider side
    $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000012";
    $insuranceProviderResult= mysqli_query($conn, $insuranceProviderQuery);
    $insuranceProviderRow= mysqli_fetch_assoc($insuranceProviderResult);
    $insuranceProviderId= $insuranceProviderRow["FSPid"];
    $insuranceProviderName= $insuranceProviderRow["name"];
+
+   //grant details
+   $grantQuery= "SELECT SUM(Grant_amount) AS grantAmount, Target_beneficiaries FROM grant_t AS g JOIN grant_provider_target_t AS gp ON g.Grant_provider_ID=gp.Grant_provider_ID WHERE Farmer_ID=1000005";
+   $grantResult = mysqli_query($conn, $grantQuery);
+   $grantRow = mysqli_fetch_assoc($grantResult);
+   $grantAmount= $grantRow["grantAmount"];
+   $grantTarget= $grantRow["Target_beneficiaries"];
 
 
 
@@ -226,7 +233,7 @@ button:hover{
       </div>
       <div class="card-container">
         <div class="loan-section">
-          <div><h3>Loan Details</h3></div>
+          <div><h3>Loan Portfolio</h3></div>
           <div class="loan-details">
             <div class="left">
               <p>Total loan received: <span>BDT <?php echo $totalLoanReceived; ?></span></p>
@@ -255,7 +262,7 @@ button:hover{
         </div>
 
         <div class="insurance-section">
-          <div><h3>Insurance Details</h3></div>
+          <div><h3>Insurance Portfolio</h3></div>
           <div class="insurance-details">
             <div class="receiver">
               <p>Insurance ID:<span><?php echo $insuranceId; ?></span></p>
@@ -273,22 +280,20 @@ button:hover{
           </div>
         </div>
         <div class="grant-section">
-          <div><h3>Grant Details</h3></div>
+          <div><h3>Grant Portfolio</h3></div>
           <div class="grant-details">
             <div class="receiver">
-              <p>Grant ID:<span>1</span></p>
-              <p>Grant Amount : <span> BDT 150000</span></p>
-              <p>Receive Date: <span>12/10/2024</span></p>
-              <button> Apply for grant</button>
-            </div>
-            <div class="grant-provider">
-              <p>Provider Name:<span></span></p>
-              <p>Provider ID:<span>1000023</span></p>
+              <p>Total Grant Received : <span> <?php echo $grantAmount; ?></span></p>
+              <p>Beneficiary Category: <span><?php echo $grantTarget; ?></span></p>
+              <div>
+                <a href="farmergrantdetails.php"><button>Show Details</button></a>
+                <button> Apply for grant</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="investment-section">
-          <div><h3>Investment Details</h3></div>
+          <div><h3>Investment Portfolio</h3></div>
           <div class="investment-details">
               <p>Total Investment Received: <span>BDT 200000</span></p>
               <p>Current Investment Amount: <span>BDT 100000</span></p>
