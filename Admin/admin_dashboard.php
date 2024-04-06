@@ -60,6 +60,8 @@ echo $html_table;
 <!-- Add button -->
 <br><br>
 <button onclick="location.href='add_user.php';">Add User</button>
+<button onclick="location.href = 'delete_user.php';">Delete User</button>
+
 
 </body>
 </html>
