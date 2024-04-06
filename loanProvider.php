@@ -9,6 +9,8 @@
   $totalLoanProvided = $loanRow['total_loan_provided'];
   $totalLoanCount = $loanRow['total_loan_count'];
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +105,7 @@ tr:nth-child(even) {
   flex-direction: column;
   margin-top: 20px;
 }
-.loanPortfolioOverview{
+.loanPortfolioOverview, .loanapplication{
   display: flex;
   flex-direction: column;
   height: 50vh;
@@ -201,6 +203,18 @@ h2{
             }
             ?>
         </table>
+      </div>
+      <div class="loanapplication">
+        <h2>Loan Applications</h2>
+        <table id="loanApplicationTable">
+         <tr>
+            <th>Farmer Name</th>
+            <th>Farmer ID</th>
+            <th>Loan Amount</th>
+            <th>Approval</th>
+          </tr>
+      </table>
+
       </div>
     </div>
   </div>
