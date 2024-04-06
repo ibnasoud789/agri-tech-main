@@ -1,25 +1,36 @@
 <?php
 include 'admin.php';
 
-if (isset($_POST['Add'])) {
+$sql = "SELECT * FROM user";
+$result = $conn->query($sql);
 
-    $user_id = $_POST['user_id'];
-    $city = $_POST['city'];
-    $postcode = $_POST['postcode'];
-    $type = $_POST['type'];
-
-    // Insert data into database
-    $sql = "INSERT INTO user (user_id, city, postcode, type) VALUES ('$user_id','$city','$postcode','$type')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+$data = array();
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $data[] = $row;
     }
-
-    // Close connection
-    $conn->close();
 }
+
+echo("User Details"); 
+
+$html_table = '<table border="1">';
+$html_table .= '<tr>';
+foreach (array_keys($data[0]) as $column) {
+    $html_table .= '<th>' . $column . '</th>';
+}
+$html_table .= '</tr>';
+foreach ($data as $row) {
+    $html_table .= '<tr>';
+    foreach ($row as $value) {
+        $html_table .= '<td>' . $value . '</td>';
+    }
+    $html_table .= '</tr>';
+}
+$html_table .= '</table>';
+
+echo $html_table;
+
+$conn->close();
 
 ?>
 
