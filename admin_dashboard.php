@@ -63,4 +63,3 @@ echo $html_table;
 
 </body>
 </html>
-
