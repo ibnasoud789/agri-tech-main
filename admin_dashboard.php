@@ -132,10 +132,12 @@ $(document).ready(function(){
 		$(this).attr("disabled", "disabled");
 		var index = $("table tbody tr:last-child").index();
         var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="user_id" id="user_id"></td>' +
-            '<td><input type="text" class="form-control" name="city" id="city"></td>' +
-            '<td><input type="text" class="form-control" name="postcode" id="postcode"></td>' +
-            '<td><input type="text" class="form-control" name="type" id="type"></td>' +
+            '<td><input type="text" class="form-control" name="User ID" id="User ID"></td>' +
+            '<td><input type="text" class="form-control" name="Area" id="Area"></td>' +
+            '<td><input type="text" class="form-control" name="City" id="City"></td>' +
+            '<td><input type="text" class="form-control" name="Postcode" id="Postcode"></td>' +
+            '<td><input type="text" class="form-control" name="Contact Number" id="Contact Number"></td>' +
+            '<td><input type="text" class="form-control" name="User-type" id="User-type"></td>' +
 			'<td>' + actions + '</td>' +
         '</tr>';
     	$("table").append(row);		
@@ -194,18 +196,57 @@ $(document).ready(function(){
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>user_id</th>
-                        <th>city</th>
-                        <th>postcode</th>
-                        <th>type</th>
+                        <th>User ID</th>
+                        <th>Area</th>
+                        <th>City</th>
+                        <th>Postcode</th>
+                        <th>Contact Number</th>
+                        <th>User-type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
+                    <tr>
+                        <td>1000001</td>
+                        <td>Road no 6</td>
+                        <td>Dhaka</td>
+                        <td>1216</td>
+                        <td>171517211</td>
+                        <td>Financial Service Provider</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000002</td>
+                        <td>Road no 1</td>
+                        <td>Dhaka</td>
+                        <td>1205</td>
+                        <td>171517221</td>
+                        <td>Financial Service Provider</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000003</td>
+                        <td>Road no 9</td>
+                        <td>Dhaka</td>
+                        <td>1207</td>
+                        <td>171517227</td>
+                        <td>Financial Service Provider</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
+                        </td>
+                    </tr>         
                 </tbody>
             </table>
         </div>
