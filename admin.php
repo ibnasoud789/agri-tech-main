@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 else{
     echo "<script>console.log('Database Connected successfully');</script>";
-    echo "Connection Successful!";
+    echo "";
 }
 
 ?>
