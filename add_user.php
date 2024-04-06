@@ -53,7 +53,7 @@ $conn->close();
 
         <label for="user_type">user_type:</label>
         <input type="text" id="user_type" name="user_type" required><br><br>
-        
+
         <input type="submit" value="Add User">
     </form>
 </body>
