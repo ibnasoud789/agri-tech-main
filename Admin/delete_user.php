@@ -27,6 +27,9 @@ if(isset($_POST['submit'])) {
 <html>
 <head>
     <title>Delete User</title>
+    <style>
+        *{background-color:rgb(184, 247, 184);}
+    </style>
 </head>
 <body>
 

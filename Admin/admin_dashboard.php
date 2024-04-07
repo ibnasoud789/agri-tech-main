@@ -61,7 +61,7 @@ echo $html_table;
 <br><br>
 <button onclick="location.href='add_user.php';">Add User</button>
 <button onclick="location.href = 'delete_user.php';">Delete User</button>
-
+<button onclick="location.href = 'update.php';">Update User</button>
 
 </body>
 </html>
