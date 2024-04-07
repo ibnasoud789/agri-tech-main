@@ -1,53 +1,49 @@
-<?php
+<?php 
 
-include 'admin.php';
+include "admin.php";
 
-if(isset($_POST['submit'])) {
+if(isset($_GET['userID']) && isset($_GET['Area']) && isset($_GET['city']) && isset($_GET['postcode']) && isset($_GET['contact_number']) && isset($_GET['user_type'])) {
+  
+    $userID = $_GET['userID'];
+    $newArea = $_GET['Area'];
+    $newCity = $_GET['city'];
+    $newPostcode = $_GET['postcode'];
+    $newContactNumber = $_GET['contact_number'];
+    $newUserType = $_GET['user_type'];
 
-    $userID = $_POST['userID'];
-    $Area = $_POST['Area'];
-    $city = $_POST['city'];
-    $postcode = $_POST['postcode'];
-    $contact_number = $_POST['contact_number'];
-    $user_type = $_POST['user_type'];
-
-
-    $sql = "UPDATE `user` SET `userID`='$userID',`Area`='$Area',`city`='$city',`postcode`='$postcode',`contact_number`='$contact_number', 'user_type'='$user_type' WHERE `userID`='$user_ID'"; 
-
-    $result = $conn->query($sql); 
-
-    if ($result == TRUE) {
-
-        echo '<div class="alert alert-success" role="alert">';
-        echo 'Record updated successfully.';
-        echo '</div>';
-        echo "<script>console.log('Record updated successfully.');</script>";
-        header( "refresh:2; url=./view.php" ); 
-
-    }else{
-
-        echo "Error:" . $sql . "<br>" . $conn->error;
-
+    $sql = "UPDATE user SET Area = ?, city = ?, postcode = ?, contact_number = ?, user_type = ? WHERE userID = ?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        echo "Error preparing statement: " . $conn->error;
+        exit;
     }
 
-}
+    $stmt->bind_param("sssssi", $newArea, $newCity, $newPostcode, $newContactNumber, $newUserType, $userID);
+    if (!$stmt->execute()) {
+        echo "Error executing statement: " . $stmt->error;
+        exit;
+    }
 
+    echo "User with ID $userID updated successfully.";
+    
+    $stmt->close();
+}
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update User</title>
+    <title>Update User Information</title>
     <style>
         *{background-color:rgb(184, 247, 184);}
     </style>
 </head>
 <body>
 
-<h2>Update User</h2>
+<h2>Update User Information</h2>
 
-<form action="update_user.php" method="post">
+<form action="update.php" method="get">
         <label for="userID">userID:</label>
         <input type="text" id="userID" name="userID" required><br><br>
         
@@ -65,7 +61,8 @@ if(isset($_POST['submit'])) {
 
         <label for="user_type">user_type:</label>
         <input type="text" id="user_type" name="user_type" required><br><br>
-        <input type="submit" name="submit" value="Update User">
+
+        <input type="submit" value="Update User">
 </form>
 
 </body>
