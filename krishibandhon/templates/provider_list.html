@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Provider List</h2>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>ID</td>
+            <td>Eligibility Criteria</td>
+            <td>Minimum Amount</td>
+            <td>Maximum Amount</td>
+            <td>
+                <center>
+                <a href="{% url 'form' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>
+                    Add New
+                </a>
+                </center>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for provider in provider_list %}
+        <tr>
+            <td>
+                {{provider.grant_provider}}
+            </td>
+            <td>
+                {{provider.eligibility_criteria}}
+            </td>
+            <td>
+                {{provider.minimum_amount}}
+            </td>
+            <td>
+                {{provider.maximum_amount}}
+            </td>
+            <td>
+                <a href="{% url 'provider_update' provider.grant_provider %}" class="btn">Update Grant Providers Info</a> <br>
+                <center>
+                <form action="{% url 'provider_delete' provider.grant_provider %}" method="post">
+                    {% csrf_token %} 
+                    <button>
+                        Delete User
+                    </button>
+                </form>
+                </center>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<center><button type="button" class="btn btn-light btn-block"><a href="{% url 'home' %}">Home</a></button></center>
+{% endblock content %}

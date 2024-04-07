@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Target List</h2>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>ID</td>
+            <td>Target Beneficiaries</td>
+            <td>
+                <a href="{% url 'target_form' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>
+                    Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for target in target_list %}
+        <tr>
+            <td>
+                {{target.grant_provider}}
+            </td>
+            <td>
+                {{target.target_beneficiaries}}
+            </td>
+            <td>
+                <a href="{% url 'target_update' target.grant_provider %}" class="btn">Update Target Info</a> <br>
+                <form action="{% url 'target_delete' target.grant_provider %}" method="post">
+                    {% csrf_token %}
+                    <button>
+                        Delete User
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<center><button type="button" class="btn btn-light btn-block"><a href="{% url 'home' %}">Home</a></button></center>
+{% endblock content %}

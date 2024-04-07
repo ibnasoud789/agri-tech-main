@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<button type="button" class="btn btn-light btn-block"><a href="{% url 'list'%}">Grant Provider List</a></button>
+<button type="button" class="btn btn-light btn-block"><a href="{% url 'target_list' %}">Grant Target List</a></button>
+<button type="button" class="btn btn-light btn-block"><a href="{% url 'grant_list' %}">Grant List</a></button>
+
+{% endblock content %}

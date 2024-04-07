@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Grant List</h2>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>ID</td>
+            <td>Target Beneficiaries</td>
+            <td>Target Beneficiaries</td>
+            <td>Target Beneficiaries</td>
+            <td>Target Beneficiaries</td>
+            <td>Target Beneficiaries</td>
+            <td>
+                <a href="{% url 'grant_form' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>
+                    Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grant in grant_list %}
+        <tr>
+            <td>
+                {{grant.grant_provider}}
+            </td>
+            <td>
+                {{grant.grant_id}}
+            </td>
+            <td>
+                {{grant.grant_amount}}
+            </td>
+            <td>
+                {{grant.start_date}}
+            </td>
+            <td>
+                {{grant.end_date}}
+            </td>
+            <td>
+                {{grant.farmer}}
+            </td>
+            <td>
+                <a href="{% url 'grant_update' grant.grant_id %}" class="btn">Update Grant Info</a> <br>
+                <form action="{% url 'grant_delete' grant.grant_provider %}" method="post">
+                    {% csrf_token %}
+                    <button>
+                        Delete User
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<center><button type="button" class="btn btn-light btn-block"><a href="{% url 'home' %}">Home</a></button></center>
+
+{% endblock content %}

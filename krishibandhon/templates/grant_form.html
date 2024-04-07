@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<form action="" method='post' autocomplete='off'>
+    {% csrf_token %}
+    {{form}}
+    <button class="submit btn btn-success"><i class="fa-solid fa-database"></i> Submit</button>
+</form>
+{% endblock content %}
