@@ -2,12 +2,18 @@
   include 'database.php';
   $query = "SELECT * FROM loan WHERE Loan_Provider_ID=1000033";
   $result = mysqli_query($conn, $query);
+
   //total loan amount & loan no count
   $loanQuery = "SELECT SUM(amount) AS total_loan_provided, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Loan_Provider_ID = '1000033'";
   $loanResult = mysqli_query($conn, $loanQuery);
   $loanRow = mysqli_fetch_assoc($loanResult);
   $totalLoanProvided = $loanRow['total_loan_provided'];
   $totalLoanCount = $loanRow['total_loan_count'];
+
+  //loan application verdict update
+  $applicationQuery='SELECT * FROM loan_application_t WHERE preferred_bank="City Bank"';
+  $applicationResult = mysqli_query($conn, $applicationQuery);
+
 
 
 
@@ -143,11 +149,6 @@ h2{
 }
 
 .user-info button{
-  width: 30px;
-  height: 15px;
-  background-color: aqua;
-}
-.user-info button{
   width: 60px;
   height: 30px;
   color: aliceblue;
@@ -160,6 +161,30 @@ h2{
 .user-info button:hover{
   background-color: rgb(1,62,1,.9);
   transform: scale(1.1);
+}
+.button{
+  display:flex ;
+  gap: 2px;
+  
+}
+.accept-button{
+width: 60px;
+height: 20px;
+border-radius: 5px;
+cursor: pointer;
+color: #dddddd; 
+ background-color: rgb(1,62,1);
+ }
+ .accept-button:active{
+ background-color: rgb(1,62,1,.8);
+ }
+.decline-button{
+width: 60px;
+height: 20px;
+border-radius: 5px;
+cursor: pointer;
+color: #dddddd; 
+background-color: red;
 }
   </style>
 </head>
@@ -211,9 +236,58 @@ h2{
             <th>Farmer Name</th>
             <th>Farmer ID</th>
             <th>Loan Amount</th>
-            <th>Approval</th>
+            <th>Verdict</th>
           </tr>
+          <?php
+             while ($applicationRow = mysqli_fetch_assoc($applicationResult)) {
+              echo "<tr>";
+              echo "<td>".$applicationRow['farmer_name']."</td>";
+              echo "<td>".$applicationRow['farmer_id']."</td>";
+              echo "<td>".$applicationRow['loan_amount']."</td>";
+              echo "<td class='button' id='button_".$applicationRow['farmer_id']."'>
+                    <span class='verdict' id='verdict_".$applicationRow['farmer_id']."' data-farmer-id='".$applicationRow['farmer_id']."'></span>
+                    <button class='accept-button' onclick='declareInterestRate(".$applicationRow['farmer_id'].")'>Accept</button>
+                    <button class='decline-button' onclick='declineLoan(".$applicationRow['farmer_id'].")'>Decline</button>
+                 </td>";
+              echo "</tr>";
+    }
+    ?>
+
       </table>
+      <script>
+      function declareInterestRate(farmer_id) {
+        var interestRate = prompt("Please declare interest rate:");
+        if (interestRate !== null && interestRate !== "") {
+        // Here you can submit the form data to process_loan_approval.php
+        // and handle the loan approval logic including storing interest rate
+        
+        // Update the verdict to "Accepted" for this farmer ID
+        var verdict = document.getElementById("verdict_" + farmer_id);
+        if (verdict) {
+            verdict.textContent = "Accepted";
+        }
+        
+        // Hide the button container for this farmer ID
+        var buttonContainer = document.getElementById("button_" + farmer_id);
+        if (buttonContainer) {
+            buttonContainer.style.display = "none";
+        }
+        
+        alert("Loan approval successful!");
+    } else {
+        alert("Interest rate declaration canceled.");
+    }
+}
+
+function declineLoan(farmer_id) {
+    // Here you can handle the logic for declining the loan
+    // Update the verdict to "Declined" for this farmer ID
+    var verdict = document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']");
+    if (verdictSpan) {
+        verdictSpan.textContent = "Declined";
+    }
+}
+</script>
 
       </div>
     </div>
