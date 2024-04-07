@@ -118,13 +118,13 @@ body {
   <a href="#logout">Log Out</a>
   <a href="#contact">Contact</a>
   <div class="search-container">
-    <form action="/action_page.php">
+    <form action="test.php"> 
       <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search">
-      <button type="submit" style="background-color: darkgreen; color: white;"> Submit</button>
-
+      <button type="submit" style="background-color: darkgreen; color: white;">Search</button> 
     </form>
   </div>
 </div>
+
 
 <div style="padding-left:16px">
 </div>
@@ -175,6 +175,7 @@ echo $html_table;
 <button onclick="location.href='add_user.php';">Add User</button>
 <button onclick="location.href = 'delete_user.php';">Delete User</button>
 <button onclick="location.href = 'update.php';">Update User</button>
+
 
 </body>
 </html>
