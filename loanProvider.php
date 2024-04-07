@@ -1,11 +1,29 @@
 <?php 
+  session_start();
   include 'database.php';
-  $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID=1000033";
+  
+  // Check if the user is logged in
+  if (!isset($_SESSION['userid'])) {
+      // Redirect the user to the login page if not logged in
+      header("Location: login.php");
+      exit;
+  }
+  
+  // Retrieve the user's ID from the session
+  $loanProviderID = $_SESSION['userid'];
+
+  $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID='$loanProviderID'";
   $result = mysqli_query($conn, $query);
+
+  //loan provider name
+  $nameQuery="SELECT * FROM financial_service_provider_t WHERE FSPid='$loanProviderID'";
+  $nameResult=mysqli_query($conn, $nameQuery);
+  $nameRow=mysqli_fetch_array($nameResult);
+  $loanprovidername=$nameRow['name'];
   
 
   //total loan amount & loan no count
-  $loanQuery = "SELECT SUM(amount) AS total_loan_provided, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Loan_Provider_ID = '1000033'";
+  $loanQuery = "SELECT SUM(amount) AS total_loan_provided, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Loan_Provider_ID = '$loanProviderID'";
   $loanResult = mysqli_query($conn, $loanQuery);
   $loanRow = mysqli_fetch_assoc($loanResult);
   $totalLoanProvided = $loanRow['total_loan_provided'];
@@ -197,7 +215,7 @@ background-color: red;
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
-        <h4>Welcome, Agrani Bank!</h4>
+        <h4>Welcome, <?php echo $loanprovidername;?>!</h4>
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>
