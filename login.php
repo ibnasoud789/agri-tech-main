@@ -1,55 +1,30 @@
 <?php
-   include("database.php")
-
-
+include "loginlogic.php";
 ?>
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="login-page/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
-  <body>
-    <div class="container">
-
-      <form id="form" action="loginlogic.php" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <div class="login-logo">
-          <img src="login-page/login-logo/KRISHI-removebg-preview.png" height="70px" width="70px">
-        </div>
-        <div><h1>LOGIN</h1></div>
-        <div class="id-input">
-          <label for="userid">User ID</label>
-          <i class="fas fa-user"></i>
-          <input type="number" name="userid" placeholder="696969" id="userid">
-          <i class="fas fa-circle-exclamation failure-icon"></i>
-          <i class="far fa-check-circle success-icon"></i>
-          <div class="error"></div>
-        </div>
-        <div class="password-input">
-          <label for="password">Password</label>
-          <i class="fas fa-lock"></i>
-          <input type="password" name="password" id="password" placeholder="*********">
-          <i class="fas fa-circle-exclamation failure-icon"></i>
-          <i class="far fa-check-circle success-icon"></i>
-          <div class="error"></div>
-        </div>
-        <div class="user-type">
-          <label for="usertype">Choose your User Type</label>
-          <select>
-            <option>Select</option>
-            <option>Farmer</option>
-            <option>Loan Provider</option>
-            <option>Insurance Provider</option>
-            <option>Investor</option>
-            <option>Grant Proider</option>
-            <option>Admin</option>
-
-          </select>
-        </div>
-        <input type="submit" class="btn" name="login" id="login" value="Login" required>
-      </form>
-      <script src="login-page/login.js"></script>
-    </div>
-  </body>
+</head>
+<body>
+    <h2>Login</h2>
+    <form action="" method="post">
+        <label for="userid">User ID:</label><br>
+        <input type="text" id="userid" name="userid"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="usertype">User Type:</label><br>
+        <select id="usertype" name="usertype">
+            <option value="farmer">Farmer</option>
+            <option value="loan_provider">Loan Provider</option>
+            <option value="insurance_provider">Insurance Provider</option>
+            <option value="investment_provider">Investment Provider</option>
+            <option value="grant_provider">Grant Provider</option>
+            <option value="admin">Admin</option>
+        </select><br><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
 </html>

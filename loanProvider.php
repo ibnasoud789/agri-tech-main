@@ -1,7 +1,8 @@
 <?php 
   include 'database.php';
-  $query = "SELECT * FROM loan WHERE Loan_Provider_ID=1000033";
+  $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID=1000033";
   $result = mysqli_query($conn, $query);
+  
 
   //total loan amount & loan no count
   $loanQuery = "SELECT SUM(amount) AS total_loan_provided, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Loan_Provider_ID = '1000033'";
@@ -114,7 +115,7 @@ tr:nth-child(even) {
 .loanPortfolioOverview, .loanapplication{
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: 60vh;
   background-color:rgb(184, 247, 184);
   border-radius: 10px;
   padding: 10px 2rem;
@@ -172,8 +173,8 @@ width: 60px;
 height: 20px;
 border-radius: 5px;
 cursor: pointer;
-color: #dddddd; 
- background-color: rgb(1,62,1);
+color: white; 
+ background-color: green;
  }
  .accept-button:active{
  background-color: rgb(1,62,1,.8);
@@ -183,7 +184,7 @@ width: 60px;
 height: 20px;
 border-radius: 5px;
 cursor: pointer;
-color: #dddddd; 
+color: white; 
 background-color: red;
 }
   </style>
@@ -210,6 +211,7 @@ background-color: red;
           <tr>
             <th>Loan ID</th>
             <th>Farmer ID</th>
+            <th>Farmer Name
             <th>Loan Amount</th>
             <th>Interest Rate</th>
             <th>Issue Date</th>
@@ -220,6 +222,7 @@ background-color: red;
                 echo "<tr>";
                 echo "<td>".$row['Loan_ID']."</td>";
                 echo "<td>".$row['Farmer_ID']."</td>";
+                echo "<td>".$row['fname'].' '.$row['mname'].' '.$row['lname']."</td>";
                 echo "<td>".$row['amount']."</td>";
                 echo "<td>".$row['interest_rate']."</td>";
                 echo "<td>".$row['receiving_date']."</td>";
@@ -258,36 +261,27 @@ background-color: red;
       function declareInterestRate(farmer_id) {
         var interestRate = prompt("Please declare interest rate:");
         if (interestRate !== null && interestRate !== "") {
-        // Here you can submit the form data to process_loan_approval.php
-        // and handle the loan approval logic including storing interest rate
-        
-        // Update the verdict to "Accepted" for this farmer ID
-        var verdict = document.getElementById("verdict_" + farmer_id);
+        var verdict = document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']");
         if (verdict) {
-            verdict.textContent = "Accepted";
+          verdict.textContent = "Accepted";
         }
-        
-        // Hide the button container for this farmer ID
+
         var buttonContainer = document.getElementById("button_" + farmer_id);
         if (buttonContainer) {
-            buttonContainer.style.display = "none";
+        buttonContainer.style.display = "none";
         }
-        
-        alert("Loan approval successful!");
-    } else {
-        alert("Interest rate declaration canceled.");
-    }
-}
 
-function declineLoan(farmer_id) {
-    // Here you can handle the logic for declining the loan
-    // Update the verdict to "Declined" for this farmer ID
-    var verdict = document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']");
-    if (verdictSpan) {
-        verdictSpan.textContent = "Declined";
-    }
-}
+        alert("Loan approval successful!");
+        } else {
+        alert("Interest rate declaration canceled.");
+       }
+  }
+
+  function declineLoan(farmer_id) {
+    document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']").textContent = "Declined";
+  }
 </script>
+
 
       </div>
     </div>
