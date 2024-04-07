@@ -240,9 +240,8 @@ button:hover{
               <p>Total loan repaid: <span>BDT <?php echo $totalLoanReceived; ?></span></p>
               <p>Current loan amount: <span>BDT 60000</span></p>
               <div>
-                <a href="farmerloandetails.php"><button>Show Details</button></a>
-                <button>Loan Statement</button>
-                <button>Apply for loan</button>
+                <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
+                <a href="farmerloanapply.php" target="_blank"><button>Apply for loan</button></a>
               </div>
             </div>
             <div class="right">
