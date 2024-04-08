@@ -1,6 +1,19 @@
 <?php 
   include 'database.php';
+<<<<<<< Updated upstream
   $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID=1000033";
+=======
+  
+  if (!isset($_SESSION['userid'])) {
+      header("Location: login.php");
+      exit;
+  }
+  
+
+  $loanProviderID = $_SESSION['userid'];
+
+  $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID='$loanProviderID'";
+>>>>>>> Stashed changes
   $result = mysqli_query($conn, $query);
   
 
