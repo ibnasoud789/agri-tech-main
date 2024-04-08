@@ -293,7 +293,7 @@ button:hover{
               <p>Total Grant Received : <span> <?php echo $grantAmount; ?></span></p>
               <p>Beneficiary Category: <span><?php echo $grantTarget; ?></span></p>
               <div>
-                <a href="farmergrantdetails.php"><button>Show Details</button></a>
+                <a href="farmergrantdetails.php" target="_blank"><button>Show Details</button></a>
                 <button> Apply for grant</button>
               </div>
             </div>
