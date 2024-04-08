@@ -1,17 +1,27 @@
 <?php 
+  session_start();
+  include 'database.php';
+
+  if (!isset($_SESSION['userid'])) {
+    header("Location: login.php");
+    exit;
+}
+
+
+ $farmerID = $_SESSION['userid'];
   include 'database.php';
   //farmer name 
-  $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID=1000005";
+  $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
   $nameResult = mysqli_query($conn, $nameQuery);
   $nameRow = mysqli_fetch_assoc($nameResult);
   $farmerName = $nameRow['farmer_name'];
 
   //grant details
-  $tableQuery="SELECT * FROM grant_t AS g JOIN financial_service_provider_t AS fsp ON g.Grant_provider_ID=fsp.FSPid WHERE Farmer_ID=1000005";
+  $tableQuery="SELECT * FROM grant_t AS g JOIN financial_service_provider_t AS fsp ON g.Grant_provider_ID=fsp.FSPid WHERE Farmer_ID='$farmerID'";
   $tableResult=mysqli_query($conn, $tableQuery); 
 
   //total grant amount & grant no count
-  $grantQuery = "SELECT SUM(Grant_amount) AS grantAmount,COUNT(Grant_ID) AS totalgrant FROM grant_t WHERE Farmer_ID=1000005";
+  $grantQuery = "SELECT SUM(Grant_amount) AS grantAmount,COUNT(Grant_ID) AS totalgrant FROM grant_t WHERE Farmer_ID='$farmerID'";
   $grantResult=mysqli_query($conn, $grantQuery);
   $grantRow=mysqli_fetch_assoc($grantResult);
   $totalgrantamount=$grantRow["grantAmount"];
