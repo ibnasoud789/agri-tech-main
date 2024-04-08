@@ -2,14 +2,14 @@
   session_start();
   include 'database.php';
   
-  // Check if the user is logged in
   if (!isset($_SESSION['userid'])) {
-      // Redirect the user to the login page if not logged in
+
       header("Location: login.php");
       exit;
   }
   
-  // Retrieve the user's ID from the session
+
+
   $loanProviderID = $_SESSION['userid'];
 
   $query = "SELECT * FROM loan AS l JOIN farmer_t AS ft ON l.Farmer_ID=ft.Farmer_ID WHERE Loan_Provider_ID='$loanProviderID'";
