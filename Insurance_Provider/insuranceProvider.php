@@ -184,15 +184,15 @@ background-color: red;
     <div class="card-container">
       <div class="loanPortfolioOverview">
         <h2>Insurance Portfolio Overview</h2>
-        <p>Total number of investments: <span id="totalLoans"><!--sql--></span></p>
-        <p>Total investment amount: <span id="totalLoanValue"> BDT<!--sql--></span></p>
+        <p>Total number of insurances: <span id="totalLoans"><!--sql--></span></p>
+        <p>Total insurance amount: <span id="totalLoanValue"> BDT<!--sql--></span></p>
         <div>Details</div>
         <table id="loanTable">
           <tr>
-            <th>Investment  ID</th>
+            <th>Insurance  ID</th>
             <th>Farmer ID</th>
             <th>Farmer Name
-            <th>Investment Amount</th>
+            <th>Insurance Amount</th>
             <th>Issue Date</th>
             <th>Repayment Date</th>
           </tr>
@@ -200,12 +200,12 @@ background-color: red;
         </table>
       </div>
       <div class="loanapplication">
-        <h2>Loan Applications</h2>
+        <h2>Insurance Applications</h2>
         <table id="loanApplicationTable">
          <tr>
             <th>Farmer Name</th>
             <th>Farmer ID</th>
-            <th>Investment Amount</th>
+            <th>Insurance Amount</th>
             <th>Verdict</th>
           </tr>
           <!--sql-->
