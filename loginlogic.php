@@ -1,5 +1,6 @@
 <?php
-    include'database.php';
+    session_start();
+    include 'database.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
@@ -13,7 +14,7 @@
     
       
         if(mysqli_num_rows($result) == 1) {
-          
+            $_SESSION['userid'] = $userid;        
             switch($usertype) {
                 case 'farmer':
                     header("Location: farmer.php");
@@ -43,6 +44,6 @@
             echo "Invalid credentials";
         }
     
-        mysqli_close($connection);
+        mysqli_close($conn);
     } 
 ?>

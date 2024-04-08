@@ -1,25 +1,33 @@
 <?php
+   session_start();   
    include 'database.php';
 
-  
-   $query = "SELECT * FROM loan WHERE Farmer_ID=1000005";
+   if (!isset($_SESSION['userid'])) {
+    // Redirect the user to the login page if not logged in
+    header("Location: login.php");
+    exit;
+}
+
+// Retrieve the user's ID from the session
+   $farmerID = $_SESSION['userid'];
+   $query = "SELECT * FROM loan WHERE Farmer_ID='$farmerID'";
    $result = mysqli_query($conn, $query);
 
    //farmer name 
-   $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID=1000005";
+   $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
    $nameResult = mysqli_query($conn, $nameQuery);
    $nameRow = mysqli_fetch_assoc($nameResult);
    $farmerName = $nameRow['farmer_name'];
 
    //loan details 
-   $loanQuery = "SELECT SUM(amount) AS total_loan_received FROM loan WHERE Farmer_ID=1000005";
+   $loanQuery = "SELECT SUM(amount) AS total_loan_received FROM loan WHERE Farmer_ID='$farmerID'";
    $loanResult = mysqli_query($conn, $loanQuery);
    $loanRow = mysqli_fetch_assoc($loanResult);
    $totalLoanReceived = $loanRow['total_loan_received'];
 
 
    //insurance details-user side
-   $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= 1000012";
+   $insuranceQuery= "SELECT * FROM insurance_t WHERE Farmer_ID= '$farmerID'";
    $insuranceResult = mysqli_query($conn, $insuranceQuery);
    $insuranceRow = mysqli_fetch_assoc($insuranceResult);
    $insuranceId= $insuranceRow["insurance_id"];
@@ -29,14 +37,14 @@
    $policyPeriod= $insuranceRow["policy_period"];
 
    //insurance details- provider side
-   $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= 1000012";
+   $insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= '$farmerID'";
    $insuranceProviderResult= mysqli_query($conn, $insuranceProviderQuery);
    $insuranceProviderRow= mysqli_fetch_assoc($insuranceProviderResult);
    $insuranceProviderId= $insuranceProviderRow["FSPid"];
    $insuranceProviderName= $insuranceProviderRow["name"];
 
    //grant details
-   $grantQuery= "SELECT SUM(Grant_amount) AS grantAmount, Target_beneficiaries FROM grant_t AS g JOIN grant_provider_target_t AS gp ON g.Grant_provider_ID=gp.Grant_provider_ID WHERE Farmer_ID=1000005";
+   $grantQuery= "SELECT SUM(Grant_amount) AS grantAmount, Target_beneficiaries FROM grant_t AS g JOIN grant_provider_target_t AS gp ON g.Grant_provider_ID=gp.Grant_provider_ID WHERE Farmer_ID='$farmerID'";
    $grantResult = mysqli_query($conn, $grantQuery);
    $grantRow = mysqli_fetch_assoc($grantResult);
    $grantAmount= $grantRow["grantAmount"];
