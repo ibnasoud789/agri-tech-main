@@ -7,8 +7,6 @@
       header("Location: login.php");
       exit;
   }
-  
-
 
   $loanProviderID = $_SESSION['userid'];
 
@@ -68,7 +66,7 @@ body{
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color:rgb(184, 247, 184);
+  background-color:rgb(148, 232, 218);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
@@ -122,7 +120,7 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: rgb(227, 247, 198);
+  background-color: rgb(162, 245, 248);
 }
 
 .card-container{
@@ -134,12 +132,14 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   height: 60vh;
-  background-color:rgb(184, 247, 184);
+  background-color:rgb(194, 247, 238);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
   width: 100%;
 }
+
+
 h2{
   font-size: 22px;
   margin-bottom: 10px;
@@ -156,11 +156,11 @@ h2{
   font-size: 18px;
 }
 
-.loanApplication{
+.loanapplication{
   display: flex;
   flex-direction: column;
   height: 40vh;
-  background-color:rgb(184, 247, 184);
+  background-color:rgb(194, 247, 238);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
@@ -211,7 +211,7 @@ background-color: red;
   <div class="main-section">
     <div class="header-wrapper">
       <div class="header-title">
-        <span>Primary</span>
+        <span>Loan Provider</span>
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
@@ -271,39 +271,56 @@ background-color: red;
                     <button class='decline-button' onclick='declineLoan(".$applicationRow['farmer_id'].")'>Decline</button>
                  </td>";
               echo "</tr>";
-    }
-    ?>
+                  }
+          ?>
 
-      </table>
-      <script>
-      function declareInterestRate(farmer_id) {
-        var interestRate = prompt("Please declare interest rate:");
-        if (interestRate !== null && interestRate !== "") {
-        var verdict = document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']");
-        if (verdict) {
-          verdict.textContent = "Accepted";
-        }
-
-        var buttonContainer = document.getElementById("button_" + farmer_id);
-        if (buttonContainer) {
-        buttonContainer.style.display = "none";
-        }
-
-        alert("Loan approval successful!");
-        } else {
-        alert("Interest rate declaration canceled.");
-       }
-  }
-
-  function declineLoan(farmer_id) {
-    document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']").textContent = "Declined";
-  }
-</script>
-
+        </table>
+      
 
       </div>
     </div>
   </div>
+  <script>
+
+    function declareInterestRate(farmer_id) {
+
+      var interestRate = prompt("Please declare the interest rate:");
+      var returnDate = prompt("Please declare the return date (YYYY-MM-DD):");
+
+     if (interestRate !== null && interestRate !== "" && returnDate !== null && returnDate !== "") {
+        var data = {
+            farmer_id: farmer_id,
+            interest_rate: interestRate,
+            return_date: returnDate
+        };
+        
+        submitLoanApproval(data);
+      } else {
+        alert("Interest rate or return date declaration canceled.");
+    }
+}
+
+    function submitLoanApproval(data) {
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "loanapplyprocess.php", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               
+                alert(xhr.responseText);
+            } else {
+               
+                alert("Error: " + xhr.responseText);
+            }
+        }
+     };
+    xhr.send(JSON.stringify(data));
+}
+
+</script>
+
 
 </body>
 </html>
