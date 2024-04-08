@@ -28,7 +28,7 @@ body{
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color:rgb(184, 247, 184);
+  background-color:rgba(120, 120, 252, 0.269);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
@@ -94,7 +94,7 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   height: 60vh;
-  background-color:rgb(184, 247, 184);
+  background-color:rgba(120, 120, 252, 0.269);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
@@ -171,7 +171,7 @@ background-color: red;
   <div class="main-section">
     <div class="header-wrapper">
       <div class="header-title">
-        <span>Grant Provider</span>
+        <span>Investor</span>
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
@@ -181,16 +181,16 @@ background-color: red;
     </div>
     <div class="card-container">
       <div class="loanPortfolioOverview">
-        <h2>Grant Portfolio Overview</h2>
-        <p>Total number of grants: <span id="totalLoans"></span></p>
-        <p>Total grant value: <span id="totalLoanValue"> BDT </span></p>
+        <h2>Investment Portfolio Overview</h2>
+        <p>Total number of investments: <span id="totalLoans"></span></p>
+        <p>Total investment: <span id="totalLoanValue"> BDT </span></p>
         <div>Details</div>
         <table id="loanTable">
           <tr>
-            <th>Grant ID</th>
+            <th>Investment ID</th>
             <th>Farmer ID</th>
             <th>Farmer Name
-            <th>Grant Amount</th>
+            <th>Investment Amount</th>
             <th>Issue Date</th>
           </tr>
         </table>
