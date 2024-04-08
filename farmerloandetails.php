@@ -1,20 +1,30 @@
 <?php 
+  session_start();
   include 'database.php';
-  $query = "SELECT * FROM loan WHERE Loan_Provider_ID=1000033";
-  $result = mysqli_query($conn, $query);
+
+  if (!isset($_SESSION['userid'])) {
+    header("Location: login.php");
+    exit;
+}
+
+
+ $farmerID = $_SESSION['userid'];
+
+  /*$query = "SELECT * FROM loan WHERE Loan_Provider_ID=1000033";
+  $result = mysqli_query($conn, $query);*/
 
   //farmer name 
-  $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID=1000005";
+  $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
   $nameResult = mysqli_query($conn, $nameQuery);
   $nameRow = mysqli_fetch_assoc($nameResult);
   $farmerName = $nameRow['farmer_name'];
 
   //loan details
-  $tableQuery="SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE Farmer_ID=1000005";
+  $tableQuery="SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE Farmer_ID='$farmerID'";
   $tableResult=mysqli_query($conn, $tableQuery);
 
   //total loan amount & loan no count
-  $loanQuery = "SELECT SUM(amount) AS total_loan_received, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Farmer_ID = 1000005";
+  $loanQuery = "SELECT SUM(amount) AS total_loan_received, COUNT(Loan_ID) AS total_loan_count FROM loan WHERE Farmer_ID = '$farmerID'";
   $loanResult = mysqli_query($conn, $loanQuery);
   $loanRow = mysqli_fetch_assoc($loanResult);
   $totalLoanReceived = $loanRow['total_loan_received'];
