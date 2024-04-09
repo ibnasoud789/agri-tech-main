@@ -50,7 +50,7 @@ include "loginlogic.php";
     input,
     select {
         width: 200px;
-        height: 40px;
+        height: 35px;
         border-radius: 8px;
         border: 2px solid #c4c4c4;
         padding: 0 30px;
@@ -70,7 +70,7 @@ include "loginlogic.php";
 
     .btn {
         width: 268px;
-        height: 45px;
+        height: 35px;
         background-color: rgb(135, 253, 135);
         color: rgb(1, 62, 1);
         font-size: 17px;
