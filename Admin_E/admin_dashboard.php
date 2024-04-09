@@ -119,7 +119,7 @@ body {
   <a href="#contact">Contact</a>
   <div class="search-container">
   <form action="search_user.php" method="GET"> 
-      <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search">
+      <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search" required>
       <button type="submit" style="background-color: darkgreen; color: white;">Search</button> 
   </form>
 
