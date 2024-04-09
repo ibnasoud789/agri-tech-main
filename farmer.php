@@ -31,10 +31,26 @@ $landsize = $infoRow['landsize'];
 
 
 //loan details 
-$loanQuery = "SELECT SUM(amount) AS total_loan_received FROM loan WHERE Farmer_ID='$farmerID'";
+//total loan
+$loanQuery = "SELECT SUM(amount) AS total_loan_received  FROM loan WHERE Farmer_ID='$farmerID'";
 $loanResult = mysqli_query($conn, $loanQuery);
 $loanRow = mysqli_fetch_assoc($loanResult);
 $totalLoanReceived = $loanRow['total_loan_received'];
+
+//repaid loan
+$repaidQuery = "SELECT SUM(amount+amount*(interest_rate/100)) AS total_loan_repaid FROM loan WHERE loan_status='Repaid' AND Farmer_ID='$farmerID'";
+$repaidResult = mysqli_query($conn, $repaidQuery);
+$repaidRow = mysqli_fetch_assoc($repaidResult);
+$totalLoanRepaid= $repaidRow['total_loan_repaid'];
+
+//current
+$crnloanQuery= "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status='Ongoing' AND Farmer_ID='$farmerID'";
+$crnloanResult = mysqli_query($conn,  $crnloanQuery);
+$crnloanRow = mysqli_fetch_assoc($crnloanResult);
+$crnloanamount= $crnloanRow["amount"];
+$crnintrate=$crnloanRow["interest_rate"];
+$crnloanprovider=$crnloanRow["name"];
+$crnloanproviderid= $crnloanRow["Loan_Provider_ID"];
 
 
 //insurance details-user side
@@ -68,7 +84,6 @@ $totalinvestmentResult = mysqli_query($conn, $totalinvestmentQuery);
 $totalinvestmentRow = mysqli_fetch_assoc($totalinvestmentResult);
 $totalinvestment = $totalinvestmentRow["investmentAmount"];
 //current
-$currentdate= date("Y-m-d");
 $crninvQuery="SELECT * FROM investment_t AS i JOIN financial_service_provider_t AS fsp ON i.Investor_ID=fsp.FSPid WHERE investment_status='Ongoing' AND Farmer_ID= '$farmerID'";
 $crninvResult = mysqli_query($conn, $crninvQuery);
 $crninvRow= mysqli_fetch_assoc($crninvResult);
@@ -355,24 +370,17 @@ $returndate=$crninvRow['return_date'];
         <div class="loan-details">
           <div class="left">
             <p>Total loan received: <span>BDT <?php echo $totalLoanReceived; ?></span></p>
-            <p>Total loan repaid: <span>BDT <?php echo $totalLoanReceived; ?></span></p>
-            <p>Current loan amount: <span>BDT 60000</span></p>
+            <p>Total loan repaid: <span>BDT <?php echo $totalLoanRepaid; ?></span></p>
+            <p>Current loan amount: <span>BDT <?php echo $crnloanamount ?></span></p>
+            <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
               <a href="farmerloanapply.php" target="_blank"><button>Apply for loan</button></a>
             </div>
           </div>
           <div class="right">
-            <h4>Your next repayment date</h4>
-            <div class="timer">
-              <div class="countdown-container">
-                <div id="days" class="countdown-item"></div>
-                <div id="hours" class="countdown-item"></div>
-                <div id="minutes" class="countdown-item"></div>
-                <div id="seconds" class="countdown-item"></div>
-              </div>
-            </div>
-            <button>Repay loan</button>
+            <p>Current Loan Provider Name: <span><?php echo $crnloanprovider?></span></p>
+            <p>Current Loan Provider ID: <span><?php echo $crnloanproviderid ?></span></p>
           </div>
         </div>
 
