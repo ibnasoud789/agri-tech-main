@@ -136,7 +136,6 @@ body {
 
 <?php
 
-echo("User Details"); 
 
 $html_table = '<table border="1">';
 $html_table .= '<tr>';
@@ -163,6 +162,7 @@ echo $html_table;
 <html>
 
 <head>
+
 <style>
 *{background-color:rgb(184, 247, 184);}
 </style>
