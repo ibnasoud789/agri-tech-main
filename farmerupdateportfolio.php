@@ -14,8 +14,6 @@ if (isset($_POST['update'])) {
   $result = $conn->query($sql);
 
   if ($result == TRUE) {
-
-    echo '<div class="alert alert-success" role="alert">';
     echo 'Record updated successfully.';
     echo '</div>';
     echo "<script>console.log('Record updated successfully.');</script>";
@@ -47,8 +45,6 @@ if (isset($_GET['id'])) {
 }
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
