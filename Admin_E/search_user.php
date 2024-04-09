@@ -49,8 +49,7 @@ if(isset($_GET['search'])) {
         // Close HTML table
         echo "</table>";
     } else {
-        echo "Please Enter a User ID.";
-        header( "refresh:2; url=./admin_dashboard.php" ); 
+        echo "";
     }
 }
 
@@ -269,3 +268,20 @@ if(isset($_GET['search'])) {
 }
 
 ?>
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<style>
+*{background-color:rgb(184, 247, 184);}
+</style>
+
+</head>
+
+<body>
+
+</body>
+</html>
