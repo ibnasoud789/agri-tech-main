@@ -49,7 +49,8 @@ if(isset($_GET['search'])) {
         // Close HTML table
         echo "</table>";
     } else {
-        echo "";
+        echo "Please Enter a User ID.";
+        header( "refresh:2; url=./admin_dashboard.php" ); 
     }
 }
 
