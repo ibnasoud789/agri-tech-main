@@ -53,10 +53,24 @@ foreach ($tables as $table) {
         th {
             background-color: #f2f2f2;
         }
+
+                button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;}
     </style>
 </head>
 <body>
 
+<button onclick="location.href='admin_dashboard.php';" style="background-color: darkgreen; color: white;">Go Back</button>
 
 <?php foreach ($tableData as $tableName => $table) : ?>
     <h3><?php echo $tableName; ?></h3>
