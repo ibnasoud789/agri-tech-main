@@ -118,10 +118,11 @@ body {
   <a href="#logout">Log Out</a>
   <a href="#contact">Contact</a>
   <div class="search-container">
-    <form action="test.php"> 
+  <form action="meaw.php" method="GET"> 
       <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search">
       <button type="submit" style="background-color: darkgreen; color: white;">Search</button> 
-    </form>
+  </form>
+
   </div>
 </div>
 
