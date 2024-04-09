@@ -444,7 +444,7 @@ $grantTarget = $grantRow["Target_beneficiaries"];
         </div>
       </div>
       <div class='btn-div'>
-        <button class='update-btn'>Update Portfolio</button>
+        <a href="farmerupdateportfolio.php?id=<?php echo $farmerID; ?>"><button type="button" class='update-btn'>Update Portfolio</button></a>
       </div>
 
     </form>
