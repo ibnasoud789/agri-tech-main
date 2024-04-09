@@ -34,9 +34,12 @@ if(isset($_GET['search'])) {
                     <th>Grant Amount</th>
                 </tr>";
 
+        if ($row = $result->fetch_assoc()) {
+            echo "<h2>" . htmlspecialchars($row['name']) . "  Portfolio: </h2>";
+        }
+
         // Output data of each row
         while($row = $result->fetch_assoc()) {
-            echo "<h1>" . htmlspecialchars($row['full_name']) . " Portfolio: </h1>";
 
             echo "<tr>
                     <td>".$row["amount"]."</td>
@@ -87,10 +90,13 @@ if(isset($_GET['search'])) {
                     <th>Return Date</th>
                 </tr>";
 
+        if ($row = $result->fetch_assoc()) {
+            echo "<h2>" . htmlspecialchars($row['name']) . " Loan Portfolio: </h2>";
+        }
+
         // Output data of each row
         while($row = $result->fetch_assoc()) {
        
-            echo "<h1>" . htmlspecialchars($row['name']) . " Portfolio: </h1>";
             echo "<tr>
                     <td>".$row["Loan_ID"]."</td>
                     <td>".$row["amount"]."</td>
@@ -139,10 +145,13 @@ if(isset($_GET['search'])) {
                     <th>End Date</th>
                 </tr>";
 
+        if ($row = $result->fetch_assoc()) {
+            echo "<h2>" . htmlspecialchars($row['name']) . " Investment Portfolio: </h2>";
+        }
+
         // Output data of each row
         while($row = $result->fetch_assoc()) {
        
-            echo "<h1>" . htmlspecialchars($row['name']) . " Portfolio: </h1>";
             echo "<tr>
                     <td>".$row["Investment_ID"]."</td>
                     <td>".$row["Amount"]."</td>
@@ -193,10 +202,13 @@ if(isset($_GET['search'])) {
                     <th>Payment Frequency</th>
                 </tr>";
 
+        if ($row = $result->fetch_assoc()) {
+            echo "<h2>" . htmlspecialchars($row['name']) . " Insurance Portfolio: </h2>";
+        }
+
         // Output data of each row
         while($row = $result->fetch_assoc()) {
        
-            echo "<h1>" . htmlspecialchars($row['name']) . " Portfolio: </h1>";
             echo "<tr>
                     <td>".$row["insurance_id"]."</td>
                     <td>".$row["coverage_amount"]."</td>
@@ -248,10 +260,13 @@ if(isset($_GET['search'])) {
                     <th>End Date</th>
                 </tr>";
 
+        if ($row = $result->fetch_assoc()) {
+        echo "<h2>" . htmlspecialchars($row['name']) . " Grant Portfolio: </h2>";
+        }
+
         // Output data of each row
         while($row = $result->fetch_assoc()) {
        
-            echo "<h1>" . htmlspecialchars($row['name']) . " Portfolio: </h1>";
             echo "<tr>
                     <td>".$row["Grant_ID"]."</td>
                     <td>".$row["Grant_amount"]."</td>
