@@ -35,14 +35,21 @@ include "loginlogic.php";
         align-items: center;
     }
 
+    .login-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
     label {
         display: block;
-        margin-bottom: 5px;
         color: #006838;
     }
 
-    input {
-        width: 100%;
+    input,
+    select {
+        width: 200px;
         height: 40px;
         border-radius: 8px;
         border: 2px solid #c4c4c4;
@@ -51,13 +58,18 @@ include "loginlogic.php";
         transition: all 0.2s ease;
     }
 
-    input:focus {
+    select {
+        width: 264px;
+    }
+
+    input:focus,
+    select:focus {
         border: 2px solid black;
         transform: scale(1.05);
     }
 
     .btn {
-        width: 100%;
+        width: 268px;
         height: 45px;
         background-color: rgb(135, 253, 135);
         color: rgb(1, 62, 1);
@@ -81,6 +93,9 @@ include "loginlogic.php";
 
 <body>
     <form action method="post">
+        <div class="login-logo">
+            <img src="login-page/login-logo/KRISHI-removebg-preview.png" height="70px" width="70px">
+        </div>
         <h2>Login</h2>
         <div>
             <label for="userid">User ID:</label><br />
@@ -101,7 +116,7 @@ include "loginlogic.php";
                 <option value="admin">Admin</option>
             </select><br /><br />
         </div>
-        <input type="submit" value="Login" class="btn"/>
+        <input type="submit" value="Login" class="btn" />
     </form>
 </body>
 
