@@ -61,6 +61,22 @@ $grantRow = mysqli_fetch_assoc($grantResult);
 $grantAmount = $grantRow["grantAmount"];
 $grantTarget = $grantRow["Target_beneficiaries"];
 
+//investment details
+//total
+$totalinvestmentQuery = "SELECT SUM(Amount) AS investmentAmount FROM investment_t WHERE Farmer_ID= '$farmerID'";
+$totalinvestmentResult = mysqli_query($conn, $totalinvestmentQuery);
+$totalinvestmentRow = mysqli_fetch_assoc($totalinvestmentResult);
+$totalinvestment = $totalinvestmentRow["investmentAmount"];
+//current
+$currentdate= date("Y-m-d");
+$crninvQuery="SELECT * FROM investment_t AS i JOIN financial_service_provider_t AS fsp ON i.Investor_ID=fsp.FSPid WHERE investment_status='Ongoing' AND Farmer_ID= '$farmerID'";
+$crninvResult = mysqli_query($conn, $crninvQuery);
+$crninvRow= mysqli_fetch_assoc($crninvResult);
+$crninvestorid= $crninvRow["Investor_ID"];
+$crninvestorname= $crninvRow["name"];
+$crninvestmentamount= $crninvRow["Amount"];
+$returndate=$crninvRow['return_date'];
+
 
 
 ?>
@@ -228,7 +244,7 @@ $grantTarget = $grantRow["Target_beneficiaries"];
     }
 
     .investment-section {
-      height: 35vh;
+      height: 40vh;
 
     }
 
@@ -245,24 +261,28 @@ $grantTarget = $grantRow["Target_beneficiaries"];
       gap: 20px;
       width: 100%;
     }
-    form div div{
+
+    form div div {
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
-    form div div input{
+
+    form div div input {
       height: 35px;
       width: 100%;
       border-radius: 5px;
       padding: 10px;
       background-color: rgb(240, 247, 180);
     }
-    .btn-div{
+
+    .btn-div {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .update-btn{
+
+    .update-btn {
       font-weight: bold;
       width: 200px;
       height: 35px;
@@ -271,7 +291,6 @@ $grantTarget = $grantRow["Target_beneficiaries"];
       color: white;
       background-color: rgb(1, 62, 1);
     }
-
   </style>
 </head>
 
@@ -282,19 +301,19 @@ $grantTarget = $grantRow["Target_beneficiaries"];
     </div>
     <ul class="menu">
       <li class="active">
-        <a href="#">
+        <a href="#dashboard">
           <i class="fas fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="#profile">
           <i class="fas fa-user"></i>
           <span>Profile</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="#statistics">
           <i class="fas fa-chart-bar"></i>
           <span>Statistics</span>
         </a>
@@ -328,7 +347,7 @@ $grantTarget = $grantRow["Target_beneficiaries"];
         <img src="images/farmer/fisherman-5970480_1920.jpg">
       </div>
     </div>
-    <div class="card-container">
+    <div class="card-container" id="dashboard">
       <div class="loan-section">
         <div>
           <h3>Loan Portfolio</h3>
@@ -399,55 +418,65 @@ $grantTarget = $grantRow["Target_beneficiaries"];
           <h3>Investment Portfolio</h3>
         </div>
         <div class="investment-details">
-          <p>Total Investment Received: <span>BDT 200000</span></p>
-          <p>Current Investment Amount: <span>BDT 100000</span></p>
-          <p>Current Investor ID: <span>1000021</span></p>
-          <p>Current Investor Name: <span>Agrani Bank</span></p>
-          <button>Show Details</button>
+          <p>Total Investment Received: <span>BDT <?php echo $totalinvestment; ?></p>
+          <?php if ($crninvRow) { ?>
+            <p>Current Investor ID: <span><?php echo $crninvestorid; ?></span></p>
+            <p>Current Investor Name: <span><?php echo $crninvestorname; ?></span></p>
+            <p>Return Date: <span><?php echo $returndate; ?></span></p>
+            <p>Current Investment Amount: <span>BDT <?php echo $crninvestmentamount; ?></span></p>
+          <?php } else { ?>
+            <p>No investment found for the specified farmer.</p>
+          <?php } ?>
+          <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
         </div>
       </div>
     </div>
-    <form>
-      <h2>Personal Information</h2>
-      <div>
+    <div id="profile">
+      <form>
+        <h2>Personal Information</h2>
         <div>
           <div>
-            <label for="fullname">Full Name:</label>
-            <input type='text' name='fullname' value='<?php echo $farmerName; ?>' readonly>
+            <div>
+              <label for="fullname">Full Name:</label>
+              <input type='text' name='fullname' value='<?php echo $farmerName; ?>' readonly>
+            </div>
+            <div>
+              <label for="id">User ID:</label>
+              <input type='number' name='id' value='<?php echo $farmerID; ?>' readonly>
+            </div>
+            <div>
+              <label for="contact">Phone Number:</label>
+              <input type='number' name='contact' value='<?php echo $contact; ?>' readonly>
+            </div>
+            <div>
+              <label for="landsize">Land Size:</label>
+              <input type='text' name='landsize' value='<?php echo $landsize; ?>' readonly>
+            </div>
           </div>
           <div>
-            <label for="id">User ID:</label>
-            <input type='number' name='id' value='<?php echo $farmerID; ?>' readonly>
-          </div>
-          <div>
-            <label for="contact">Phone Number:</label>
-            <input type='number' name='contact' value='<?php echo $contact; ?>' readonly>
-          </div>
-          <div>
-            <label for="landsize">Land Size:</label>
-            <input type='text' name='landsize' value='<?php echo $landsize; ?>' readonly>
+            <div>
+              <label for="area">Area:</label>
+              <input type='text' name='area' value='<?php echo $area; ?>' readonly>
+            </div>
+            <div>
+              <label for="city">City:</label>
+              <input type='text' name='city' value='<?php echo $city; ?>' readonly>
+            </div>
+            <div>
+              <label for="postal">Postal Code:</label>
+              <input type='text' name='postal' value='<?php echo $postcode; ?>' readonly>
+            </div>
           </div>
         </div>
-        <div>
-          <div>
-            <label for="area">Area:</label>
-            <input type='text' name='area' value='<?php echo $area; ?>' readonly>
-          </div>
-          <div>
-            <label for="city">City:</label>
-            <input type='text' name='city' value='<?php echo $city; ?>' readonly>
-          </div>
-          <div>
-            <label for="postal">Postal Code:</label>
-            <input type='text' name='postal' value='<?php echo $postcode; ?>' readonly>
-          </div>
+        <div class='btn-div'>
+          <a href="farmerupdateportfolio.php?id=<?php echo $farmerID; ?>"><button type="button" class='update-btn'>Update Portfolio</button></a>
         </div>
-      </div>
-      <div class='btn-div'>
-        <a href="farmerupdateportfolio.php?id=<?php echo $farmerID; ?>"><button type="button" class='update-btn'>Update Portfolio</button></a>
-      </div>
+      </form>
+    </div>
+    <div class="statistics">
 
-    </form>
+    </div>
+
   </div>
 
   <script src="countdown.js"></script>
