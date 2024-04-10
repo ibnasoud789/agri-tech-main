@@ -9,36 +9,42 @@
 
 .card-container{
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
 }
 
-.card-container .loan-section{
+.loan-section, .insurance-section, .grant-section, .investment-section{
   display: flex;
-  height: 30vh;
+  flex-direction: column;
+  height: 50vh;
   background-color:rgb(184, 247, 184);
   border-radius: 10px;
   padding: 10px 2rem;
   margin-bottom: 1rem;
   width: 100%;
 }
-.loan-section .left{
+.loan-section .loan-details, .insurance-section .insurance-details, .grant-section .grant-details{
+  display: flex;
+}
+.loan-section .left,.insurance-details .receiver,.grant-details .receiver{
   width: 50%;
 }
-.loan-section h3{
+.loan-section h3,.insurance-section h3,.grant-section h3,.investment-section h3{
   font-size: 22px;
   margin-bottom: 10px;
+  text-align: center;
 }
-.loan-section p{
-  font-size: 15px;
+.loan-section p, .insurance-section p, .grant-section p, .investment-section p{
+  font-size: 13px;
   margin-bottom: 5px;
 }
-.loan-section p span{
+.loan-section p span, .insurance-section p span, .grant-section p span, .investment-section p span{
   color: rgb(1,62,1);
   font-weight: bold;
   font-size: 18px;
 }
 
-.loan-section button{
+.loan-section button, .insurance-section button, .investment-section button, .grant-section button{
   height: 25px;
   width: 110px;
   margin-top: 30px;
@@ -48,7 +54,7 @@
   font-weight: bold;
 }
 
-.loan-section .right{
+.loan-section .right,.insurance-details .insurance-provider, .grant-details .grant-provider{
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -91,4 +97,26 @@ button{
 button:hover{
   background-color: rgb(1, 62, 1,0.8);
   transform: scale(1.02);
+}
+
+.insurance-section,.grant-section{
+  display: flex;
+  height: 42vh;
+}
+.insurance-section .receiver,.grant-section .receiver{
+  display: flex;
+  flex-direction: column;
+}
+.insurance-section button{
+  width: 150px;
+  height: 30px;
+}
+
+.grant-section{
+  height: 20vh;
+}
+
+.investment-section{
+  height: 35vh;
+  
 }
