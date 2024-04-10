@@ -265,11 +265,10 @@ background-color: red;
               echo "<td>".$applicationRow['farmer_id']."</td>";
               echo "<td>".$applicationRow['loan_amount']."</td>";
               echo "<td>".$applicationRow["duration"]."</td>";
-              echo "<td class='button' id='button_".$applicationRow['farmer_id']."'>
-                    <span class='verdict' id='verdict_".$applicationRow['farmer_id']."' data-farmer-id='".$applicationRow['farmer_id']."'></span>
-                    <button class='accept-button' onclick='declareInterestRate(".$applicationRow['farmer_id'].")'>Accept</button>
-                    <button class='decline-button' onclick='declineLoan(".$applicationRow['farmer_id'].")'>Decline</button>
-                 </td>";
+              echo "<td>";
+              echo "<button class='accept-button' onclick=\"window.location.href='loanApprovalProcess.php?id=".$applicationRow['farmer_id']."'\">Accept</button>";
+              echo "<button class='decline-button' onclick=\"window.location.href='loanDeclineProcess.php?id=".$applicationRow['farmer_id']."'\">Decline</button>";
+              echo "</td>";
               echo "</tr>";
                   }
           ?>
@@ -303,7 +302,7 @@ background-color: red;
     function submitLoanApproval(data) {
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "loanapplyprocess.php", true);
+      xhr.open("POST", "loarocess.php", true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
