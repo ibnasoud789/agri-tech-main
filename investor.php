@@ -227,8 +227,8 @@ background-color: red;
         <h2>Investment Portfolio Overview</h2>
 
 
-        <p>Total number of investments: <span id="totalLoans"></span></p>
-        <p>Total investment: <span id="totalLoanValue"> BDT </span></p>
+        <p>Total number of investments: <span id="totalLoans"> <?php echo $totalInvestmentCount; ?></span></p>
+        <p>Total loan value: <span id="totalLoanValue"> BDT <?php echo $totalInvstmentProvided; ?></span></p>
         <div>Details</div>
         <table id="loanTable">
 
