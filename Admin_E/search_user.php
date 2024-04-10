@@ -53,9 +53,7 @@ if(isset($_GET['search'])) {
                     <th>Premium Amount</th>
                     <th>Grant Amount</th>
                 </tr>";
-
-
-
+        
         // Output data of each row
         while($row = $result->fetch_assoc()) {
        
@@ -101,6 +99,7 @@ if(isset($_GET['search'])) {
         echo "<table align='center' border='1'>
         
                 <tr>
+                    <th>Loan Provider Name</th>
                     <th>Loan ID</th>
                     <th>Loan Amount</th>
                     <th>Farmer ID</th>
@@ -115,6 +114,7 @@ if(isset($_GET['search'])) {
         while($row = $result->fetch_assoc()) {
        
             echo "<tr>
+                    <td>".$row["name"]."</td>
                     <td>".$row["Loan_ID"]."</td>
                     <td>".$row["amount"]."</td>
                     <td>".$row["Farmer_ID"]."</td>
@@ -155,6 +155,7 @@ if(isset($_GET['search'])) {
         
         
                 <tr>
+                    <th>Investor Name</th>
                     <th>Investment ID</th>
                     <th>Investment Amount</th>
                     <th>Farmer ID</th>
@@ -168,6 +169,7 @@ if(isset($_GET['search'])) {
         while($row = $result->fetch_assoc()) {
        
             echo "<tr>
+                    <td>".$row["name"]."</td>
                     <td>".$row["Investment_ID"]."</td>
                     <td>".$row["Amount"]."</td>
                     <td>".$row["Farmer_ID"]."</td>
@@ -208,6 +210,7 @@ if(isset($_GET['search'])) {
         
         
                 <tr>
+                    <th>Insurance Provider Name</th>
                     <th>Insurance ID</th>
                     <th>Coverage Amount</th>
                     <th>Premium Amount</th>
@@ -221,6 +224,7 @@ if(isset($_GET['search'])) {
         while($row = $result->fetch_assoc()) {
        
             echo "<tr>
+                    <td>".$row["name"]."</td>
                     <td>".$row["insurance_id"]."</td>
                     <td>".$row["coverage_amount"]."</td>
                     <td>".$row["premium_amount"]."</td>
@@ -264,6 +268,7 @@ if(isset($_GET['search'])) {
         
         
                 <tr>
+                    <th>Grant Provider Name</th>
                     <th>Grant ID</th>
                     <th>Grant Amount</th>
                     <th>Farmer ID</th>
@@ -276,6 +281,7 @@ if(isset($_GET['search'])) {
         while($row = $result->fetch_assoc()) {
        
             echo "<tr>
+                    <td>".$row["name"]."</td>
                     <td>".$row["Grant_ID"]."</td>
                     <td>".$row["Grant_amount"]."</td>
                     <td>".$row["Farmer_id"]."</td>
