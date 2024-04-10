@@ -210,6 +210,7 @@ h2{
             <th>Interest Rate</th>
             <th>Issue Date</th>
             <th>Repayment Date</th>
+            <th>Loan Status</th>
           </tr>
           <?php
             while ($row = mysqli_fetch_assoc($tableResult)) {
@@ -221,6 +222,7 @@ h2{
                 echo "<td>".$row['interest_rate']."</td>";
                 echo "<td>".$row['receiving_date']."</td>";
                 echo "<td>".$row['return_date']."</td>";
+                echo "<td>".$row['loan_status']."</td>";
                 echo "</tr>";
             }
             ?>

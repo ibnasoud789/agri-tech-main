@@ -10,14 +10,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $loan_amount = $_POST['loan_amount'];
     $bank = $_POST['bank'];
 
-    $sql = "INSERT INTO loan_application_t (farmer_name, farmer_id, loan_amount, preferred_bank) VALUES ('$user_name', '$userid', '$loan_amount', '$bank')";
+    $sql = "INSERT INTO loan_application_t (farmer_name, farmer_id, loan_amount, preferred_bank, Verdict) VALUES ('$user_name', '$userid', '$loan_amount', '$bank','Pending')";
     if ($conn->query($sql) === TRUE) {
         $successMessage = "Loan application submitted successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-    $conn->close();
+
 }
+
+if (isset($_GET["id"])) {
+    $farmerID= $_GET["id"];
+    $query="SELECT Farmer_ID, CONCAT(fname,' ',mname,' ',lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
+    $result = mysqli_query($conn,$query);
+    $row=mysqli_fetch_array($result);
+    $id= $row["Farmer_ID"];
+    $name= $row["farmer_name"];
+
+
+
+}
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Loan Application Form</h2>
     <form action="" method="post">
         <label for="user_name">Full Name:</label>
-        <input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>" required><br><br>
+        <input type="text" id="user_name" name="user_name" value="<?php echo $name; ?>" readonly><br><br>
 
         <label for="user_id">Your ID:</label>
-        <input type="text" id="user_id" name="user_id" value="<?php echo $userid; ?>" required><br><br>
+        <input type="text" id="user_id" name="user_id" value="<?php echo $id; ?>" readonly><br><br>
 
         <label for="loan_amount">Loan Amount:</label>
         <input type="number" id="loan_amount" name="loan_amount" required><br><br>
@@ -72,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         window.onload = function() {
             <?php if (!empty($successMessage)) : ?>
                 alert("<?php echo $successMessage; ?>");
-                document.getElementById("loanForm").style.display = "none";
+                window.location.href = "farmer.php"; 
             <?php endif; ?>
         };
     </script>

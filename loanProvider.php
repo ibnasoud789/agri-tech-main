@@ -28,12 +28,8 @@
   $totalLoanCount = $loanRow['total_loan_count'];
 
   //loan application verdict update
-  $applicationQuery='SELECT * FROM loan_application_t WHERE preferred_bank="City Bank"';
+  $applicationQuery="SELECT * FROM loan_application_t WHERE preferred_bank='$loanprovidername'";
   $applicationResult = mysqli_query($conn, $applicationQuery);
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -234,6 +230,7 @@ background-color: red;
             <th>Interest Rate</th>
             <th>Issue Date</th>
             <th>Repayment Date</th>
+            <th>Loan Status</th>
           </tr>
           <?php
             while ($row = mysqli_fetch_assoc($result)) {
@@ -245,6 +242,7 @@ background-color: red;
                 echo "<td>".$row['interest_rate']."</td>";
                 echo "<td>".$row['receiving_date']."</td>";
                 echo "<td>".$row['return_date']."</td>";
+                echo "<td>".$row["loan_status"]."</td>";
                 echo "</tr>";
             }
             ?>
@@ -257,6 +255,7 @@ background-color: red;
             <th>Farmer Name</th>
             <th>Farmer ID</th>
             <th>Loan Amount</th>
+            <th>Duration</th>
             <th>Verdict</th>
           </tr>
           <?php
@@ -265,6 +264,7 @@ background-color: red;
               echo "<td>".$applicationRow['farmer_name']."</td>";
               echo "<td>".$applicationRow['farmer_id']."</td>";
               echo "<td>".$applicationRow['loan_amount']."</td>";
+              echo "<td>".$applicationRow["duration"]."</td>";
               echo "<td class='button' id='button_".$applicationRow['farmer_id']."'>
                     <span class='verdict' id='verdict_".$applicationRow['farmer_id']."' data-farmer-id='".$applicationRow['farmer_id']."'></span>
                     <button class='accept-button' onclick='declareInterestRate(".$applicationRow['farmer_id'].")'>Accept</button>
