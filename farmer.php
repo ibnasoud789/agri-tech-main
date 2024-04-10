@@ -3,13 +3,13 @@ session_start();
 include 'database.php';
 
 if (!isset($_SESSION['userid'])) {
-  // Redirect the user to the login page if not logged in
   header("Location: login.php");
   exit;
 }
 
 // Retrieve the user's ID from the session
 $farmerID = $_SESSION['userid'];
+
 $query = "SELECT * FROM loan WHERE Farmer_ID='$farmerID'";
 $result = mysqli_query($conn, $query);
 
@@ -41,16 +41,24 @@ $totalLoanReceived = $loanRow['total_loan_received'];
 $repaidQuery = "SELECT SUM(amount+amount*(interest_rate/100)) AS total_loan_repaid FROM loan WHERE loan_status='Repaid' AND Farmer_ID='$farmerID'";
 $repaidResult = mysqli_query($conn, $repaidQuery);
 $repaidRow = mysqli_fetch_assoc($repaidResult);
-$totalLoanRepaid= $repaidRow['total_loan_repaid'];
+$totalLoanRepaid = $repaidRow['total_loan_repaid'];
 
 //current
-$crnloanQuery= "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status='Ongoing' AND Farmer_ID='$farmerID'";
+$crnloanQuery = "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status='Ongoing' AND Farmer_ID='$farmerID'";
 $crnloanResult = mysqli_query($conn,  $crnloanQuery);
-$crnloanRow = mysqli_fetch_assoc($crnloanResult);
-$crnloanamount= $crnloanRow["amount"];
-$crnintrate=$crnloanRow["interest_rate"];
-$crnloanprovider=$crnloanRow["name"];
-$crnloanproviderid= $crnloanRow["Loan_Provider_ID"];
+if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
+  $crnloanRow = mysqli_fetch_assoc($crnloanResult);
+  $crnloanamount = $crnloanRow["amount"];
+  $crnintrate = $crnloanRow["interest_rate"];
+  $crnloanprovider = $crnloanRow["name"];
+  $crnloanproviderid = $crnloanRow["Loan_Provider_ID"];
+} else {
+  // No ongoing loan details found
+  $crnloanamount = "N/A";
+  $crnintrate = "N/A";
+  $crnloanprovider = "N/A";
+  $crnloanproviderid = "N/A";
+}
 
 
 //insurance details-user side
@@ -73,9 +81,15 @@ $insuranceProviderName = $insuranceProviderRow["name"];
 //grant details
 $grantQuery = "SELECT SUM(Grant_amount) AS grantAmount, Target_beneficiaries FROM grant_t AS g JOIN grant_provider_target_t AS gp ON g.Grant_provider_ID=gp.Grant_provider_ID WHERE Farmer_ID='$farmerID'";
 $grantResult = mysqli_query($conn, $grantQuery);
-$grantRow = mysqli_fetch_assoc($grantResult);
-$grantAmount = $grantRow["grantAmount"];
-$grantTarget = $grantRow["Target_beneficiaries"];
+if ($grantResult && mysqli_num_rows($grantResult) > 0) {
+  $grantRow = mysqli_fetch_assoc($grantResult);
+  $grantAmount = $grantRow["grantAmount"];
+  $grantTarget = $grantRow["Target_beneficiaries"];
+} else {
+  // No grants found
+  $grantAmount = "N/A";
+  $grantTarget = "N/A";
+}
 
 //investment details
 //total
@@ -84,15 +98,21 @@ $totalinvestmentResult = mysqli_query($conn, $totalinvestmentQuery);
 $totalinvestmentRow = mysqli_fetch_assoc($totalinvestmentResult);
 $totalinvestment = $totalinvestmentRow["investmentAmount"];
 //current
-$crninvQuery="SELECT * FROM investment_t AS i JOIN financial_service_provider_t AS fsp ON i.Investor_ID=fsp.FSPid WHERE investment_status='Ongoing' AND Farmer_ID= '$farmerID'";
+$crninvQuery = "SELECT * FROM investment_t AS i JOIN financial_service_provider_t AS fsp ON i.Investor_ID=fsp.FSPid WHERE investment_status='Ongoing' AND Farmer_ID= '$farmerID'";
 $crninvResult = mysqli_query($conn, $crninvQuery);
-$crninvRow= mysqli_fetch_assoc($crninvResult);
-$crninvestorid= $crninvRow["Investor_ID"];
-$crninvestorname= $crninvRow["name"];
-$crninvestmentamount= $crninvRow["Amount"];
-$returndate=$crninvRow['return_date'];
-
-
+if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
+  $crninvRow = mysqli_fetch_assoc($crninvResult);
+  $crninvestorid = $crninvRow["Investor_ID"];
+  $crninvestorname = $crninvRow["name"];
+  $crninvestmentamount = $crninvRow["Amount"];
+  $returndate = $crninvRow['return_date'];
+} else {
+  // No ongoing investment found
+  $crninvestorid = "N/A";
+  $crninvestorname = "N/A";
+  $crninvestmentamount = "N/A";
+  $returndate = "N/A";
+}
 
 ?>
 
@@ -375,11 +395,11 @@ $returndate=$crninvRow['return_date'];
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
-              <a href="farmerloanapply.php" target="_blank"><button>Apply for loan</button></a>
+              <a href="farmerloanapply.php?id=<?php echo $farmerID; ?>" target="_blank"><button>Apply for loan</button></a>
             </div>
           </div>
           <div class="right">
-            <p>Current Loan Provider Name: <span><?php echo $crnloanprovider?></span></p>
+            <p>Current Loan Provider Name: <span><?php echo $crnloanprovider ?></span></p>
             <p>Current Loan Provider ID: <span><?php echo $crnloanproviderid ?></span></p>
           </div>
         </div>
@@ -427,15 +447,13 @@ $returndate=$crninvRow['return_date'];
         </div>
         <div class="investment-details">
           <p>Total Investment Received: <span>BDT <?php echo $totalinvestment; ?></p>
-          <?php if ($crninvRow) { ?>
-            <p>Current Investor ID: <span><?php echo $crninvestorid; ?></span></p>
-            <p>Current Investor Name: <span><?php echo $crninvestorname; ?></span></p>
-            <p>Return Date: <span><?php echo $returndate; ?></span></p>
-            <p>Current Investment Amount: <span>BDT <?php echo $crninvestmentamount; ?></span></p>
-          <?php } else { ?>
-            <p>No investment found for the specified farmer.</p>
-          <?php } ?>
+          <p>Current Investor ID: <span><?php echo $crninvestorid; ?></span></p>
+          <p>Current Investor Name: <span><?php echo $crninvestorname; ?></span></p>
+          <p>Return Date: <span><?php echo $returndate; ?></span></p>
+          <p>Current Investment Amount: <span>BDT <?php echo $crninvestmentamount; ?></span></p>
+
           <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
+          <a><button style="width: 150px;">Apply For Investment</button></a>
         </div>
       </div>
     </div>
