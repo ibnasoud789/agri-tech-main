@@ -291,8 +291,9 @@ background-color: red;
   </div> 
   <script>
 
-    function declareProfitShareRate(farmer_id) 
-
+    function declareProfitShareRate(farmer_id) {
+      
+    }
        
       var profitshareRate = prompt("Please declare the profit share rate:");
 

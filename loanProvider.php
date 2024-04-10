@@ -28,7 +28,7 @@
   $totalLoanCount = $loanRow['total_loan_count'];
 
   //loan application verdict update
-  $applicationQuery="SELECT * FROM loan_application_t WHERE preferred_bank='$loanprovidername'";
+  $applicationQuery="SELECT * FROM loan_application_t WHERE Verdict='Pending' AND  preferred_bank='$loanprovidername'";
   $applicationResult = mysqli_query($conn, $applicationQuery);
 ?>
 
@@ -279,47 +279,5 @@ background-color: red;
       </div>
     </div>
   </div>
-  <script>
-
-    function declareInterestRate(farmer_id) {
-
-      var interestRate = prompt("Please declare the interest rate:");
-      var returnDate = prompt("Please declare the return date (YYYY-MM-DD):");
-
-     if (interestRate !== null && interestRate !== "" && returnDate !== null && returnDate !== "") {
-        var data = {
-            farmer_id: farmer_id,
-            interest_rate: interestRate,
-            return_date: returnDate
-        };
-        
-        submitLoanApproval(data);
-      } else {
-        alert("Interest rate or return date declaration canceled.");
-    }
-}
-
-    function submitLoanApproval(data) {
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "loarocess.php", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange = function () {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-               
-                alert(xhr.responseText);
-            } else {
-               
-                alert("Error: " + xhr.responseText);
-            }
-        }
-     };
-    xhr.send(JSON.stringify(data));
-}
-
-</script>
-
-
 </body>
 </html>

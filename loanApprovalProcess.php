@@ -2,33 +2,40 @@
 include 'database.php';
 
 if (isset($_POST['approve'])) {
-    $farmerid=$_POST['id'];
-    $loanprovider=$_POST['provider'];
-    $amount=$_POST['amount'];
-    $interest=$_POST['int_rate'];
-    $repaymentdate=$_POST['repaymentdate'];
-    $provideridQuery="SELECT * FROM loan_application_t AS la JOIN financial_service_provider_t AS fsp ON la.preferred_bank=fsp.name WHERE preferred_bank='$loanprovider' ";
-    $provideridResult=mysqli_query($conn,$provideridQuery);
-    $provideridRow=mysqli_fetch_array($provideridResult);
-    $providerid= $provideridRow["FSPid"];
+    $farmerid = $_POST['id'];
+    $loanprovider = $_POST['provider'];
+    $amount = $_POST['amount'];
+    $interest = $_POST['int_rate'];
+    $repaymentdate = $_POST['repaymentdate'];
+    $provideridQuery = "SELECT * FROM loan_application_t AS la JOIN financial_service_provider_t AS fsp ON la.preferred_bank=fsp.name WHERE preferred_bank='$loanprovider' ";
+    $provideridResult = mysqli_query($conn, $provideridQuery);
+    $provideridRow = mysqli_fetch_array($provideridResult);
+    $providerid = $provideridRow["FSPid"];
 
+    mysqli_begin_transaction($conn);
 
-    $sql="INSERT INTO `loan` 
+    $sql = "INSERT INTO `loan` 
     SET `receiving_date`=CURDATE(),
      `amount`='$amount', `interest_rate`='$interest',`return_date`='$repaymentdate',`Farmer_ID`='$farmerid',`Loan_Provider_ID`='$providerid',`loan_status`='Ongoing' ";
-    $result=mysqli_query($conn,$sql);
-    if($result==TRUE){
-        echo 'Loan Approved Successfully.';
-        echo '</div>';
-        echo "<script>console.log('Loan Approved Successfully.');</script>";
-        header("refresh:2; url=./loanProvider.php");
-    
+    $result = mysqli_query($conn, $sql);
+    if ($result == TRUE) {
+        $verdictUpdate = "UPDATE `loan_application_t` SET `Verdict`='Approved' WHERE farmer_id='$farmerid'";
+        $verdictUpdateResult = mysqli_query($conn, $verdictUpdate);
 
-}else {
-
-    echo "Error:" . $sql . "<br>" . $conn->error;
-  }
-}
+        if ($verdictUpdateResult == TRUE) {
+            mysqli_commit($conn);
+            echo 'Loan Approved Successfully.';
+            echo '</div>';
+            echo "<script>console.log('Loan Approved Successfully.');</script>";
+            header("refresh:2; url=./loanProvider.php");
+        } else {
+            mysqli_rollback($conn); 
+            echo 'Error updating another table.';
+        }
+    } else {
+        echo 'Error inserting into loan table.';
+    }
+} 
 
 
 if (isset($_GET['id'])) {
@@ -42,7 +49,7 @@ if (isset($_GET['id'])) {
             $farmername = $row['farmer_name'];
             $loanamount = $row['loan_amount'];
             $duration = $row['duration'];
-            $providername= $row['preferred_bank'];
+            $providername = $row['preferred_bank'];
         }
     }
 }
@@ -71,11 +78,11 @@ if (isset($_GET['id'])) {
         </div>
         <div>
             <label for="loanamount">Loan Amount:</label>
-            <input type='number' name='amount' value='<?php echo $loanamount;?>'>
+            <input type='number' name='amount' value='<?php echo $loanamount; ?>'>
         </div>
         <div>
             <label for="duration">Loan Duration:</label>
-            <input type='text' name='duration' value='<?php echo $duration;?>'>
+            <input type='text' name='duration' value='<?php echo $duration; ?>'>
         </div>
         <div>
             <label for="int_rate">Interest Rate:</label>

@@ -9,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userid = $_POST['user_id'];
     $loan_amount = $_POST['loan_amount'];
     $bank = $_POST['bank'];
+    $duration= $_POST['duration'];
 
-    $sql = "INSERT INTO loan_application_t (farmer_name, farmer_id, loan_amount, preferred_bank, Verdict) VALUES ('$user_name', '$userid', '$loan_amount', '$bank','Pending')";
+    $sql = "INSERT INTO loan_application_t (farmer_name, farmer_id, loan_amount, preferred_bank, Verdict,duration) VALUES ('$user_name', '$userid', '$loan_amount', '$bank','Pending','$duration')";
     if ($conn->query($sql) === TRUE) {
         $successMessage = "Loan application submitted successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-
 }
 
 if (isset($_GET["id"])) {
@@ -52,6 +52,9 @@ $conn->close();
 
         <label for="loan_amount">Loan Amount:</label>
         <input type="number" id="loan_amount" name="loan_amount" required><br><br>
+
+        <label for="duration" >Loan Duration:</label>
+        <input type="text" id="duration" name="duration" required><br><br>
 
         <label for="provider">Choose a Loan Provider:</label>
         <select id="bank" name="bank" required>
