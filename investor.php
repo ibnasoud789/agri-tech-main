@@ -217,7 +217,7 @@ background-color: red;
       </div>
       <div class="user-info">
 
-        <h4>Welcome   </h4>
+        <h4>Welcome, <?php echo $investorname;?></h4>
 
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
