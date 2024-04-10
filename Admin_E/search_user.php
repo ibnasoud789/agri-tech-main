@@ -1,21 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<style>
+*{background-color:rgb(184, 247, 184);}
+</style>
+
+</head>
+
+<body>
+
+<button onclick="location.href='admin_dashboard.php';">Go Back</button>
+
+</body>
+</html>
+
+
+
 <!-- Farmer -->
 
 <?php
 
 include 'admin.php';
 
-
 if(isset($_GET['search'])) {
 
     $userID = $_GET['search'];
     
-    $query = "SELECT CONCAT(farmer_t.fname, ' ', farmer_t.mname, ' ', farmer_t.lname) AS full_name, loan.amount, investment_t.Amount, insurance_t.coverage_amount, insurance_t.premium_amount, grant_t.Grant_amount
+    $query = "SELECT CONCAT(farmer_t.fname, ' ', farmer_t.mname, ' ', farmer_t.lname) AS full_name, farmer_t.Farmer_ID, loan.amount, investment_t.Amount, insurance_t.coverage_amount, insurance_t.premium_amount, grant_t.Grant_amount
                 FROM loan
                 LEFT JOIN investment_t ON loan.Farmer_ID = investment_t.Farmer_ID
                 LEFT JOIN insurance_t ON loan.Farmer_ID = insurance_t.Farmer_ID
                 LEFT JOIN grant_t ON loan.Farmer_ID = grant_t.Farmer_id
                 LEFT JOIN farmer_t ON loan.Farmer_ID = farmer_t.Farmer_ID
-                WHERE loan.Farmer_ID = $userID";
+                WHERE farmer_t.Farmer_ID = $userID";
 
     // Execute the query
     $result = $conn->query($query);
@@ -27,6 +46,7 @@ if(isset($_GET['search'])) {
         
         
                 <tr>
+                    <th>Farmer Name</th>
                     <th>Loan Amount</th>
                     <th>Investment Amount</th>
                     <th>Coverage Amount</th>
@@ -34,14 +54,13 @@ if(isset($_GET['search'])) {
                     <th>Grant Amount</th>
                 </tr>";
 
-        if ($row = $result->fetch_assoc()) {
-            echo "<h2>" . htmlspecialchars($row['name']) . "  Portfolio: </h2>";
-        }
+
 
         // Output data of each row
         while($row = $result->fetch_assoc()) {
-
+       
             echo "<tr>
+                    <td>".$row["full_name"]."</td>
                     <td>".$row["amount"]."</td>
                     <td>".$row["Amount"]."</td>
                     <td>".$row["coverage_amount"]."</td>
@@ -57,6 +76,7 @@ if(isset($_GET['search'])) {
 }
 
 ?>
+
 
 
 <!-- Loan -->
@@ -80,7 +100,6 @@ if(isset($_GET['search'])) {
         // Start HTML table
         echo "<table align='center' border='1'>
         
-        
                 <tr>
                     <th>Loan ID</th>
                     <th>Loan Amount</th>
@@ -90,9 +109,7 @@ if(isset($_GET['search'])) {
                     <th>Return Date</th>
                 </tr>";
 
-        if ($row = $result->fetch_assoc()) {
-            echo "<h2>" . htmlspecialchars($row['name']) . " Loan Portfolio: </h2>";
-        }
+       
 
         // Output data of each row
         while($row = $result->fetch_assoc()) {
@@ -145,9 +162,7 @@ if(isset($_GET['search'])) {
                     <th>End Date</th>
                 </tr>";
 
-        if ($row = $result->fetch_assoc()) {
-            echo "<h2>" . htmlspecialchars($row['name']) . " Investment Portfolio: </h2>";
-        }
+
 
         // Output data of each row
         while($row = $result->fetch_assoc()) {
@@ -201,10 +216,6 @@ if(isset($_GET['search'])) {
                     <th>Policy Period</th>
                     <th>Payment Frequency</th>
                 </tr>";
-
-        if ($row = $result->fetch_assoc()) {
-            echo "<h2>" . htmlspecialchars($row['name']) . " Insurance Portfolio: </h2>";
-        }
 
         // Output data of each row
         while($row = $result->fetch_assoc()) {
@@ -260,9 +271,6 @@ if(isset($_GET['search'])) {
                     <th>End Date</th>
                 </tr>";
 
-        if ($row = $result->fetch_assoc()) {
-        echo "<h2>" . htmlspecialchars($row['name']) . " Grant Portfolio: </h2>";
-        }
 
         // Output data of each row
         while($row = $result->fetch_assoc()) {
@@ -284,19 +292,3 @@ if(isset($_GET['search'])) {
 
 ?>
 
-
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<style>
-*{background-color:rgb(184, 247, 184);}
-</style>
-
-</head>
-
-<body>
-
-</body>
-</html>
