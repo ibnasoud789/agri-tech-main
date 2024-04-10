@@ -61,6 +61,7 @@ if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
 }
 
 
+
 //insurance details-user side
 $insuranceQuery = "SELECT * FROM insurance_t WHERE Farmer_ID= '$farmerID'";
 $insuranceResult = mysqli_query($conn, $insuranceQuery);
@@ -395,7 +396,7 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
-              <a href="farmerloanapply.php?id=<?php echo $farmerID; ?>" target="_blank"><button>Apply for loan</button></a>
+              <a href="farmerloanapply.php?id=<?php echo $farmerID?>" target="_blank"><button>Apply for loan</button></a>  
             </div>
           </div>
           <div class="right">
