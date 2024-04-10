@@ -1,3 +1,43 @@
+
+<?php 
+  session_start();
+  include 'database.php';
+  
+  if (!isset($_SESSION['userid'])) {
+
+      header("Location: login.php");
+      exit;
+  }
+
+  $InvestorID = $_SESSION['userid'];
+
+  $query = "SELECT * FROM investment_t AS i JOIN farmer_t AS ft ON i.Farmer_ID=ft.Farmer_ID WHERE Investor_ID = '$InvestorID'";
+  $result = mysqli_query($conn, $query);
+
+  //investment provider name
+  $nameQuery="SELECT * FROM financial_service_provider_t WHERE FSPid='$InvestorID'";
+  $nameResult=mysqli_query($conn, $nameQuery);
+  $nameRow=mysqli_fetch_array($nameResult);
+  $investorname=$nameRow['name'];
+
+
+  //total investment amount & loan no count
+  $investmentQuery = "SELECT SUM(Amount) AS total_investment_provided, COUNT(Investment_ID) AS total_investment_count FROM investment_t WHERE Investor_ID = '$InvestorID'";
+  $investmentResult = mysqli_query($conn, $investmentQuery);
+  $investmentRow = mysqli_fetch_assoc($investmentResult);
+  $totalInvstmentProvided = $investmentRow['total_investment_provided'];
+  $totalInvestmentCount = $investmentRow['total_investment_count'];
+
+    //investment application verdict update
+    $applicationQuery='SELECT * FROM investment_application_t WHERE preferred_investor="BDBL"';
+    $applicationResult = mysqli_query($conn, $applicationQuery);
+
+
+
+
+  ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,6 +140,7 @@ tr:nth-child(even) {
   margin-bottom: 1rem;
   width: 100%;
 }
+
 h2{
   font-size: 22px;
   margin-bottom: 10px;
@@ -175,41 +216,88 @@ background-color: red;
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
-        <h4>Welcome, !</h4>
+
+        <h4>Welcome   </h4>
+
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>
     <div class="card-container">
       <div class="loanPortfolioOverview">
         <h2>Investment Portfolio Overview</h2>
-        <p>Total number of investments: <span id="totalLoans"></span></p>
-        <p>Total investment: <span id="totalLoanValue"> BDT </span></p>
+
+
+        <p>Total number of investments: <span id="totalLoans"> <?php echo $totalInvestmentCount; ?></span></p>
+        <p>Total loan value: <span id="totalLoanValue"> BDT <?php echo $totalInvstmentProvided; ?></span></p>
         <div>Details</div>
         <table id="loanTable">
+
           <tr>
             <th>Investment ID</th>
             <th>Farmer ID</th>
             <th>Farmer Name
             <th>Investment Amount</th>
+
+            <th>Profit Share Rate</th>
             <th>Issue Date</th>
+            <th>Investment Return Date</th>
           </tr>
+          <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>".$row['Investment_ID']."</td>";
+                echo "<td>".$row['Farmer_ID']."</td>";
+                echo "<td>".$row['fname'].' '.$row['mname'].' '.$row['lname']."</td>";
+                echo "<td>".$row['Amount']."</td>";
+                echo "<td>".$row['Profit_share_rate']."</td>";
+                echo "<td>".$row['Start_date']."</td>";
+                echo "<td>".$row['End_date']."</td>";
+                echo "</tr>";
+            }
+            ?>
         </table>
       </div>
       <div class="loanapplication">
-        <h2>Grant Applications</h2>
+        <h2>Investment Applications</h2>
+
         <table id="loanApplicationTable">
          <tr>
             <th>Farmer Name</th>
             <th>Farmer ID</th>
-            <th>Grant Amount</th>
+
+            <th>Investment Amount</th>
             <th>Verdict</th>
           </tr>
+          <?php
+             while ($applicationRow = mysqli_fetch_assoc($applicationResult)) {
+              echo "<tr>";
+              echo "<td>".$applicationRow['farmer_name']."</td>";
+              echo "<td>".$applicationRow['Farmer_ID']."</td>";
+              echo "<td>".$applicationRow['investement_amount']."</td>";
+              echo "<td class='button' id='button_".$applicationRow['Farmer_ID']."'>
+                    <span class='verdict' id='verdict_".$applicationRow['Farmer_ID']."' data-farmer-id='".$applicationRow['Farmer_ID']."'></span>
+                    <button class='accept-button' onclick='declareProfitShareRate(".$applicationRow['Farmer_ID'].")'>Accept</button>
+                    <button class='decline-button' onclick='declineInvestment(".$applicationRow['Farmer_ID'].")'>Decline</button>
+                 </td>";
+              echo "</tr>";
+                  }
+          ?>
 
-      </table>
-      <script>
-      function declareInterestRate(farmer_id) {
-        var interestRate = prompt("Please declare interest rate:");
-        if (interestRate !== null && interestRate !== "") {
+        </table>
+
+
+      </div>
+    </div>
+  </div> 
+  <script>
+
+    function declareProfitShareRate(farmer_id) 
+
+       
+      var profitshareRate = prompt("Please declare the profit share rate:");
+
+        if (profitshareRate !== null && profitshareRate !== "") {
+
         var verdict = document.querySelector(".verdict[data-farmer-id='" + farmer_id + "']");
         if (verdict) {
           verdict.textContent = "Accepted";
@@ -220,10 +308,12 @@ background-color: red;
         buttonContainer.style.display = "none";
         }
 
-        alert("Loan approval successful!");
+
+        alert("Investment approval successful!");
         } else {
-        alert("Interest rate declaration canceled.");
-       }
+        alert("Profit share rate declaration canceled.");
+
+     
   }
 
   function declineLoan(farmer_id) {

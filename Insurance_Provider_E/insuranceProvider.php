@@ -1,3 +1,48 @@
+<?php 
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "krishi_bandhan";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+if ($conn->connect_error) {
+
+    die("Connection failed: " . $conn->connect_error);
+
+}
+else{
+    echo "<script>console.log('Database Connected successfully');</script>";
+    echo("");
+}
+
+
+  $insuranceProviderID = '1000023';
+
+  $query = "SELECT * FROM insurance_t AS ins JOIN farmer_t AS ft ON ins.Farmer_ID=ft.Farmer_ID WHERE insurance_provider_id='$insuranceProviderID'";
+  $result = mysqli_query($conn, $query);
+
+  //insurance provider name
+  $nameQuery="SELECT * FROM financial_service_provider_t WHERE FSPid='$insuranceProviderID'";
+  $nameResult=mysqli_query($conn, $nameQuery);
+  $nameRow=mysqli_fetch_array($nameResult);
+  $insuranceprovidername=$nameRow['name'];
+  
+
+  //total insurance amount & insurance no count
+  $insuranceQuery = "SELECT SUM(coverage_amount + premium_amount) AS total_insurance_provided, COUNT(insurance_id) AS total_insurance_count FROM insurance_t WHERE Insurance_Provider_ID = '$insuranceProviderID'";
+  $insuranceResult = mysqli_query($conn, $insuranceQuery);
+  $insuranceRow = mysqli_fetch_assoc($insuranceResult);
+  $totalInsuranceProvided = $insuranceRow['total_insurance_provided'];
+  $totalInsuranceCount = $insuranceRow['total_insurance_count'];
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,35 +222,51 @@ background-color: red;
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
-        <h4>Welcome, <!--sql for showing name--></h4>
+        <h4>Welcome, <?php echo $insuranceprovidername;?>!</h4>
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>
     <div class="card-container">
       <div class="loanPortfolioOverview">
         <h2>Insurance Portfolio Overview</h2>
-        <p>Total number of investments: <span id="totalLoans"><!--sql--></span></p>
-        <p>Total investment amount: <span id="totalLoanValue"> BDT<!--sql--></span></p>
-        <div>Details</div>
+        <p>Total number of insurance: <span id="totalLoans"> <?php echo $totalInsuranceCount; ?></span></p>
+        <p>Total insurance value: <span id="totalLoanValue"> BDT <?php echo $totalInsuranceProvided; ?></span></p>
+        <div>Details:</div>
         <table id="loanTable">
           <tr>
-            <th>Investment  ID</th>
+            <th>Insurance ID</th>
             <th>Farmer ID</th>
             <th>Farmer Name
-            <th>Investment Amount</th>
-            <th>Issue Date</th>
-            <th>Repayment Date</th>
+            <th>Insurance Amount</th>
+            <th>Effective Date</th>
+            <th>Payment Method</th>
+            <th>Policy Type</th>
           </tr>
-          <!--sql-->
+
+          <?php
+          while ($row = mysqli_fetch_assoc($result)) {
+              echo "<tr>";
+              echo "<td>".$row['insurance_id']."</td>";
+              echo "<td>".$row['Farmer_ID']."</td>";
+              echo "<td>".$row['fname'].' '.$row['mname'].' '.$row['lname']."</td>";
+              echo "<td>".($row['coverage_amount'] + $row['premium_amount'])."</td>";
+              echo "<td>".$row['effective_date']."</td>";
+              echo "<td>".$row['payment_method']."</td>";
+              echo "<td>".$row['policy_type']."</td>";
+              echo "</tr>";
+          }
+          ?>
+
+
         </table>
       </div>
       <div class="loanapplication">
-        <h2>Loan Applications</h2>
+        <h2>Insurance Applications</h2>
         <table id="loanApplicationTable">
          <tr>
             <th>Farmer Name</th>
             <th>Farmer ID</th>
-            <th>Investment Amount</th>
+            <th>Insurance Amount</th>
             <th>Verdict</th>
           </tr>
           <!--sql-->

@@ -27,6 +27,9 @@ if(isset($_GET['userID']) && isset($_GET['Area']) && isset($_GET['city']) && iss
     echo "User with ID $userID updated successfully.";
     
     $stmt->close();
+
+    header( "refresh:2; url=./admin_dashboard.php" ); 
+
 }
 ?>
 

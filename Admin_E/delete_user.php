@@ -16,6 +16,8 @@ if(isset($_POST['submit'])) {
     }
 
     $stmt->close();
+
+    header( "refresh:2; url=./admin_dashboard.php" ); 
 }
 ?>
 

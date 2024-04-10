@@ -118,10 +118,11 @@ body {
   <a href="#logout">Log Out</a>
   <a href="#contact">Contact</a>
   <div class="search-container">
-    <form action="test.php"> 
-      <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search">
+  <form action="search_user.php" method="GET"> 
+      <input type="text" style="background-color: white; color: black;" placeholder="Search User ID" name="search" required>
       <button type="submit" style="background-color: darkgreen; color: white;">Search</button> 
-    </form>
+  </form>
+
   </div>
 </div>
 
@@ -136,7 +137,6 @@ body {
 
 <?php
 
-echo("User Details"); 
 
 $html_table = '<table border="1">';
 $html_table .= '<tr>';
@@ -163,6 +163,7 @@ echo $html_table;
 <html>
 
 <head>
+
 <style>
 *{background-color:rgb(184, 247, 184);}
 </style>

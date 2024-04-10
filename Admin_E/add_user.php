@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
+    header( "refresh:2; url=./admin_dashboard.php" ); 
 }
 
 ?>
