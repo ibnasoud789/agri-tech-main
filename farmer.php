@@ -144,7 +144,9 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
     .insurance-section,
     .grant-section,
     .investment-section,
-    form {
+    form,
+    .statistics,
+    .help {
       display: flex;
       flex-direction: column;
       height: 35vh;
@@ -215,27 +217,6 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
       justify-content: center;
       align-items: center;
       gap: 5px;
-    }
-
-    .countdown-container {
-      display: flex;
-      justify-content: space-between;
-      width: 300px;
-    }
-
-    .countdown-item {
-      text-align: center;
-    }
-
-    #days,
-    #hours,
-    #minutes,
-    #seconds {
-      background-color: rgba(3, 72, 3, 0.639);
-      color: #fff;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
     }
 
     .right button {
@@ -327,6 +308,14 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
       color: white;
       background-color: rgb(1, 62, 1);
     }
+    .help{
+      height: 80vh;
+    }
+    .help form{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
   </style>
 </head>
 
@@ -396,7 +385,7 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
-              <a href="farmerloanapply.php?id=<?php echo $farmerID?>" target="_blank"><button>Apply for loan</button></a>  
+              <a href="farmerloanapply.php?id=<?php echo $farmerID ?>" target="_blank"><button>Apply for loan</button></a>
             </div>
           </div>
           <div class="right">
@@ -418,7 +407,6 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
             <p>Coverage Amount : <span> BDT <?php echo $insuranceCoverage; ?></span></p>
             <p>Premium Amount : <span>BDT <?php echo $premiumAmount; ?></span></p>
             <p>Policy Period : <span><?php echo $policyPeriod; ?></span></p>
-            <p>Next Payment Date : <span>12/10/2024</span></p>
             <button>Pay Premium Amount</button>
           </div>
           <div class="insurance-provider">
@@ -496,11 +484,34 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
           </div>
         </div>
         <div class='btn-div'>
-          <a href="farmerupdateportfolio.php?id=<?php echo $farmerID; ?>"><button type="button" class='update-btn'>Update Portfolio</button></a>
+          <a href="farmerupdateportfolio.php?id=<?php echo $farmerID; ?>" target='_blank'><button type="button" class='update-btn'>Update Portfolio</button></a>
         </div>
       </form>
     </div>
     <div class="statistics">
+
+    </div>
+    <div class='help'>
+      <h2>Your Query</h2>
+      <form>
+        <div>
+          <label for='problem_field'>Select Your Problem Category:</label>
+          <select id='problem_cat' name='problem_cat' required>
+            <option value=''>Select a category</option>
+            <option value='Agronomy'>Agronomy</option>
+            <option value='Crop Rotation'>Crop Rotation</option>
+            <option value='Soil Health Management'>Soil Health Management</option>
+            <option value='Cash Flow Management'>Cash Flow Management</option>
+            <option value='Pest Control'>Pest Control</option>
+            <option value='Precision Farming'>Precision Farming</option>
+          </select>
+        </div>
+        <div>
+          <label for='problem'>Explain Your Problem:</label>
+          <textarea id='problem' name='problem' cols='100' rows='10' placeholder="Your Query" required></textarea>
+        </div>
+        
+      </form>
 
     </div>
 
