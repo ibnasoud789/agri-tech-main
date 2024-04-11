@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Account</title>
+    <link rel="stylesheet" href="signup.css">
+  </head>
+  <body>
+    <form>
+      <div class="signup-logo">
+        <img src="KRISHI-removebg-preview.png" height="70px" width="70px">
+      </div>
+      <h1>Create Account</h1>
+
+      <div class="name-input-box">
+        <div class="first name">
+          <label>First Name</label>
+          <input type="text" placeholder="Ibna" class="f-name">
+        </div>
+        <div class="last name">
+          <label>Last Name</label>
+          <input type="text" placeholder="Soud" class="l-name">
+        </div>
+      </div>
+
+      <div class="address-input-box">
+        <div class="area-box">
+          <label>Area</label>
+          <input type="text" placeholder="Setabganj">
+        </div>
+        <div class="district-box">
+          <label>District</label>
+          <input type="text" placeholder="Dinajpur">
+        </div>
+      </div>
+
+      <div class="email-phone-input-box">
+        <div class="email-input-box">
+          <label>E-mail Address</label>
+          <input type="email" placeholder="abc@gmail.com" class="email">
+        </div>
+        <div class="number-input-box">
+          <label>Phone Number</label>
+          <input type="number" placeholder="01957153596" class="number">
+        </div>
+      </div>
+      
+      <div class="gender-usertype-input-box">
+        <div class="gender-box">
+          <label for="gender">Choose your gender:</label>
+          <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="usertype-box">
+          <label for="user">Choose your user type:</label>
+          <select id="user" name="user">
+            <option value="farmer">Farmer</option>
+            <option value="bank">Bank</option>
+            <option value="ngo">NGO</option>
+            <option value="lender">Lender</option>
+            <option value="investor">Investor</option>
+          </select>
+        </div>
+      </div>
+      <div class="password-input-box">
+        <div class="password-set">
+          <label>Enter a Password</label>
+          <input type="password" placeholder="*********" class="set-password">
+        </div>
+        <div class="password-confirm">
+          <label>Confirm Your Password</label>
+          <input type="password" placeholder="*********" class="confirm-password">
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+      
+    </form>
+  </body>
+</html>
