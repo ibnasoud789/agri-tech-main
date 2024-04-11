@@ -27,7 +27,7 @@
   $totalLoanProvided = $loanRow['total_loan_provided'];
   $totalLoanCount = $loanRow['total_loan_count'];
 
-  //loan application verdict update
+  //loan application 
   $applicationQuery="SELECT * FROM loan_application_t WHERE Verdict='Pending' AND  preferred_bank='$loanprovidername'";
   $applicationResult = mysqli_query($conn, $applicationQuery);
 ?>

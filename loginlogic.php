@@ -34,6 +34,9 @@
                 case 'admin':
                     header("Location: admin_dashboard.php");
                     break;
+                case 'advisor':
+                    header('Location:advisor.php');
+                    break;
                 default:
                     
                     echo "Invalid user type";

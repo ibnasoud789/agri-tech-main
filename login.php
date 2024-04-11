@@ -114,6 +114,7 @@ include "loginlogic.php";
                 <option value="investment_provider">Investment Provider</option>
                 <option value="grant_provider">Grant Provider</option>
                 <option value="admin">Admin</option>
+                <option value="advisor">Advisor</option>
             </select><br /><br />
         </div>
         <input type="submit" value="Login" class="btn" />
