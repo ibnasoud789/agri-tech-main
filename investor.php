@@ -226,13 +226,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
-
-<<<<<<< Updated upstream
-        <h4>Welcome   </h4>
-=======
-        <h4>Welcome, <?php echo $investorname; ?></h4>
->>>>>>> Stashed changes
-
+        <h4>Welcome, <?php echo $investorname;?></h4>
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>

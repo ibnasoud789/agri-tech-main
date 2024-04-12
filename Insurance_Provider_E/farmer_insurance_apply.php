@@ -1,5 +1,5 @@
 <?php
-include "database.php";
+include "connection.php";
 $user_name = '';
 $userid = '';
 $successMessage = '';
@@ -7,18 +7,16 @@ $successMessage = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_name = $_POST['user_name'];
     $userid = $_POST['user_id'];
-    $investment_amount = $_POST['investment_amount'];
-    $investor = $_POST['investor'];
-    $duration= $_POST['duration'];
+    $insurance_amount = $_POST['insurance_amount'];
+    $provider = $_POST['provider'];
 
-
-    $sql = "INSERT INTO investment_application_t (farmer_name, Farmer_ID,investment_amount , preferred_investor,Duration,Verdict) VALUES ('$user_name', '$userid', '$investment_amount', '$investor','$duration','Pending')";
-
+    $sql = "INSERT INTO insurance_application_t (farmer_name, farmer_id, insurance_amount, preferred_provider, Verdict) VALUES ('$user_name', '$userid', '$insurance_amount', '$provider','Pending')";
     if ($conn->query($sql) === TRUE) {
-        $successMessage = "Investment application submitted successfully.";
+        $successMessage = "Insurance application submitted successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
 }
 
 if (isset($_GET["id"])) {
@@ -27,11 +25,10 @@ if (isset($_GET["id"])) {
     $result = mysqli_query($conn,$query);
     $row=mysqli_fetch_array($result);
     $id= $row["Farmer_ID"];
-    $name= $row["farmer_name"];
-
-
-
+    $name= $row["farmer_name"]; 
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,12 +36,11 @@ if (isset($_GET["id"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Application Form</title>
+    <title>Insurance Application Form</title>
 </head>
 
-
 <body>
-    <h2>Investment Application Form</h2>
+    <h2>Insurance Application Form</h2>
     <form action="" method="post">
         <label for="user_name">Full Name:</label>
         <input type="text" id="user_name" name="user_name" value="<?php echo $name; ?>" readonly><br><br>
@@ -52,37 +48,32 @@ if (isset($_GET["id"])) {
         <label for="user_id">Your ID:</label>
         <input type="text" id="user_id" name="user_id" value="<?php echo $id; ?>" readonly><br><br>
 
-        <label for="investment_amount">Investment Amount:</label>
-        <input type="number" id="investment_amount" name="investment_amount" required><br><br>
+        <label for="insurance_amount">Insurance Amount:</label>
+        <input type="number" id="insurance_amount" name="insurance_amount" required><br><br>
 
-        <label for="duration" >Investment Duration:</label>
-        <input type="text" id="duration" name="duration" required><br><br>
-
-        <label for="provider">Choose a Investor:</label>
-        <select id="investor" name="investor" required>
-            <option value="">Select Investor</option>
-            <option value="Agrani Bank">Agrani Bank</option>
-            <option value="Fatima Ahmed Foundation">Fatima Ahmed Foundation</option>
-            <option value="Nasir Uddin Ahmed">Nasir Uddin Ahmed</option>
+        <label for="provider">Choose a Insurance Provider:</label>
+        <select id="provider" name="provider" required>
+            <option value="">Select Provider</option>
+            <option value="Sonali Bank">Sonali Bank</option>
+            <option value="Rajshahi Krishi Unnoyon Bank">Rajshahi Krishi Unnoyon Bank</option>
             <option value="Green Delta Insurance Limited">Green Delta Insurance Limited</option>
+            <option value="City Bank">City Bank</option>
             <option value="BDBL">BDBL</option>
             <option value="Krishok Kollan Porishod">Krishok Kollan Porishod</option>
+            <option value="Prime Insurance Company Limited">Prime Insurance Company Limited</option>
             <option value="Khan Krishi Foundation">Khan Krishi Foundation</option>
         </select><br><br>
 
-        
-        
-        
         <input type="submit" value="Submit">
     </form>
     <script>
         function validateForm() {
             var userName = document.getElementById("user_name").value;
             var userId = document.getElementById("user_id").value;
-            var InvestmentAmount = document.getElementById("investment_amount").value;
-            var investor = document.getElementById("investor").value;
+            var insuranceAmount = document.getElementById("insurance_amount").value;
+            var provider = document.getElementById("provider").value;
 
-            if (userName == "" || userId == "" || InvestmentAmount == "" || investor == "") {
+            if (userName == "" || userId == "" || insuranceAmount == "" || provider == "") {
                 alert("All fields are required");
                 return false;
             }
@@ -90,7 +81,7 @@ if (isset($_GET["id"])) {
         window.onload = function() {
             <?php if (!empty($successMessage)) : ?>
                 alert("<?php echo $successMessage; ?>");
-                window.location.href = "farmer.php";
+                window.location.href = "farmer.php"; 
             <?php endif; ?>
         };
     </script>

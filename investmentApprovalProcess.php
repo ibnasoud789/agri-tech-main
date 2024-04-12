@@ -28,6 +28,7 @@ if (isset($_POST['approve'])) {
             echo '</div>';
             echo "<script>console.log('Investment Approved Successfully.');</script>";
             header("refresh:2; url=./investor.php");
+
         } else {
             mysqli_rollback($conn); 
             echo 'Error updating another table.';
@@ -70,6 +71,7 @@ if (isset($_GET['id'])) {
         <h2>Investment Approval</h2>
         <div>
             <label for="fullname">Full Name:</label>
+
             <input type='text' name='fullname' value='<?php echo $farmername; ?>' readonly><br><br>
         </div>
         <div>
@@ -91,6 +93,7 @@ if (isset($_GET['id'])) {
         <div>
             <label for="repaymentdate">End Date</label>
             <input type='date' name='repaymentdate' value='' required><br><br>
+
         </div>
         <input type='hidden' name='investor' value='<?php echo $investorname; ?>'>
         <button type='submit' name='approve'>Approve</button>

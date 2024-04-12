@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 <?php
 session_start();
 
@@ -17,6 +15,7 @@ $result=mysqli_query($conn, $query);
 
 //advior name
 $nameQuery="SELECT CONCAT(fname,' ',mname,' ',lname) AS adname, Expertise FROM advisor WHERE `Advisor ID`='$advisorID'";;
+
 $nameResult = mysqli_query($conn,$nameQuery);
 $nameRow=mysqli_fetch_array($nameResult);
 $name=$nameRow["adname"];
@@ -280,5 +279,6 @@ background-color: red;
     </div>
   </div>
 </body>
+
 </html>
->>>>>>> Stashed changes
+
