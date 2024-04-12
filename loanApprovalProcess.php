@@ -19,7 +19,7 @@ if (isset($_POST['approve'])) {
      `amount`='$amount', `interest_rate`='$interest',`return_date`='$repaymentdate',`Farmer_ID`='$farmerid',`Loan_Provider_ID`='$providerid',`loan_status`='Ongoing' ";
     $result = mysqli_query($conn, $sql);
     if ($result == TRUE) {
-        $verdictUpdate = "UPDATE `loan_application_t` SET `Verdict`='Approved' WHERE farmer_id='$farmerid'";
+        $verdictUpdate = "UPDATE `loan_application_t` SET `Verdict`='Approved' WHERE `Verdict`='Pending' AND farmer_id='$farmerid'";
         $verdictUpdateResult = mysqli_query($conn, $verdictUpdate);
 
         if ($verdictUpdateResult == TRUE) {

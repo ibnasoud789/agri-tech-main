@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userid = $_POST['user_id'];
     $investment_amount = $_POST['investment_amount'];
     $investor = $_POST['investor'];
-    $duration= $_POST['duration'];
+    $duration = $_POST['duration'];
 
 
     $sql = "INSERT INTO investment_application_t (farmer_name, Farmer_ID,investment_amount , preferred_investor,Duration,Verdict) VALUES ('$user_name', '$userid', '$investment_amount', '$investor','$duration','Pending')";
@@ -22,15 +22,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if (isset($_GET["id"])) {
-    $farmerID= $_GET["id"];
-    $query="SELECT Farmer_ID, CONCAT(fname,' ',mname,' ',lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
-    $result = mysqli_query($conn,$query);
-    $row=mysqli_fetch_array($result);
-    $id= $row["Farmer_ID"];
-    $name= $row["farmer_name"];
+    $farmerID = $_GET["id"];
 
-
-
+    // Check if the farmer has a current investment
+    $checkInvestmentQuery = "SELECT * FROM investment_t WHERE Farmer_ID='$farmerID' AND investment_status='Ongoing'";
+    $checkInvestmentResult = $conn->query($checkInvestmentQuery);
+    // checking if farmer already have a investment 
+    if ($checkInvestmentResult) {
+        if ($checkInvestmentResult->num_rows > 0) {
+            echo "<script>alert('You already have an ongoing investment.');
+            window.location.href = 'farmer.php';
+            </script>";
+        } else {
+            // Fetch farmer details if there is no ongoing investment
+            $query = "SELECT Farmer_ID, CONCAT(fname,' ',mname,' ',lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
+            $result = mysqli_query($conn, $query);
+            $row = mysqli_fetch_array($result);
+            $id = $row["Farmer_ID"];
+            $name = $row["farmer_name"];
+        }
+    } else {
+        echo "Error: " . $conn->error;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -55,7 +68,7 @@ if (isset($_GET["id"])) {
         <label for="investment_amount">Investment Amount:</label>
         <input type="number" id="investment_amount" name="investment_amount" required><br><br>
 
-        <label for="duration" >Investment Duration:</label>
+        <label for="duration">Investment Duration:</label>
         <input type="text" id="duration" name="duration" required><br><br>
 
         <label for="provider">Choose a Investor:</label>
@@ -70,9 +83,9 @@ if (isset($_GET["id"])) {
             <option value="Khan Krishi Foundation">Khan Krishi Foundation</option>
         </select><br><br>
 
-        
-        
-        
+
+
+
         <input type="submit" value="Submit">
     </form>
     <script>

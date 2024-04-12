@@ -419,7 +419,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
-              <a href="farmerloanapply.php?id=<?php echo $farmerID ?>" target="_blank"><button>Apply for loan</button></a>
+              <a href="farmerloanapply.php?id=<?php echo $farmerID ?>"><button>Apply for loan</button></a>
             </div>
           </div>
           <div class="right">
@@ -478,7 +478,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
 
           <div>
           <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
-          <a href='farmerinvestmentapply.php?id=<?php echo $farmerID;?>' target='_blank'><button style="width: 150px;">Apply For Investment</button></a>   
+          <a href='farmerinvestmentapply.php?id=<?php echo $farmerID;?>'><button style="width: 150px;">Apply For Investment</button></a>   
           </div>
 
 

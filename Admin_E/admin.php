@@ -1,20 +1,15 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "krishi_bandhan";
+$hostName= "localhost";
+$dbUser="root";
+$dbPassword="";
 
-$conn = new mysqli($servername, $username, $password, $database);
 
-if ($conn->connect_error) {
+$dbName="practise2";
+$conn = new mysqli($hostName,$dbUser,$dbPassword,$dbName,4306);
 
-    die("Connection failed: " . $conn->connect_error);
 
-}
-else{
-    echo "<script>console.log('Database Connected successfully');</script>";
-    echo("");
+if ($conn -> connect_error){
+  die("Connection error:" .$conn->connect_error);
 }
 
-?>
-
+echo"";

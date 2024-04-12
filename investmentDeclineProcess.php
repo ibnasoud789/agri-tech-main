@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 if (isset($_POST['decline'])) {
-  $Farmer_ID=$_POST['id'];
+  $Farmer_ID = $_POST['id'];
   $verdictUpdate = "UPDATE `investment_application_t` SET `Verdict`='Declined' WHERE Farmer_ID='$Farmer_ID'";
   $verdictUpdateResult = mysqli_query($conn, $verdictUpdate);
 
@@ -17,7 +17,7 @@ if (isset($_POST['decline'])) {
   }
 }
 if (isset($_GET['id'])) {
-    $Farmer_ID = $_GET['id'];
+  $Farmer_ID = $_GET['id'];
 
   $query = "SELECT * FROM investment_application_t WHERE Farmer_ID='$Farmer_ID'";
   $result = mysqli_query($conn, $query);
@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
 
 <body>
   <form method='post'>
-    <h2>Decline Investment Approval</h2>
+    <h2>Decline Investment Request</h2>
     <input type='hidden' name='id' value='<?php echo $Farmer_ID; ?>' readonly>
     <label for="decision">Click below to decline investment request</label>
     <button type='submit' name='decline'>Decline</button>
