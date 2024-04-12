@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
     // Check if the farmer has a current investment
     $checkInvestmentQuery = "SELECT * FROM investment_t WHERE Farmer_ID='$farmerID' AND investment_status='Ongoing'";
     $checkInvestmentResult = $conn->query($checkInvestmentQuery);
-    // checking if farmer already have a investment 
+
     if ($checkInvestmentResult) {
         if ($checkInvestmentResult->num_rows > 0) {
             echo "<script>alert('You already have an ongoing investment.');
