@@ -63,21 +63,31 @@ if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
 
 
 //insurance details-user side
-$insuranceQuery = "SELECT * FROM insurance_t WHERE Farmer_ID= '$farmerID'";
+$insuranceQuery = "SELECT * FROM insurance_t AS i JOIN financial_service_provider_t AS fsp ON i.insurance_provider_id=fsp.FSPid WHERE insurance_status='Ongoing' AND farmer_id= '$farmerID'";
 $insuranceResult = mysqli_query($conn, $insuranceQuery);
-$insuranceRow = mysqli_fetch_assoc($insuranceResult);
-$insuranceId = $insuranceRow["insurance_id"];
-$insurancePolicy = $insuranceRow["policy_type"];
-$insuranceCoverage = $insuranceRow["coverage_amount"];
-$premiumAmount = $insuranceRow["premium_amount"];
-$policyPeriod = $insuranceRow["policy_period"];
+if ($insuranceResult && mysqli_num_rows($insuranceResult) > 0) {
+  $insuranceRow = mysqli_fetch_assoc($insuranceResult);
+  $insuranceId = $insuranceRow["insurance_id"];
+  $insurancePolicy = $insuranceRow["policy_type"];
+  $insuranceCoverage = $insuranceRow["coverage_amount"];
+  $premiumAmount = $insuranceRow["premium_amount"];
+  $startdate = $insuranceRow["effective_date"];
+  $policyPeriod = $insuranceRow["policy_period"];
+  $enddate = $insuranceRow["end_date"];
+  $insuranceProviderName = $insuranceRow["name"];
+  $insuranceProviderId = $insuranceRow["FSPid"];
+} else {
+  $insuranceId = "N/A";
+  $insurancePolicy = "N/A";
+  $insuranceCoverage = "N/A";
+  $premiumAmount = "N/A";
+  $startdate = "N/A";
+  $policyPeriod = "N/A";
+  $enddate = "N/A";
+  $insuranceProviderName = "N/A";
+  $insuranceProviderId = "N/A";
+}
 
-//insurance details- provider side
-$insuranceProviderQuery = "SELECT * FROM insurance_t AS I JOIN financial_service_provider_t AS FSP ON I.insurance_provider_id = FSP.FSPid WHERE Farmer_ID= '$farmerID'";
-$insuranceProviderResult = mysqli_query($conn, $insuranceProviderQuery);
-$insuranceProviderRow = mysqli_fetch_assoc($insuranceProviderResult);
-$insuranceProviderId = $insuranceProviderRow["FSPid"];
-$insuranceProviderName = $insuranceProviderRow["name"];
 
 //grant details
 $grantQuery = "SELECT SUM(Grant_amount) AS grantAmount, Target_beneficiaries FROM grant_t AS g JOIN grant_provider_target_t AS gp ON g.Grant_provider_ID=gp.Grant_provider_ID WHERE Farmer_ID='$farmerID'";
@@ -107,14 +117,14 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
   $crninvestorname = $crninvRow["name"];
   $crninvestmentamount = $crninvRow["Amount"];
   $returndate = $crninvRow['End_date'];
-  $crnprofitRate= $crninvRow['Profit_share_rate'];
+  $crnprofitRate = $crninvRow['Profit_share_rate'];
 } else {
   // No ongoing investment found
   $crninvestorid = "N/A";
   $crninvestorname = "N/A";
   $crninvestmentamount = "N/A";
   $returndate = "N/A";
-  $crnprofitRate= "N/A";
+  $crnprofitRate = "N/A";
 }
 //Queries table
 $helpQuery = "SELECT * FROM advising WHERE Farmer_ID='$farmerID'";
@@ -244,7 +254,11 @@ $helpResult = mysqli_query($conn, $helpQuery);
       transform: scale(1.02);
     }
 
-    .insurance-section,
+    .insurance-section {
+      display: flex;
+      height: 50vh;
+    }
+
     .grant-section {
       display: flex;
       height: 45vh;
@@ -436,16 +450,23 @@ $helpResult = mysqli_query($conn, $helpQuery);
         </div>
         <div class="insurance-details">
           <div class="receiver">
-            <p>Insurance ID:<span><?php echo $insuranceId; ?></span></p>
-            <p>Current Insurance Policy : <span><?php echo $insurancePolicy; ?></span></p>
+            <p>Current Insurance ID:<span><?php echo $insuranceId; ?></span></p>
+            <p>Insurance Policy : <span><?php echo $insurancePolicy; ?></span></p>
             <p>Coverage Amount : <span> BDT <?php echo $insuranceCoverage; ?></span></p>
             <p>Premium Amount : <span>BDT <?php echo $premiumAmount; ?></span></p>
+            <p>Start Date:<span> <?php echo $startdate; ?></span></p>
             <p>Policy Period : <span><?php echo $policyPeriod; ?></span></p>
-            <button>Pay Premium Amount</button>
+            <p>End Date: <span><?php echo $enddate; ?></span></p>
+            <div>
+              <button>View Details</button>
+              <button>Pay Premium Amount</button>
+              <a href='farmer_insurance_apply.php?id=<?php echo $farmerID; ?>'><button>Apply for Insurance</button></a>
+            </div>
+
           </div>
           <div class="insurance-provider">
-            <p>Provider Name:<span><?php echo $insuranceProviderName; ?></span></p>
-            <p>Provider ID:<span><?php echo $insuranceProviderId; ?></span></p>
+            <p>Insurance Provider Name:<span><?php echo $insuranceProviderName; ?></span></p>
+            <p>Insurance Provider ID:<span><?php echo $insuranceProviderId; ?></span></p>
           </div>
         </div>
       </div>
@@ -473,12 +494,12 @@ $helpResult = mysqli_query($conn, $helpQuery);
           <p>Current Investor ID: <span><?php echo $crninvestorid; ?></span></p>
           <p>Current Investor Name: <span><?php echo $crninvestorname; ?></span></p>
           <p>Current Investment Amount: <span>BDT <?php echo $crninvestmentamount; ?></span></p>
-          <p>Profit Share Rate: <span><?php echo $crnprofitRate;?></span></p>
+          <p>Profit Share Rate: <span><?php echo $crnprofitRate; ?></span></p>
           <p>Return Date: <span><?php echo $returndate; ?></span></p>
 
           <div>
-          <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
-          <a href='farmerinvestmentapply.php?id=<?php echo $farmerID;?>'><button style="width: 150px;">Apply For Investment</button></a>   
+            <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
+            <a href='farmerinvestmentapply.php?id=<?php echo $farmerID; ?>'><button style="width: 150px;">Apply For Investment</button></a>
           </div>
 
 
@@ -532,7 +553,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
     <div class='help'>
       <h2>Help</h2>
       <p>Got any issues? Click Below:</p>
-      <a href="farmerAdvisingApplication.php?id=<?php echo $farmerID ?>" target="_blank"><button>Seek Help</button></a>
+      <a href="farmerAdvisingApplication.php?id=<?php echo $farmerID ?>"><button>Seek Help</button></a>
       <div class='past-queries'>
         <h4>Your Past Queries</h4>
         <table>
@@ -552,7 +573,6 @@ $helpResult = mysqli_query($conn, $helpQuery);
             echo "<td>" . $helpRow["Solution"] . "</td>";
             echo "<td>" . $helpRow["Solution_date"] . "</td>";
             echo "</tr>";
-          
           } ?>
         </table>
       </div>

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: loanProvider.php");
                 break;
             case 'insurance_provider':
-                header("Location:Insurance_Provider_E/insuranceProvider.php");
+                header("Location:insuranceProvider.php");
                 break;
             case 'investment_provider':
                 header("Location: investor.php");

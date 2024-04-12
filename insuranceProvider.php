@@ -1,10 +1,10 @@
 <?php
 session_start();
-include '../database.php';
+include 'database.php';
 
 if (!isset($_SESSION['userid'])) {
 
-  header("Location: ../login.php");
+  header("Location: login.php");
   exit;
 }
 
@@ -27,7 +27,9 @@ $insuranceRow = mysqli_fetch_assoc($insuranceResult);
 $totalInsuranceProvided = $insuranceRow['total_insurance_provided'];
 $totalInsuranceCount = $insuranceRow['total_insurance_count'];
 
-
+//insurance application
+$applicationQuery = "SELECT * FROM insurance_application WHERE `status`='Pending' AND preferred_provider='$insuranceprovidername' ";
+$applicationResult = mysqli_query($conn, $applicationQuery);
 ?>
 
 
@@ -231,29 +233,37 @@ $totalInsuranceCount = $insuranceRow['total_insurance_count'];
       <div class="loanPortfolioOverview">
         <h2>Insurance Portfolio Overview</h2>
         <p>Total number of insurance: <span id="totalLoans"> <?php echo $totalInsuranceCount; ?></span></p>
-        <p>Total insurance value: <span id="totalLoanValue"> BDT <?php echo $totalInsuranceProvided; ?></span></p>
-        <div>Details:</div>
+        <div><b>Details:</b></div>
         <table id="loanTable">
           <tr>
             <th>Insurance ID</th>
             <th>Farmer ID</th>
-            <th>Farmer Name
-            <th>Insurance Amount</th>
-            <th>Effective Date</th>
-            <th>Payment Method</th>
+            <th>Farmer Name</th>
             <th>Policy Type</th>
+            <th>Insurance Amount</th>
+            <th>Premium Amount</th>
+            <th>Payment Frequency</th>
+            <th>Effective Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+
           </tr>
 
           <?php
           while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row['insurance_id'] . "</td>";
-            echo "<td>" . $row['Farmer_ID'] . "</td>";
+            echo "<td>" . $row['farmer_id'] . "</td>";
             echo "<td>" . $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'] . "</td>";
-            echo "<td>" . ($row['coverage_amount'] + $row['premium_amount']) . "</td>";
-            echo "<td>" . $row['effective_date'] . "</td>";
-            echo "<td>" . $row['payment_method'] . "</td>";
             echo "<td>" . $row['policy_type'] . "</td>";
+            echo "<td>" . $row['coverage_amount'] . "</td>";
+            echo "<td>" . $row["premium_amount"] . "</td>";
+            echo "<td>" . $row['payment_frequency'] . "</td>";
+            echo "<td>" . $row['effective_date'] . "</td>";
+            echo "<td>" . $row["end_date"] . "</td>";
+            echo "<td>" . $row["insurance_status"] . "</td>";
+
+
             echo "</tr>";
           }
           ?>
@@ -267,10 +277,25 @@ $totalInsuranceCount = $insuranceRow['total_insurance_count'];
           <tr>
             <th>Farmer Name</th>
             <th>Farmer ID</th>
-            <th>Insurance Amount</th>
+            <th>Insurance Policy</th>
+            <th>Duration</th>
             <th>Verdict</th>
           </tr>
-          <!--sql-->
+          <?php
+          while ($applicationRow = mysqli_fetch_assoc($applicationResult)) {
+            echo "<tr>";
+            echo "<td>" . $applicationRow['farmer_name'] . "</td>";
+            echo "<td>" . $applicationRow['farmer_id'] . "</td>";
+            echo "<td>" . $applicationRow['policy'] . "</td>";
+            echo "<td>" . $applicationRow["duration"] . "</td>";
+            echo "<td>";
+            echo "<button class='accept-button' onclick=\"window.location.href='insurance_approval_process.php?id=" . $applicationRow['farmer_id'] . "'\">Accept</button>";
+            echo "<button class='decline-button' onclick=\"window.location.href='insuranceDeclineProcess.php?id=" . $applicationRow['farmer_id'] . "'\">Decline</button>";
+            echo "</td>";
+            echo "</tr>";
+          }
+          ?>
+
         </table>
 
 
