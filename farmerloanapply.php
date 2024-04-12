@@ -4,6 +4,8 @@ $user_name = '';
 $userid = '';
 $successMessage = '';
 
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_name = $_POST['user_name'];
     $userid = $_POST['user_id'];
@@ -21,11 +23,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (isset($_GET["id"])) {
     $farmerID = $_GET["id"];
-    $query = "SELECT Farmer_ID, CONCAT(fname,' ',mname,' ',lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_array($result);
-    $id = $row["Farmer_ID"];
-    $name = $row["farmer_name"];
+    $checkLoanQuery = "SELECT * FROM loan WHERE Farmer_ID='$farmerID' AND loan_status='Ongoing'";
+    $checkLoanResult = $conn->query($checkLoanQuery);
+
+    if ($checkLoanResult) {
+        if ($checkLoanResult->num_rows > 0) {
+            echo "<script>alert('You already have a loan package');
+            window.location.href = 'farmer.php';</script>";
+
+            exit;
+        } else {
+            $query = "SELECT Farmer_ID, CONCAT(fname,' ',mname,' ',lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
+            $result = $conn->query($query);
+
+            if ($result) {
+                $row = $result->fetch_assoc();
+                $id = $row["Farmer_ID"];
+                $name = $row["farmer_name"];
+            } else {
+                echo "Error: " . $conn->error;
+            }
+        }
+    } else {
+        echo "Error: " . $conn->error;
+    }
 }
 $conn->close();
 ?>
