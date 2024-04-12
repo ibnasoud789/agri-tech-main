@@ -98,11 +98,11 @@ if (isset($_GET['id'])) {
         </div>
         <div>
             <label for="int_rate">Interest Rate:</label>
-            <input type='number' name='int_rate' value=''>
+            <input type='number' name='int_rate' value='' required>
         </div>
         <div>
             <label for="repaymentdate">Repayment Date</label>
-            <input type='date' name='repaymentdate' value=''>
+            <input type='date' name='repaymentdate' value='' required>
         </div>
         <input type='hidden' name='provider' value='<?php echo $providername; ?>'>
         <button type='submit' name='approve'>Approve</button>

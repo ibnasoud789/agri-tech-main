@@ -106,13 +106,15 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
   $crninvestorid = $crninvRow["Investor_ID"];
   $crninvestorname = $crninvRow["name"];
   $crninvestmentamount = $crninvRow["Amount"];
-  $returndate = $crninvRow['return_date'];
+  $returndate = $crninvRow['End_date'];
+  $crnprofitRate= $crninvRow['Profit_share_rate'];
 } else {
   // No ongoing investment found
   $crninvestorid = "N/A";
   $crninvestorname = "N/A";
   $crninvestmentamount = "N/A";
   $returndate = "N/A";
+  $crnprofitRate= "N/A";
 }
 //Queries table
 $helpQuery = "SELECT * FROM advising WHERE Farmer_ID='$farmerID'";
@@ -264,7 +266,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
     }
 
     .investment-section {
-      height: 40vh;
+      height: 50vh;
 
     }
 
@@ -470,11 +472,16 @@ $helpResult = mysqli_query($conn, $helpQuery);
           <p>Total Investment Received: <span>BDT <?php echo $totalinvestment; ?></p>
           <p>Current Investor ID: <span><?php echo $crninvestorid; ?></span></p>
           <p>Current Investor Name: <span><?php echo $crninvestorname; ?></span></p>
-          <p>Return Date: <span><?php echo $returndate; ?></span></p>
           <p>Current Investment Amount: <span>BDT <?php echo $crninvestmentamount; ?></span></p>
+          <p>Profit Share Rate: <span><?php echo $crnprofitRate;?></span></p>
+          <p>Return Date: <span><?php echo $returndate; ?></span></p>
 
+          <div>
           <a href="investmentdetails.php" target="_blank"><button>Show Details</button></a>
-          <a><button style="width: 150px;">Apply For Investment</button></a>
+          <a href='farmerinvestmentapply.php?id=<?php echo $farmerID;?>' target='_blank'><button style="width: 150px;">Apply For Investment</button></a>   
+          </div>
+
+
         </div>
       </div>
     </div>

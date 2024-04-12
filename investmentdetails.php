@@ -223,9 +223,9 @@ $totalinvCount = $invRow['total_investment_count'];
             echo "<td>" . $row['Investor_ID'] . "</td>";
             echo "<td>" . $row['name'] . "</td>";
             echo "<td>" . $row['Amount'] . "</td>";
-            echo "<td>". $row["profit_share"] . "</td>";
-            echo "<td>" . $row['issue_date'] . "</td>";
-            echo "<td>" . $row['return_date'] . "</td>";
+            echo "<td>". $row["Profit_share_rate"] . "</td>";
+            echo "<td>" . $row['Start_date'] . "</td>";
+            echo "<td>" . $row['End_date'] . "</td>";
             echo "<td>" . $row['investment_status'] . "</td>";
             echo "</tr>";
           }
