@@ -14,7 +14,8 @@ $query="SELECT * FROM advising AS ad JOIN farmer_t AS ft ON ad.Farmer_ID=ft.Farm
 $result=mysqli_query($conn, $query);
 
 //advior name
-$nameQuery="SELECT CONCAT(fname,' ',mname,' ',lname) AS adname, Expertise FROM advisor WHERE Advisor ID='$advisorID'";;
+$nameQuery="SELECT CONCAT(fname,' ',mname,' ',lname) AS adname, Expertise FROM advisor WHERE `Advisor ID`='$advisorID'";;
+
 $nameResult = mysqli_query($conn,$nameQuery);
 $nameRow=mysqli_fetch_array($nameResult);
 $name=$nameRow["adname"];
@@ -278,4 +279,6 @@ background-color: red;
     </div>
   </div>
 </body>
+
 </html>
+

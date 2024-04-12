@@ -27,7 +27,8 @@ if (isset($_POST['approve'])) {
             echo 'Investment Approved Successfully.';
             echo '</div>';
             echo "<script>console.log('Investment Approved Successfully.');</script>";
-            header("refresh:2; url=./loanProvider.php");
+            header("refresh:2; url=./investor.php");
+
         } else {
             mysqli_rollback($conn); 
             echo 'Error updating another table.';
@@ -48,7 +49,7 @@ if (isset($_GET['id'])) {
             $Farmer_ID = $row['Farmer_ID'];
             $farmername = $row['farmer_name'];
             $investment_amount = $row['investment_amount'];
-            $duration = $row['duration'];
+            $duration = $row['Duration'];
             $investorname = $row['preferred_investor'];
         }
     }
@@ -70,27 +71,29 @@ if (isset($_GET['id'])) {
         <h2>Investment Approval</h2>
         <div>
             <label for="fullname">Full Name:</label>
-            <input type='text' name='fullname' value='<?php echo $farmername; ?>' readonly>
+
+            <input type='text' name='fullname' value='<?php echo $farmername; ?>' readonly><br><br>
         </div>
         <div>
             <label for="id">User ID:</label>
-            <input type='number' name='id' value='<?php echo $Farmer_ID; ?>' readonly>
+            <input type='number' name='id' value='<?php echo $Farmer_ID; ?>' readonly><br><br>
         </div>
         <div>
             <label for="investment_amount">Investment Amount:</label>
-            <input type='number' name='Amount' value='<?php echo $investment_amount; ?>'>
+            <input type='number' name='Amount' value='<?php echo $investment_amount; ?>'><br><br>
         </div>
         <div>
             <label for="duration">Investment Duration:</label>
-            <input type='text' name='duration' value='<?php echo $duration; ?>'>
+            <input type='text' name='duration' value='<?php echo $duration; ?>'><br><br>
         </div>
         <div>
             <label for="int_rate">Profit Share Rate:</label>
-            <input type='number' name='int_rate' value=''>
+            <input type='number' name='int_rate' value='' required><br><br>
         </div>
         <div>
             <label for="repaymentdate">End Date</label>
-            <input type='date' name='repaymentdate' value=''>
+            <input type='date' name='repaymentdate' value='' required><br><br>
+
         </div>
         <input type='hidden' name='investor' value='<?php echo $investorname; ?>'>
         <button type='submit' name='approve'>Approve</button>

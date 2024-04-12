@@ -11,7 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $investor = $_POST['investor'];
     $duration= $_POST['duration'];
 
-    $sql = "INSERT INTO investment_application_t (farmer_name, Farmer_ID,investment_amount , preferred_investor) VALUES ('$user_name', '$userid', '$investment_amount', '$investor')";
+
+    $sql = "INSERT INTO investment_application_t (farmer_name, Farmer_ID,investment_amount , preferred_investor,Duration,Verdict) VALUES ('$user_name', '$userid', '$investment_amount', '$investor','$duration','Pending')";
+
     if ($conn->query($sql) === TRUE) {
         $successMessage = "Investment application submitted successfully.";
     } else {
