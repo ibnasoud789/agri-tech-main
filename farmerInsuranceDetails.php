@@ -10,24 +10,26 @@ if (!isset($_SESSION['userid'])) {
 
 $farmerID = $_SESSION['userid'];
 
+
 //farmer name 
 $nameQuery = "SELECT CONCAT(fname, ' ', mname, ' ', lname) AS farmer_name FROM farmer_t WHERE Farmer_ID='$farmerID'";
 $nameResult = mysqli_query($conn, $nameQuery);
 $nameRow = mysqli_fetch_assoc($nameResult);
 $farmerName = $nameRow['farmer_name'];
 
-//investment details
-$tableQuery = "SELECT * FROM investment_t AS i JOIN financial_service_provider_t AS fsp ON i.Investor_ID=fsp.FSPid WHERE Farmer_ID='$farmerID'";
+//insurance details
+$tableQuery = "SELECT * FROM insurance_t AS i JOIN financial_service_provider_t AS fsp ON i.insurance_provider_id=fsp.FSPid WHERE Farmer_ID='$farmerID'";
 $tableResult = mysqli_query($conn, $tableQuery);
 
-//total investment amount & invesment no count
-$invQuery = "SELECT SUM(Amount) AS total_investment_received, COUNT(Investment_ID) AS total_investment_count FROM investment_t WHERE Farmer_ID = '$farmerID'";
-$invResult = mysqli_query($conn, $invQuery);
-$invRow = mysqli_fetch_assoc($invResult);
-$totalinvReceived = $invRow['total_investment_received'];
-$totalinvCount = $invRow['total_investment_count'];
+//insurance value and number count
+$insuranceQuery = "SELECT SUM(coverage_amount) AS total,COUNT(insurance_id) AS total_ins_count FROM insurance_t WHERE farmer_id = '$farmerID'";
+$insuranceResult = mysqli_query($conn, $insuranceQuery);
+$insuranceRow = mysqli_fetch_assoc($insuranceResult);
+$totalInsCount = $insuranceRow['total_ins_count'];
+$totalIns = $insuranceRow['total'];
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -76,30 +78,6 @@ $totalinvCount = $invRow['total_investment_count'];
       gap: 1rem;
     }
 
-    .search-box {
-      background: rgb(213, 245, 164);
-      border-radius: 15px;
-      color: rgb(1, 62, 1);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 12px;
-    }
-
-    .search-box input {
-      background: transparent;
-      padding: 10px;
-    }
-
-    .search-box i {
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.5s ease-out;
-    }
-
-    .search-box i:hover {
-      transform: scale(1.2);
-    }
 
     table {
       font-family: arial, sans-serif;
@@ -190,7 +168,7 @@ $totalinvCount = $invRow['total_investment_count'];
   <div class="main-section">
     <div class="header-wrapper">
       <div class="header-title">
-        <span>User Investment</span>
+        <span>User Loan</span>
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
@@ -200,36 +178,41 @@ $totalinvCount = $invRow['total_investment_count'];
     </div>
     <div class="card-container">
       <div class="loanPortfolioOverview">
-        <h2>Investment Details</h2>
-        <p>Total number of investment: <span id="totalLoans"> <?php echo $totalinvCount; ?></span></p>
-        <p>Total investment received: <span id="totalLoanValue"> BDT <?php echo $totalinvReceived; ?></span></p>
+        <h2>Insurance Details</h2>
+        <p>Total number of insurances: <span id="totalLoans"> <?php echo $totalInsCount; ?></span></p>
+        <p>Total insurance coverage: <span id="totalLoanValue"> BDT <?php echo $totalIns; ?></span></p>
         <div>Details</div>
         <table id="loanTable">
           <tr>
-            <th>Investment ID</th>
-            <th>Investor ID</th>
-            <th>Investor Name</th>
-            <th>Investment Amount</th>
-            <th>Profit Share</th>
+            <th>Insurance ID</th>
+            <th>Loan Provider ID</th>
+            <th>Loan Provider Name</th>
+            <th>Coverage Amount</th>
+            <th>Premium Amount</th>
+            <th>Policy Period</th>
             <th>Issue Date</th>
-            <th>Return Date</th>
-            <th>Investment Status</th>
+            <th>End Date</th>
+            <th>Status</th>
           </tr>
           <?php
           while ($row = mysqli_fetch_assoc($tableResult)) {
             echo "<tr>";
-            echo "<td>" . $row['Investment_ID'] . "</td>";
-            echo "<td>" . $row['Investor_ID'] . "</td>";
+            echo "<td>" . $row['insurance_id'] . "</td>";
+            echo "<td>" . $row['insurance_provider_id'] . "</td>";
             echo "<td>" . $row['name'] . "</td>";
-            echo "<td>" . $row['Amount'] . "</td>";
-            echo "<td>" . $row["Profit_share_rate"] . "</td>";
-            echo "<td>" . $row['Start_date'] . "</td>";
-            echo "<td>" . $row['End_date'] . "</td>";
-            echo "<td>" . $row['investment_status'] . "</td>";
+            echo "<td>" . $row['coverage_amount'] . "</td>";
+            echo "<td>" . $row['premium_amount'] . "</td>";
+            echo "<td>" . $row["policy_period"] . "</td>";
+            echo "<td>" . $row['effective_date'] . "</td>";
+            echo "<td>" . $row['end_date'] . "</td>";
+            echo "<td>" . $row['insurance_status'] . "</td>";
             echo "</tr>";
           }
           ?>
         </table>
+      </div>
+      <div class="pending">
+
       </div>
     </div>
   </div>
