@@ -20,7 +20,8 @@ $nameRow = mysqli_fetch_assoc($nameResult);
 $farmerName = $nameRow['farmer_name'];
 
 //farmer personal information details
-$infoQuery = "SELECT * FROM farmer_t AS f JOIN user AS u ON f.Farmer_ID=u.userID WHERE Farmer_ID='$farmerID'";
+$infoQuery = "SELECT * FROM farmer_t AS f LEFT JOIN user AS u ON f.Farmer_ID=u.userID LEFT JOIN farmer_cropname_t AS fc ON f.Farmer_ID=fc.Farmer_ID
+WHERE f.Farmer_ID='$farmerID'";
 $infoResult = mysqli_query($conn, $infoQuery);
 $infoRow = mysqli_fetch_assoc($infoResult);
 $area = $infoRow['Area'];
@@ -29,10 +30,13 @@ $postcode = $infoRow['postcode'];
 $contact = $infoRow['contact_number'];
 $landsize = $infoRow['landsize'];
 
-
-//loan details 
+$cropQuery = "SELECT GROUP_CONCAT(Cropname) AS Crops FROM farmer_cropname_t WHERE Farmer_ID='$farmerID' GROUP BY Farmer_ID";
+$cropResult = mysqli_query($conn, $cropQuery);
+$cropRow = mysqli_fetch_assoc($cropResult);
+$crops = $cropRow["Crops"];
+//loan details
 //total loan
-$loanQuery = "SELECT SUM(amount) AS total_loan_received  FROM loan WHERE Farmer_ID='$farmerID'";
+$loanQuery = "SELECT SUM(amount) AS total_loan_received FROM loan WHERE Farmer_ID='$farmerID'";
 $loanResult = mysqli_query($conn, $loanQuery);
 $loanRow = mysqli_fetch_assoc($loanResult);
 $totalLoanReceived = $loanRow['total_loan_received'];
@@ -45,7 +49,7 @@ $totalLoanRepaid = $repaidRow['total_loan_repaid'];
 
 //current
 $crnloanQuery = "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status='Ongoing' AND Farmer_ID='$farmerID'";
-$crnloanResult = mysqli_query($conn,  $crnloanQuery);
+$crnloanResult = mysqli_query($conn, $crnloanQuery);
 if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
   $crnloanRow = mysqli_fetch_assoc($crnloanResult);
   $crnloanamount = $crnloanRow["amount"];
@@ -392,7 +396,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="#help">
           <i class="fas fa-question-circle"></i>
           <span>Help</span>
         </a>
@@ -458,7 +462,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
             <p>Policy Period : <span><?php echo $policyPeriod; ?></span></p>
             <p>End Date: <span><?php echo $enddate; ?></span></p>
             <div>
-              <button>View Details</button>
+              <a href='farmerInsuranceDetails.php' target='_blank'><button>View Details</button></a>
               <button>Pay Premium Amount</button>
               <a href='farmer_insurance_apply.php?id=<?php echo $farmerID; ?>'><button>Apply for Insurance</button></a>
             </div>
@@ -506,7 +510,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
         </div>
       </div>
     </div>
-    <div id="profile">
+    <div id="profile" class='profile'>
       <form>
         <h2>Personal Information</h2>
         <div>
@@ -520,15 +524,19 @@ $helpResult = mysqli_query($conn, $helpQuery);
               <input type='number' name='id' value='<?php echo $farmerID; ?>' readonly>
             </div>
             <div>
-              <label for="contact">Phone Number:</label>
-              <input type='number' name='contact' value='<?php echo $contact; ?>' readonly>
-            </div>
-            <div>
               <label for="landsize">Land Size:</label>
               <input type='text' name='landsize' value='<?php echo $landsize; ?>' readonly>
             </div>
+            <div>
+              <label for='cropname'>Cropname:</label>
+              <input type='text' name='cropname' value='<?php echo $crops ?>' readonly>
+            </div>
           </div>
           <div>
+            <div>
+              <label for="contact">Phone Number:</label>
+              <input type='number' name='contact' value='<?php echo $contact; ?>' readonly>
+            </div>
             <div>
               <label for="area">Area:</label>
               <input type='text' name='area' value='<?php echo $area; ?>' readonly>
@@ -548,9 +556,9 @@ $helpResult = mysqli_query($conn, $helpQuery);
         </div>
       </form>
     </div>
-    <div class="statistics">
+    <div class="statistics" id='statistics'>
     </div>
-    <div class='help'>
+    <div class='help' id='help'>
       <h2>Help</h2>
       <p>Got any issues? Click Below:</p>
       <a href="farmerAdvisingApplication.php?id=<?php echo $farmerID ?>"><button>Seek Help</button></a>
