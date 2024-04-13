@@ -1,29 +1,28 @@
 <?php
 include 'database.php';
 if (isset($_POST['decline'])) {
-  $Farmer_ID = $_POST['id'];
-  $verdictUpdate = "UPDATE `investment_application_t` SET `Verdict`='Declined' WHERE Farmer_ID='$Farmer_ID'";
+  $farmerid = $_POST['id'];
+  $verdictUpdate = "UPDATE `insurance_application` SET `status`='Declined' WHERE farmer_id='$farmerid'";
   $verdictUpdateResult = mysqli_query($conn, $verdictUpdate);
 
   if ($verdictUpdateResult == TRUE) {
     mysqli_commit($conn);
-    echo 'Investment Declined Successfully.';
+    echo 'Insurance Application Declined Successfully.';
     echo '</div>';
-    echo "<script>console.log('Investment Declined Successfully.');</script>";
-    header("refresh:2; url=./investor.php");
+    echo "<script>console.log('Insurance Application Declined Successfully.');</script>";
+    header("refresh:2; url=./insuranceProvider.php");
   } else {
     mysqli_rollback($conn);
     echo 'Error updating another table.';
   }
 }
 if (isset($_GET['id'])) {
-  $Farmer_ID = $_GET['id'];
-
-  $query = "SELECT * FROM investment_application_t WHERE Farmer_ID='$Farmer_ID'";
+  $farmerid = $_GET['id'];
+  $query = "SELECT * FROM insurance_application WHERE farmer_id='$farmerid'";
   $result = mysqli_query($conn, $query);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-      $Farmer_ID = $row['Farmer_ID'];
+      $farmerid = $row['farmer_id'];
     }
   }
 }
@@ -40,9 +39,9 @@ if (isset($_GET['id'])) {
 
 <body>
   <form method='post'>
-    <h2>Decline Investment Request</h2>
-    <input type='hidden' name='id' value='<?php echo $Farmer_ID; ?>' readonly>
-    <label for="decision">Click o decline investment request</label>
+    <h2>Decline Insurance Request</h2>
+    <input type='hidden' name='id' value='<?php echo $farmerid; ?>' readonly>
+    <label for="decision">Click to decline insurance request</label>
     <button type='submit' name='decline'>Decline</button>
   </form>
 </body>

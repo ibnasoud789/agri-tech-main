@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 if (isset($_POST['decline'])) {
-  $farmerid=$_POST['id'];
+  $farmerid = $_POST['id'];
   $verdictUpdate = "UPDATE `loan_application_t` SET `Verdict`='Declined' WHERE farmer_id='$farmerid'";
   $verdictUpdateResult = mysqli_query($conn, $verdictUpdate);
 
@@ -40,9 +40,9 @@ if (isset($_GET['id'])) {
 
 <body>
   <form method='post'>
-    <h2>Decline Loan Approval</h2>
+    <h2>Decline Loan Request</h2>
     <input type='hidden' name='id' value='<?php echo $farmerid; ?>' readonly>
-    <label for="decision">Click below to decline loan request</label>
+    <label for="decision">Click to decline loan request</label>
     <button type='submit' name='decline'>Decline</button>
   </form>
 </body>
