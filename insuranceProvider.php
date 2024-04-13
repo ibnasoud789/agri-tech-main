@@ -83,30 +83,6 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
       gap: 1rem;
     }
 
-    .search-box {
-      background: rgb(213, 245, 164);
-      border-radius: 15px;
-      color: rgb(1, 62, 1);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 12px;
-    }
-
-    .search-box input {
-      background: transparent;
-      padding: 10px;
-    }
-
-    .search-box i {
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.5s ease-out;
-    }
-
-    .search-box i:hover {
-      transform: scale(1.2);
-    }
 
     table {
       font-family: arial, sans-serif;
@@ -135,7 +111,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
     .loanapplication {
       display: flex;
       flex-direction: column;
-      height: 60vh;
+      height: 70vh;
       background-color: rgb(250, 205, 180);
       border-radius: 10px;
       padding: 10px 2rem;

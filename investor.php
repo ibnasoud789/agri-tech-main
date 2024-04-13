@@ -85,31 +85,6 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
       gap: 1rem;
     }
 
-    .search-box {
-      background: rgb(213, 245, 164);
-      border-radius: 15px;
-      color: rgb(1, 62, 1);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 12px;
-    }
-
-    .search-box input {
-      background: transparent;
-      padding: 10px;
-    }
-
-    .search-box i {
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.5s ease-out;
-    }
-
-    .search-box i:hover {
-      transform: scale(1.2);
-    }
-
     table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
@@ -137,7 +112,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
     .loanapplication {
       display: flex;
       flex-direction: column;
-      height: 60vh;
+      height: 70vh;
       background-color: rgba(120, 120, 252, 0.269);
       border-radius: 10px;
       padding: 10px 2rem;
@@ -226,7 +201,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
         <h2>Dashboard</h2>
       </div>
       <div class="user-info">
-        <h4>Welcome, <?php echo $investorname;?></h4>
+        <h4>Welcome, <?php echo $investorname; ?></h4>
         <button onclick="location.href='index.html'">Log Out</button>
       </div>
     </div>
@@ -260,7 +235,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
             echo "<td>" . $row['Profit_share_rate'] . "</td>";
             echo "<td>" . $row['Start_date'] . "</td>";
             echo "<td>" . $row['End_date'] . "</td>";
-            echo "<td>". $row["investment_status"] . "</td>";
+            echo "<td>" . $row["investment_status"] . "</td>";
             echo "</tr>";
           }
           ?>
@@ -282,10 +257,10 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
             echo "<td>" . $applicationRow['farmer_name'] . "</td>";
             echo "<td>" . $applicationRow['Farmer_ID'] . "</td>";
             echo "<td>" . $applicationRow['investment_amount'] . "</td>";
-            echo "<td>". $applicationRow["Duration"] ."</td>";
+            echo "<td>" . $applicationRow["Duration"] . "</td>";
             echo "<td>";
-            echo "<button class='accept-button' onclick=\"window.location.href='investmentApprovalProcess.php?id=".$applicationRow['Farmer_ID']."'\">Accept</button>";
-            echo "<button class='decline-button' onclick=\"window.location.href='investmentDeclineProcess.php?id=".$applicationRow['Farmer_ID']."'\">Decline</button>";
+            echo "<button class='accept-button' onclick=\"window.location.href='investmentApprovalProcess.php?id=" . $applicationRow['Farmer_ID'] . "'\">Accept</button>";
+            echo "<button class='decline-button' onclick=\"window.location.href='investmentDeclineProcess.php?id=" . $applicationRow['Farmer_ID'] . "'\">Decline</button>";
             echo "</td>";
             echo "</tr>";
           }
