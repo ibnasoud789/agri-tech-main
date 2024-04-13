@@ -421,7 +421,6 @@ $helpResult = mysqli_query($conn, $helpQuery);
           <h4>Welcome, <?php echo $farmerName; ?></h4>
           <h5>ID:<span><?php echo $farmerID; ?></span></h5>
         </div>
-        <img src="images/farmer/fisherman-5970480_1920.jpg">
       </div>
     </div>
     <div class="card-container" id="dashboard">
