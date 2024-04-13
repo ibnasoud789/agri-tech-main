@@ -356,7 +356,7 @@ if (isset($_GET['search'])) {
 
     $userID = $_GET['search'];
 
-    $query = "SELECT financial_service_provider_t.name, insurance_t.insurance_provider_id, insurance_t.insurance_id, insurance_t.premium_amount, insurance_t.coverage_amount, insurance_t.Farmer_ID, insurance_t.policy_type, insurance_t.policy_period, insurance_t.payment_frequency
+    $query = "SELECT financial_service_provider_t.name, insurance_t.insurance_provider_id, insurance_t.insurance_id, insurance_t.premium_amount, insurance_t.coverage_amount, insurance_t.Farmer_ID, insurance_t.policy_type, insurance_t.policy_period, insurance_t.payment_frequency,insurance_t.effective_date,insurance_t.end_date,insurance_t.insurance_status
                 FROM insurance_t
                 LEFT JOIN financial_service_provider_t ON insurance_t.insurance_provider_id = financial_service_provider_t.FSPid
                 WHERE insurance_t.insurance_provider_id = $userID";
@@ -374,11 +374,14 @@ if (isset($_GET['search'])) {
                 <tr>
                     <th>Insurance ID</th>
                     <th>Farmer ID</th>
+                    <th>Policy Type</th>
                     <th>Coverage Amount</th>
                     <th>Premium Amount</th>
-                    <th>Policy Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Policy Period</th>
                     <th>Payment Frequency</th>
+                    <th>Status</th>
                 </tr>";
 
         // Output data of each row
@@ -388,11 +391,14 @@ if (isset($_GET['search'])) {
 
                     <td>" . $row["insurance_id"] . "</td>
                     <td>" . $row["Farmer_ID"] . "</td>
+                    <td>" . $row["policy_type"] . "</td>
                     <td>" . $row["coverage_amount"] . "</td>
                     <td>" . $row["premium_amount"] . "</td>
-                    <td>" . $row["policy_type"] . "</td>
+                    <td>" . $row["effective_date"] . "</td>
+                    <td>" . $row["end_date"] . "</td>
                     <td>" . $row["policy_period"] . "</td>
                     <td>" . $row["payment_frequency"] . "</td>
+                    <td>" . $row["insurance_status"] . "</td>
                 </tr>";
         }
         // Close HTML table
