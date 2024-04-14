@@ -16,7 +16,9 @@ if (isset($_POST['approve'])) {
 
     $sql = "INSERT INTO `loan` 
     SET `receiving_date`=CURDATE(),
-     `amount`='$amount', `interest_rate`='$interest',`return_date`='$repaymentdate',`Farmer_ID`='$farmerid',`Loan_Provider_ID`='$providerid',`loan_status`='Ongoing' ";
+     `amount`='$amount', `interest_rate`='$interest',`return_date`='$repaymentdate',`Farmer_ID`='$farmerid',`Loan_Provider_ID`='$providerid',
+     `amount_owned` = '$amount' * (1 + '$interest' / 100),
+     `loan_status`='Ongoing' ";
     $result = mysqli_query($conn, $sql);
     if ($result == TRUE) {
         $verdictUpdate = "UPDATE `loan_application_t` SET `Verdict`='Approved' WHERE `Verdict`='Pending' AND farmer_id='$farmerid'";
@@ -29,13 +31,13 @@ if (isset($_POST['approve'])) {
             echo "<script>console.log('Loan Approved Successfully.');</script>";
             header("refresh:2; url=./loanProvider.php");
         } else {
-            mysqli_rollback($conn); 
+            mysqli_rollback($conn);
             echo 'Error updating another table.';
         }
     } else {
         echo 'Error inserting into loan table.';
     }
-} 
+}
 
 
 if (isset($_GET['id'])) {
@@ -64,10 +66,11 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Approval</title>
     <style>
-        h2{
+        h2 {
             text-align: center;
         }
-        form{
+
+        form {
             display: flex;
             flex-direction: column;
             justify-content: center;
