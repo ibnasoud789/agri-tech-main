@@ -30,6 +30,7 @@ $totalInsuranceCount = $insuranceRow['total_insurance_count'];
 //insurance application
 $applicationQuery = "SELECT * FROM insurance_application WHERE `status`='Pending' AND preferred_provider='$insuranceprovidername' ";
 $applicationResult = mysqli_query($conn, $applicationQuery);
+
 ?>
 
 
@@ -260,7 +261,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
           <?php
           while ($applicationRow = mysqli_fetch_assoc($applicationResult)) {
             echo "<tr>";
-            echo "<td>" . $applicationRow['farmer_name'] . "</td>";
+            echo "<td><a href='farmerPersonalDetails.php?id=" . $applicationRow['farmer_id'] . "' target='_blank' style='color: green; text-decoration: none;'>" . $applicationRow['farmer_name'] . "</a></td>";
             echo "<td>" . $applicationRow['farmer_id'] . "</td>";
             echo "<td>" . $applicationRow['policy'] . "</td>";
             echo "<td>" . $applicationRow["duration"] . "</td>";
