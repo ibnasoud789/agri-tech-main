@@ -129,7 +129,7 @@ $totalLoanCount = $loanRow['total_loan_count'];
     .loanPortfolioOverview {
       display: flex;
       flex-direction: column;
-      height: 50vh;
+      height: 70vh;
       background-color: rgb(184, 247, 184);
       border-radius: 10px;
       padding: 10px 2rem;
@@ -213,6 +213,8 @@ $totalLoanCount = $loanRow['total_loan_count'];
             <th>Loan Provider Name</th>
             <th>Loan Amount</th>
             <th>Interest Rate</th>
+            <th>Amount Owned</th>
+            <th>Total Repaid</th>
             <th>Issue Date</th>
             <th>Repayment Date</th>
             <th>Loan Status</th>
@@ -225,6 +227,8 @@ $totalLoanCount = $loanRow['total_loan_count'];
             echo "<td>" . $row['name'] . "</td>";
             echo "<td>" . $row['amount'] . "</td>";
             echo "<td>" . $row['interest_rate'] . "</td>";
+            echo "<td>" . $row["amount_owned"] . "</td>";
+            echo "<td>" . $row["amount_returned"] . "</td>";
             echo "<td>" . $row['receiving_date'] . "</td>";
             echo "<td>" . $row['return_date'] . "</td>";
             echo "<td>" . $row['loan_status'] . "</td>";
