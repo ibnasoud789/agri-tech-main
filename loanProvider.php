@@ -212,7 +212,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
           <tr>
             <th>Loan ID</th>
             <th>Farmer ID</th>
-            <th>Farmer Name
+            <th>Farmer Name</th>
             <th>Loan Amount</th>
             <th>Interest Rate</th>
             <th>Issue Date</th>
