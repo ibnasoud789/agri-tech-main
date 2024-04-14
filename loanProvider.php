@@ -248,7 +248,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
           <?php
           while ($applicationRow = mysqli_fetch_assoc($applicationResult)) {
             echo "<tr>";
-            echo "<td>" . $applicationRow['farmer_name'] . "</td>";
+            echo "<td><a href='farmerPersonalDetails.php?id=" . $applicationRow['farmer_id'] . "' target='_blank' style='color: green; text-decoration: none;'>" . $applicationRow['farmer_name'] . "</a></td>";
             echo "<td>" . $applicationRow['farmer_id'] . "</td>";
             echo "<td>" . $applicationRow['loan_amount'] . "</td>";
             echo "<td>" . $applicationRow["duration"] . "</td>";
