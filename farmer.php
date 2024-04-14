@@ -137,7 +137,7 @@ $helpQuery = "SELECT * FROM advising WHERE Farmer_ID='$farmerID'";
 $helpResult = mysqli_query($conn, $helpQuery);
 
 // credit score
-$creditScoreQuery = "SELECT SUM(credit_score)/COUNT(Farmer_ID) AS creditscore FROM loan WHERE Farmer_ID='$farmerID'";
+$creditScoreQuery = "SELECT SUM(credit_score)/COUNT(Farmer_ID) AS creditscore FROM loan WHERE loan_status!='Ongoing' AND Farmer_ID='$farmerID'";
 $creditScoreResult = mysqli_query($conn, $creditScoreQuery);
 $creditScoreRow = mysqli_fetch_assoc($creditScoreResult);
 $creditScore = $creditScoreRow["creditscore"];
