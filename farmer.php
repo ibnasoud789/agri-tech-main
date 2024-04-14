@@ -42,17 +42,19 @@ $loanRow = mysqli_fetch_assoc($loanResult);
 $totalLoanReceived = $loanRow['total_loan_received'];
 
 //repaid loan
-$repaidQuery = "SELECT SUM(amount+amount*(interest_rate/100)) AS total_loan_repaid FROM loan WHERE loan_status='Repaid' AND Farmer_ID='$farmerID'";
+$repaidQuery = "SELECT SUM(amount_returned) AS total_loan_repaid FROM loan WHERE Farmer_ID='$farmerID'";
 $repaidResult = mysqli_query($conn, $repaidQuery);
 $repaidRow = mysqli_fetch_assoc($repaidResult);
 $totalLoanRepaid = $repaidRow['total_loan_repaid'];
 
 //current
-$crnloanQuery = "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status='Ongoing' AND Farmer_ID='$farmerID'";
+$crnloanQuery = "SELECT * FROM loan AS l JOIN financial_service_provider_t AS fsp ON l.Loan_Provider_ID=fsp.FSPid WHERE loan_status!='Repaid' AND Farmer_ID='$farmerID'";
 $crnloanResult = mysqli_query($conn, $crnloanQuery);
 if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
   $crnloanRow = mysqli_fetch_assoc($crnloanResult);
-  $crnloanamount = $crnloanRow["amount"];
+  $amountOwned = (int)$crnloanRow["amount_owned"];
+  $amountreturned = (int)$crnloanRow["amount_returned"];
+  $crnloanamount = $amountOwned - $amountreturned;
   $crnintrate = $crnloanRow["interest_rate"];
   $crnloanprovider = $crnloanRow["name"];
   $crnloanproviderid = $crnloanRow["Loan_Provider_ID"];
@@ -134,6 +136,11 @@ if ($crninvResult && mysqli_num_rows($crninvResult) > 0) {
 $helpQuery = "SELECT * FROM advising WHERE Farmer_ID='$farmerID'";
 $helpResult = mysqli_query($conn, $helpQuery);
 
+// credit score
+$creditScoreQuery = "SELECT SUM(credit_score)/COUNT(Farmer_ID) AS creditscore FROM loan WHERE Farmer_ID='$farmerID'";
+$creditScoreResult = mysqli_query($conn, $creditScoreQuery);
+$creditScoreRow = mysqli_fetch_assoc($creditScoreResult);
+$creditScore = $creditScoreRow["creditscore"];
 ?>
 
 
@@ -208,7 +215,8 @@ $helpResult = mysqli_query($conn, $helpQuery);
     .loan-section p span,
     .insurance-section p span,
     .grant-section p span,
-    .investment-section p span {
+    .investment-section p span,
+    .statistics p span {
       color: rgb(1, 62, 1);
       font-weight: bold;
       font-size: 18px;
@@ -332,6 +340,15 @@ $helpResult = mysqli_query($conn, $helpQuery);
       background-color: rgb(1, 62, 1);
     }
 
+    .statistics {
+      height: 25vh;
+    }
+
+    .statistics h2 {
+      text-align: center;
+
+    }
+
     .help {
       height: 50vh;
       margin: 0 auto;
@@ -436,6 +453,7 @@ $helpResult = mysqli_query($conn, $helpQuery);
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
+              <a href="farmerPayLoan.php?id=<?php echo $farmerID ?>" target='_blank'><button>Repay Loan</button></a>
               <a href="farmerloanapply.php?id=<?php echo $farmerID ?>"><button>Apply for loan</button></a>
             </div>
           </div>
@@ -556,6 +574,8 @@ $helpResult = mysqli_query($conn, $helpQuery);
       </form>
     </div>
     <div class="statistics" id='statistics'>
+      <h2>Statistics</h2>
+      <p>Credit Score: <span><?php echo $creditScore  ?></span></p>
     </div>
     <div class='help' id='help'>
       <h2>Help</h2>

@@ -8,9 +8,9 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style/header.css">
-    <link rel="stylesheet" href="style/homebody.css">
-    <link rel="stylesheet" href="style/contact.css">
+    <link rel="stylesheet" href="style/header.css" />
+    <link rel="stylesheet" href="style/homebody.css" />
+    <link rel="stylesheet" href="style/contact.css" />
     <script>
       function includeHTML() {
         var z, i, elmnt, file, xhttp;
@@ -23,428 +23,472 @@
           if (file) {
             /*make an HTTP request using the attribute value as the file name:*/
             xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
               if (this.readyState == 4) {
-                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                if (this.status == 200) {
+                  elmnt.innerHTML = this.responseText;
+                }
+                if (this.status == 404) {
+                  elmnt.innerHTML = "Page not found.";
+                }
                 /*remove the attribute, and call this function once more:*/
                 elmnt.removeAttribute("include-html");
                 includeHTML();
               }
-            }      
+            };
             xhttp.open("GET", file, true);
             xhttp.send();
             /*exit the function:*/
             return;
           }
         }
-      };
-      </script>
+      }
+    </script>
   </head>
   <style>
-    body{
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  width: 100%;
-}
+    body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      width: 100%;
+    }
 
-.home-page-body-section{
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+    .home-page-body-section {
+      margin-top: 70px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
 
-}
+    .carousel-css {
+      width: 100%;
+      height: 450px;
+      position: relative;
+    }
+    .first-slide-title,
+    .second-slide-title,
+    .third-slide-title,
+    .fourth-slide-title,
+    .fifth-slide-title {
+      font-weight: 900;
+      font-size: 35px;
+    }
+    .first-slide-title {
+      color: rgb(2, 47, 2);
+    }
+    .second-slide-title {
+      color: rgb(203, 236, 244);
+    }
+    .third-slide-title {
+      color: rgb(2, 47, 2);
+    }
+    .fourth-slide-title {
+      color: rgb(107, 247, 193);
+    }
+    .fifth-slide-title {
+      color: rgb(2, 31, 2);
+    }
 
-.carousel-css{
-  width: 100%;
-  height: 450px;
-  position: relative;
-}
-.first-slide-title,.second-slide-title,.third-slide-title,.fourth-slide-title,.fifth-slide-title{
-  font-weight: 900;
-  font-size: 35px ;
-}
-.first-slide-title{
-  color: rgb(2, 47, 2);
-}
-.second-slide-title{
-  color: rgb(203, 236, 244);
-}
-.third-slide-title{
-  color: rgb(2, 47, 2);
-}
-.fourth-slide-title{
-  color: rgb(107, 247, 193);
-}
-.fifth-slide-title{
-  color: rgb(2, 31, 2);
-}
+    .stats {
+      position: absolute;
+      height: 120px;
+      width: 100%;
+      background-color: Transparent;
+      bottom: 0px;
+      z-index: 2;
+      border-top: 2px solid white;
+      display: flex;
+      flex-direction: row;
+    }
 
-.stats{
-  position: absolute;
-  height: 120px;
-  width: 100%;
-  background-color: Transparent;
-  bottom: 0px;
-  z-index: 2;
-  border-top: 2px solid white;
-  display: flex;
-  flex-direction: row;
-}
+    .stats div {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+    }
+    .stats div p {
+      margin: 0;
+      font-family: sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+    }
 
-.stats div{
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-}
-.stats div p{
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-}
+    .stats div .num {
+      font-family: sans-serif;
+      font-size: 50px;
+    }
+    .about-us-home {
+      display: flex;
+      width: 100%;
+      height: 900px;
+      background-color: #027351;
+    }
+    .left-section {
+      width: 50%;
+      margin-top: 100px;
+    }
 
-.stats div .num{
-  font-family: sans-serif;
-  font-size: 50px;
+    .about-heading {
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 70px;
+      color: white;
+      text-align: center;
+    }
 
-}
-.about-us-home{
-  display: flex;
-  width: 100%;
-  height: 900px;
-  background-color: #027351;
-}
-.left-section{
-  width: 50%;
-  margin-top: 100px;
- 
-}
+    .about-description {
+      font-family: sans-serif;
+      font-size: 25px;
+      padding: 0px 30px 0px 30px;
+    }
 
-.about-heading{
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 70px;
-  color: white;
-  text-align: center;
+    .divider {
+      border-left: 2px solid white;
+      height: 80%;
+      margin-top: 10%;
+      margin-bottom: 10%;
+    }
+    .right-section {
+      width: 50%;
+      padding: 150px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+    }
 
-}
+    .right-section .header {
+      font-weight: 25px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      color: white;
+    }
 
-.about-description{
-  font-family: sans-serif;
-  font-size: 25px;
-  padding: 0px 30px 0px 30px;
-}
+    .right-section p {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      word-wrap: break-word;
+    }
 
-.divider{
-  border-left: 2px solid white;
-  height: 80%;
-  margin-top: 10%;
-  margin-bottom: 10%;
+    .beneficiary-info {
+      display: flex;
+      flex-direction: column;
+      width: 900px;
+      align-items: center;
+      justify-content: center;
+      margin: 100px auto;
+    }
 
-}
-.right-section{
-  width: 50%;
-  padding: 150px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-}
+    .beneficiary-info h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 32px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+    .beneficiary-info div {
+      display: flex;
+      width: 100%;
+      height: 300px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
 
-.right-section .header{
-  font-weight: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: white;
-}
+    .beneficiary-info div div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .beneficiary-info div div img {
+      height: 300px;
+      width: 300px;
+      object-fit: contain;
+      border-radius: 300px;
+    }
 
-.right-section p{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  word-wrap: break-word;
-}
+    .comment {
+      font-size: 22px;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    }
 
-.beneficiary-info{
-  display: flex;
-  flex-direction: column;
-  width: 900px;
-  align-items: center;
-  justify-content: center;
-  margin: 100px auto;
-}
+    .beneficiary-btn-cls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.beneficiary-info h3{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 32px;
-  margin-top: 30px;
-  font-weight: bold;
-}
-.beneficiary-info div{
-  display: flex;
-  width: 100%;
-  height: 300px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
+    .beneficiary-btn {
+      height: 60px;
+      width: 200px;
+      font-size: 20px;
+      font-weight: bold;
+      color: rgb(1, 62, 1);
+      border: 3px solid rgb(1, 62, 1);
+      border-radius: 5px;
+      background-color: white;
+      transition: 0.5s all ease;
+    }
 
+    .beneficiary-btn:hover {
+      transform: scale(1.1);
+    }
+    .team-section {
+      align-items: center;
+    }
 
-.beneficiary-info div div{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+    .team-section-heading {
+      text-align: center;
+      font-size: 70px;
+      font-weight: bold;
+    }
 
-.beneficiary-info div div img{
-  height: 300px;
-  width: 300px;
-  object-fit: contain;
-  border-radius: 300px;
-}
+    .team-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 600px;
+    }
 
-.comment{
-  font-size: 25px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+    .partner {
+      display: flex;
+      flex-direction: column;
+      margin-top: 100px;
+      padding-left: 100px;
+      padding-right: 100px;
+    }
 
-.beneficiary-btn-cls{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .partner h3 {
+      font-size: 32 px;
+      margin-bottom: 50px;
+      line-height: 56px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+    }
+    .partner-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px;
+    }
 
-.beneficiary-btn{
-  height: 60px;
-  width: 200px;
-  font-size: 20px;
-  font-weight: bold;
-  color: rgb(1,62,1);
-  border: 3px solid rgb(1,62,1);
-  border-radius: 5px;
-  background-color: white;
-  transition: 0.5s all ease;
-}
+    .banks,
+    .insurance-companies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
 
-.beneficiary-btn:hover{
-  transform: scale(1.1);
-}
-.team-section{
-  align-items: center;
-}
+    .partner-info img {
+      height: 146px;
+      width: 145px;
+      object-fit: contain;
+    }
+    .team-section {
+      display: flex;
+      flex-direction: column;
+      padding-top: 120px;
+      justify-content: center;
+      align-items: center;
+    }
 
-.team-section-heading{
-  text-align: center;
-  font-size: 70px;
-  font-weight: bold;
-}
+    .team-section h3 {
+      font-size: 32px;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      margin-bottom: 40px;
+    }
 
-.team-image{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
+    .member-section {
+      display: flex;
+      flex-direction: column;
+    }
+    .member-section .ceo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .member-section .general {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      margin-left: 50px;
+      margin-right: 50px;
+      justify-content: center;
+      align-items: center;
+    }
 
-}
+    .member {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .member-image-box {
+      height: 250px;
+      width: 250px;
+    }
+    .member-image-box {
+      position: relative;
+      overflow: hidden;
+    }
+    .member div img {
+      height: 250px;
+      width: 250px;
+      border-radius: 50%;
+      object-fit: fill;
+      transition: 0.5s ease;
+    }
 
-.partner{
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  padding-left: 100px;
-  padding-right: 100px;
-}
+    .member-image-box:hover img {
+      transform: scale(1);
+    }
 
-.partner h3{
-  font-size: 32 px;
-  margin-bottom: 50px;
-  line-height: 56px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-}
-.partner-info{
-  display: flex;
-  flex-direction: column;
-  gap:20px;
-  margin-top: 30px;
-}
+    .image-layer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(
+        rgba(135, 253, 135, 0.1),
+        rgba(135, 253, 135, 0.6)
+      );
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transform: translateY(100%);
+      transition: 0.5s ease;
+    }
 
-.banks,.insurance-companies{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-}
+    .image-layer a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      width: 30px;
+      background: transparent;
+      border: 2px solid rgb(1, 62, 1);
+      border-radius: 50%;
+      font-size: 15px;
+      color: rgb(1, 62, 1);
+      margin: 20px 10px 10px 0px;
+      transition: 0.5s ease;
+      margin-bottom: 10px;
+    }
 
-.partner-info img{
-  height: 146px;
-  width: 145px;
-  object-fit: contain;
-}
-.team-section{
-  display: flex;
-  flex-direction: column;
-  padding-top: 120px;
-  justify-content: center;
-  align-items: center;
-}
+    .image-layer a:hover {
+      background: rgb(1, 62, 1);
+      color: rgba(135, 253, 135, 0.6);
+      box-shadow: 0 0 7.5px rgb(1, 62, 1);
+    }
 
-.team-section h3{
-  font-size: 32px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-  margin-bottom: 40px;
-}
+    .member-image-box:hover .image-layer {
+      transform: translateY(0);
+    }
+    .member-des {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-.member-section{
-  display: flex;
-  flex-direction: column;
-}
-.member-section .ceo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-}
-.member-section .general{
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  margin-top: 50px;
-  flex-wrap: wrap;
-  margin-left: 50px;
-  margin-right: 50px;
-  justify-content: center;
-  align-items: center;
-}
-
-.member{
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  justify-content: center;
-  align-items: center;
-}
-
-.member-image-box{
-  height: 250px;
-  width: 250px;
-}
-.member-image-box{
-  position: relative;
-  overflow: hidden;
-}
-.member div img{
-  height: 250px;
-  width: 250px;
-  border-radius: 50%;
-  object-fit: fill;
-  transition: 0.5s ease;
-}
-
-.member-image-box:hover img{
-  transform: scale(1);
-}
-
-.image-layer{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(rgba(135,253,135,0.1),rgba(135,253,135,0.6));
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transform: translateY(100%);
-  transition: 0.5s ease;
-}
-
-.image-layer a{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  width: 30px;
-  background: transparent;
-  border: 2px solid rgb(1, 62, 1);
-  border-radius: 50%;
-  font-size: 15px;
-  color: rgb(1, 62, 1);
-  margin: 20px 10px 10px 0px;
-  transition: 0.5s ease;
-  margin-bottom: 10px;
-  
-}
-
-.image-layer a:hover{
-  background: rgb(1, 62, 1);
-  color: rgba(135,253,135,0.6);
-  box-shadow: 0 0 7.5px rgb(1, 62, 1);
-}
-
-.member-image-box:hover .image-layer{
-  transform: translateY(0);
-}
-.member-des{
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.member-des h4{
-  font-weight: bold;
-}
-
-
+    .member-des h4 {
+      font-weight: bold;
+    }
   </style>
 
   <body>
-<!--Header section-->
-  <div include-html="header.html"></div>
-<!-- Carousel section-->
+    <!--Header section-->
+    <div include-html="header.html"></div>
+    <!-- Carousel section-->
     <div class="home-page-body-section">
-      <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-css" data-bs-ride="carousel" style="height: 450px; margin-top: 5px;">
-       
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide carousel-fade carousel-css"
+        data-bs-ride="carousel"
+        style="height: 450px; margin-top: 5px"
+      >
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="images/pexels-omer-faruq-khan-12903472.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+            <img
+              src="images/pexels-omer-faruq-khan-12903472.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
 
           <div class="carousel-item">
-            <img src="images/pexels-pixabay-235731.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+            <img
+              src="images/pexels-pixabay-235731.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
 
           <div class="carousel-item">
-            <img src="images/pexels-omer-faruq-khan-10133695.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+            <img
+              src="images/pexels-omer-faruq-khan-10133695.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
 
           <div class="carousel-item">
-            <img src="images/pexels-ariful-haque-3560020.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />      
+            <img
+              src="images/pexels-ariful-haque-3560020.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
-          
+
           <div class="carousel-item">
-            <img src="images/pexels-quang-nguyen-vinh-2131784.jpg" class="d-block w-100" style="height: 450px; object-fit: cover;" alt="..." />
+            <img
+              src="images/pexels-quang-nguyen-vinh-2131784.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
           <div class="carousel-item">
-            <img src="images/pexels-quang-nguyen-vinh-2162170.jpg" class="d-block w-100" style="height: 450px;object-fit: cover;" alt="..." />
-            
+            <img
+              src="images/pexels-quang-nguyen-vinh-2162170.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
           <div class="carousel-item">
-            <img src="images/money-1604921_1920.jpg" class="d-block w-100" style="height: 450px;    width:100%; object-fit: cover; " alt="..." />
+            <img
+              src="images/money-1604921_1920.jpg"
+              class="d-block w-100"
+              style="height: 450px; width: 100%; object-fit: cover"
+              alt="..."
+            />
           </div>
           <div class="carousel-item">
-            <img src="images/money-2724237_1920.jpg" class="d-block w-100" style="height: 450px;object-fit: cover;" alt="..." />
+            <img
+              src="images/money-2724237_1920.jpg"
+              class="d-block w-100"
+              style="height: 450px; object-fit: cover"
+              alt="..."
+            />
           </div>
         </div>
         <button
@@ -485,18 +529,29 @@
         </div>
       </div>
 
-<!--About us section-->
+      <!--About us section-->
 
       <div class="about-us-home">
         <div class="left-section">
           <h3 class="about-heading">Who We Are</h3>
           <p class="about-description">
-            We are the bridge connecting farmers to a brighter financial future. Our innovative fintech platform is specifically designed for the unique challenges and opportunities of the agricultural sector. We offer a comprehensive suite of financial tools, including microloans to bridge short-term needs, tailored insurance solutions to protect against unforeseen events, and curated investment opportunities for long-term growth. We are committed to empowering farmers by simplifying access to financial resources and fostering a thriving community for knowledge sharing and collaboration. Join us and unlock the full potential of your farm.</p>
+            We are the bridge connecting farmers to a brighter financial future.
+            Our innovative fintech platform is specifically designed for the
+            unique challenges and opportunities of the agricultural sector. We
+            offer a comprehensive suite of financial tools, including microloans
+            to bridge short-term needs, tailored insurance solutions to protect
+            against unforeseen events, and curated investment opportunities for
+            long-term growth. We are committed to empowering farmers by
+            simplifying access to financial resources and fostering a thriving
+            community for knowledge sharing and collaboration. Join us and
+            unlock the full potential of your farm.
+          </p>
         </div>
         <div class="divider"></div>
         <div class="right-section">
-           <div class="farmer-user">
+          <div class="farmer-user">
             <h1 class="header">Farmer</h1>
+<<<<<<< Updated upstream
             <p>Our primary vision is to work for the betterment of the farmers. Through our platfrom they can avail micro loan, investment, insurance etc. financial services.</p>
            </div>
            <div class="bank-user">
@@ -511,123 +566,207 @@
             <h1 class="header">Insurance</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos delectus dignissimos rerum officiis ipsa expedita asperiores deserunt beatae in.</p>
            </div>
+=======
+            <p>
+              Our primary vision is to work for the betterment of the farmers.
+              Through our platfrom they can avail micro loan, investment,
+              insurance etc. financial services.
+            </p>
+          </div>
+          <div class="bank-user">
+            <h1 class="header">Lender</h1>
+            <p>
+              Our mission is to empower lenders by providing transparent and
+              efficient financial solutions. Through our platform, lenders can
+              diversify investments, earn competitive returns, and support
+              growth in the community.
+            </p>
+          </div>
+          <div class="investor-user">
+            <h1 class="header">Investor</h1>
+            <p>
+              We work to improve the financial landscape by offering innovative
+              fintech solutions. Through our platform, investors gain access to
+              diverse investment opportunities, robust analytics, and seamless
+              transaction opportunities.
+            </p>
+          </div>
+          <div class="insurance-user">
+            <h1 class="header">Insurance</h1>
+            <p>
+              We prioritize safeguarding your future and assets. Our platform
+              offers a range of insurance options based on the user needs,
+              ensuring their peace of mind and financial security.
+            </p>
+          </div>
+>>>>>>> Stashed changes
         </div>
       </div>
 
-<!--Beneficiary info section-->
-      <div class="beneficiary-info">
-        <h3 style="text-align: center;">What Our Beneficiaries Had To Say!</h3>
+      <!--Beneficiary info section-->
+      <div class="beneficiary-info" id="beneficiary-info">
+        <h3 style="text-align: center">What Our Beneficiaries Had To Say!</h3>
         <div class="">
           <div class="beneficiary-image">
-            <img src="images/farmer/pexels-kelly-2321837.jpg">
+            <img src="images/farmer/pexels-kelly-2321837.jpg" />
             <p>Morjina Begum, Dinajpur</p>
           </div>
           <div class="comment">
+<<<<<<< Updated upstream
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+=======
+            Last year, I used this platform to find a loan for building larger
+            ponds and investing in quality fish feed. Fortunately, I got a
+            low-interest loan. This led to a 40% increase in my fish production
+            and high profits.
+>>>>>>> Stashed changes
           </div>
         </div>
         <div class="">
           <div class="comment">
+<<<<<<< Updated upstream
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
           </div>
           <div class="beneficiary-image">
             <img src="images/farmer/agriculture-3327299_1920.jpg">
             <p>Morjina Begum, Dinajpur</p>
+=======
+            I used their crop insurance through the platform. Last year in June,
+            my jute crop was damaged by floods. The insurance compensated me,
+            allowed me to replant and recover my losses without financial
+            strain. This platform saved me from a huge loss.
           </div>
-          
+          <div class="beneficiary-image">
+            <img src="images/farmer/agriculture-3327299_1920.jpg" />
+            <p>Kashem Ali, Madaripur</p>
+>>>>>>> Stashed changes
+          </div>
         </div>
         <div class="">
           <div class="beneficiary-image">
+<<<<<<< Updated upstream
             <img src="images/farmer/bangladesh-3535015_1920.jpg">
             <p>Morjina Begum, Dinajpur</p>
           </div>
           <div class="comment">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
+=======
+            <img src="images/farmer/bangladesh-3535015_1920.jpg" />
+            <p>Rohim Ali, Sylhet</p>
+          </div>
+          <div class="comment">
+            Through the platform, I got a low-interest loan. With help of that,
+            I could expand my rice farm, invested in better seeds and
+            fertilizers. This increased my yield by 30% last season. This
+            platform helped me to find the perfect loan for me.
+>>>>>>> Stashed changes
           </div>
         </div>
         <div class="">
           <div class="comment">
+<<<<<<< Updated upstream
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis amet porro ea labore totam ut fugit reiciendis neque odit. Officia, beatae sit illum enim cum distinctio eius natus eum iure!
           </div>
           <div class="beneficiary-image">
             <img src="images/farmer/fisherman-5970480_1920.jpg">
             <p>Morjina Begum, Dinajpur</p>
+=======
+            I used this platform to secure insurance for my flock. Last winter,
+            when disease threatened my poultry, the insurance covered my losses.
+            It helped me to ensure that I don't face financial ruin. I could
+            continue my farming operations with help of the insurance.
+          </div>
+          <div class="beneficiary-image">
+            <img src="images/farmer/fisherman-5970480_1920.jpg" />
+            <p>Kamal Hossain, Chittagong</p>
+>>>>>>> Stashed changes
           </div>
         </div>
-        <div class="beneficiary-btn-cls">
-          <a href="blog.html"><button class="beneficiary-btn">Show More</button>
-        </div></a>
       </div>
 
-<!--Partners section-->
+      <!--Partners section-->
       <div class="partner">
-        <h3 style="text-align: center;">Our Valuable Partners</h3>
+        <h3 style="text-align: center">Our Valuable Partners</h3>
         <div class="partner-info">
           <div class="banks">
-            <img src="images/partners/bangladesh-development-bank-logo-6E49EE8D30-seeklogo.com.png">
-            <img src="images/partners/download (1).png">
-            <img src="images/partners/download.jpeg">
-            <img src="images/partners/download.png">
-            <img src="images/partners/National_Bank_Limited_Logo.png">
-            <img src="images/partners/rupali-bank-logo-B85FFF29B3-seeklogo.com.png">
-            <img src="images/partners/Seal_of_Janata_Bank_PLC.svg.png">
-            <img src="images/partners/sonalibank_pad_logo-blue-txt.png">
-            <img src="images/partners/asia.jpeg">
-            <img src="images/partners/city.jpeg">
-            <img src="images/partners/exim.png">
-            <img src="images/partners/grameen.png">
-            <img src="images/partners/ific.jpeg">
-            <img src="images/partners/isdb.jpeg">
-            <img src="images/partners/mercantile.png">
-            <img src="images/partners/nabard.png">
-            <img src="images/partners/prime.jpeg">
-            <img src="images/partners/sbac.png">
-            <img src="images/partners/sibl.png">
-            <img src="images/partners/uttara.jpeg">
-            <img src="images/partners/nitol.jpeg">
+            <img
+              src="images/partners/bangladesh-development-bank-logo-6E49EE8D30-seeklogo.com.png"
+            />
+            <img src="images/partners/download (1).png" />
+            <img src="images/partners/download.jpeg" />
+            <img src="images/partners/download.png" />
+            <img src="images/partners/National_Bank_Limited_Logo.png" />
+            <img
+              src="images/partners/rupali-bank-logo-B85FFF29B3-seeklogo.com.png"
+            />
+            <img src="images/partners/Seal_of_Janata_Bank_PLC.svg.png" />
+            <img src="images/partners/sonalibank_pad_logo-blue-txt.png" />
+            <img src="images/partners/asia.jpeg" />
+            <img src="images/partners/city.jpeg" />
+            <img src="images/partners/exim.png" />
+            <img src="images/partners/grameen.png" />
+            <img src="images/partners/ific.jpeg" />
+            <img src="images/partners/isdb.jpeg" />
+            <img src="images/partners/mercantile.png" />
+            <img src="images/partners/nabard.png" />
+            <img src="images/partners/prime.jpeg" />
+            <img src="images/partners/sbac.png" />
+            <img src="images/partners/sibl.png" />
+            <img src="images/partners/uttara.jpeg" />
+            <img src="images/partners/nitol.jpeg" />
           </div>
           <div class="insurance-companies">
-            <img src="images/partners/insurance/_storage_emulated_0_Download_download (4).png">
-            <img src="images/partners/insurance/download (2).png">
-            <img src="images/partners/insurance/download (3).png">
-            <img src="images/partners/insurance/download (5).png">
-            <img src="images/partners/insurance/Pragati-Insurance-2106170653-2207200605.jpg">
-            <img src="images/partners/insurance/SFSA logo.jpg">
-            <img src="images/partners/insurance/takaful_islami_insurance_ltd.jpg">
+            <img
+              src="images/partners/insurance/_storage_emulated_0_Download_download (4).png"
+            />
+            <img src="images/partners/insurance/download (2).png" />
+            <img src="images/partners/insurance/download (3).png" />
+            <img src="images/partners/insurance/download (5).png" />
+            <img
+              src="images/partners/insurance/Pragati-Insurance-2106170653-2207200605.jpg"
+            />
+            <img src="images/partners/insurance/SFSA logo.jpg" />
+            <img
+              src="images/partners/insurance/takaful_islami_insurance_ltd.jpg"
+            />
           </div>
-         
         </div>
       </div>
-<!--Contact us section-->
+      <!--Contact us section-->
       <div class="contact" id="contact">
         <h1 class="heading">Contact <span>Us</span></h1>
         <form action="#">
           <div class="input-box">
-            <input type="text" placeholder="Full Name">
-            <input type="text" placeholder="Email Address">
+            <input type="text" placeholder="Full Name" />
+            <input type="text" placeholder="Email Address" />
           </div>
           <div class="input-box">
-            <input type="text" placeholder="Phone Number">
-            <input type="text" placeholder="Email Subject">
+            <input type="text" placeholder="Phone Number" />
+            <input type="text" placeholder="Email Subject" />
           </div>
-          <textarea name="" id="" cols="30" rows="20" placeholder="Your Query" ></textarea>
-          <button type="submit" id="submit" class="contact-button">Send Message</button>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="20"
+            placeholder="Your Query"
+          ></textarea>
+          <button type="submit" id="submit" class="contact-button">
+            Send Message
+          </button>
         </form>
       </div>
     </div>
-<!--Footer section-->
-    <footer>
-      
-    </footer>
+    <!--Footer section-->
+    <footer></footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
-    >
-    </script>
+    ></script>
     <script>
       includeHTML();
-      </script>
+    </script>
   </body>
 </html>

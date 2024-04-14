@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (isset($_GET["id"])) {
     $farmerID = $_GET["id"];
-    $checkLoanQuery = "SELECT * FROM loan WHERE Farmer_ID='$farmerID' AND loan_status='Ongoing'";
+    $checkLoanQuery = "SELECT * FROM loan WHERE Farmer_ID='$farmerID' AND loan_status!='Repaid'";
     $checkLoanResult = $conn->query($checkLoanQuery);
 
     if ($checkLoanResult) {
