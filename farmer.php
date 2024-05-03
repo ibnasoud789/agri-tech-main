@@ -55,6 +55,7 @@ if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
   $amountOwned = (int)$crnloanRow["amount_owned"];
   $amountreturned = (int)$crnloanRow["amount_returned"];
   $crnloanamount = $amountOwned - $amountreturned;
+  $loanreturn = $crnloanRow["return_date"];
   $crnintrate = $crnloanRow["interest_rate"];
   $crnloanprovider = $crnloanRow["name"];
   $crnloanproviderid = $crnloanRow["Loan_Provider_ID"];
@@ -64,6 +65,7 @@ if ($crnloanResult && mysqli_num_rows($crnloanResult) > 0) {
   $crnintrate = "N/A";
   $crnloanprovider = "N/A";
   $crnloanproviderid = "N/A";
+  $returndate = "N/A";
 }
 
 
@@ -141,6 +143,7 @@ $creditScoreQuery = "SELECT SUM(credit_score)/COUNT(Farmer_ID) AS creditscore FR
 $creditScoreResult = mysqli_query($conn, $creditScoreQuery);
 $creditScoreRow = mysqli_fetch_assoc($creditScoreResult);
 $creditScore = $creditScoreRow["creditscore"];
+
 ?>
 
 
@@ -149,243 +152,59 @@ $creditScore = $creditScoreRow["creditscore"];
 
 <head>
   <link rel="stylesheet" href="style/farmer-header.css">
+  <link rel="stylesheet" href="style/farmer-body.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      border: none;
-      outline: none;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(function() {
+      drawChart(<?php echo json_encode($farmerID); ?>);
+    });
+
+    function drawChart(farmerID) {
+      var data;
+      <?php
+      $sql = "SELECT Investment_ID, Amount AS Investment, Farmer_Sales AS Sales 
+              FROM investment_t 
+              WHERE Farmer_ID='$farmerID'";
+
+      $result = $conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        $data = array();
+        $data[] = ['Investment ID', 'Investment', 'Sales'];
+        // Output data of each row
+        $index = 1; // Start index for naming investments
+        while ($row = $result->fetch_assoc()) {
+          // Format the investment ID
+          $investmentID = "Investment-" . $index;
+          $data[] = [$investmentID, (int) $row["Investment"], (int) $row["Sales"]];
+          $index++; // Increment index for the next investment
+        }
+        echo "data = google.visualization.arrayToDataTable(" . json_encode($data) .
+          ");";
+      } else {
+        echo "data = google.visualization.arrayToDataTable([ ['Investment ID', 'Investment', 'Sales'],
+          ['No data available', 0, 0]
+      ]);
+    ";
+      } ?>
+
+      var options = {
+        title: 'Farm Performance',
+        curveType: 'function',
+        legend: {
+          position: 'bottom'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+      chart.draw(data, options);
     }
-
-    .card-container {
-      display: flex;
-      flex-direction: column;
-      margin-top: 20px;
-    }
-
-    .loan-section,
-    .insurance-section,
-    .grant-section,
-    .investment-section,
-    form,
-    .statistics,
-    .help {
-      display: flex;
-      flex-direction: column;
-      height: 35vh;
-      background-color: rgb(184, 247, 184);
-      border-radius: 10px;
-      padding: 10px 2rem;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-
-    .loan-section .loan-details,
-    .insurance-section .insurance-details,
-    .grant-section .grant-details {
-      display: flex;
-    }
-
-    .loan-section .left,
-    .insurance-details .receiver,
-    .grant-details .receiver {
-      width: 50%;
-    }
-
-    .loan-section h3,
-    .insurance-section h3,
-    .grant-section h3,
-    .investment-section h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .loan-section p,
-    .insurance-section p,
-    .grant-section p,
-    .investment-section p {
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-
-    .loan-section p span,
-    .insurance-section p span,
-    .grant-section p span,
-    .investment-section p span,
-    .statistics p span {
-      color: rgb(1, 62, 1);
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .loan-section button,
-    .insurance-section button,
-    .investment-section button,
-    .grant-section button {
-      height: 25px;
-      width: 110px;
-      margin-top: 30px;
-      border-radius: 5px;
-      background-color: rgb(1, 62, 1);
-      color: white;
-      font-weight: bold;
-    }
-
-    .loan-section .right,
-    .insurance-details .insurance-provider,
-    .grant-details .grant-provider {
-      display: flex;
-      flex-direction: column;
-      width: 50%;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .right button {
-      height: 40px;
-      width: 100px;
-      margin-top: 15px;
-      border-radius: 5px;
-      background-color: rgb(1, 62, 1);
-      color: white;
-      font-weight: bold;
-    }
-
-    button {
-      cursor: pointer;
-      transition: 0.2s ease all;
-    }
-
-    button:hover {
-      background-color: rgb(1, 62, 1, 0.8);
-      transform: scale(1.02);
-    }
-
-    .insurance-section {
-      display: flex;
-      height: 50vh;
-    }
-
-    .grant-section {
-      display: flex;
-      height: 45vh;
-    }
-
-    .insurance-section .receiver,
-    .grant-section .receiver {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .insurance-section button {
-      width: 150px;
-      height: 25px;
-    }
-
-    .grant-section {
-      height: 35vh;
-    }
-
-    .investment-section {
-      height: 50vh;
-
-    }
-
-    form {
-      height: 60vh;
-    }
-
-    form h2 {
-      text-align: center;
-    }
-
-    form div {
-      display: flex;
-      gap: 20px;
-      width: 100%;
-    }
-
-    form div div {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    form div div input {
-      height: 35px;
-      width: 100%;
-      border-radius: 5px;
-      padding: 10px;
-      background-color: rgb(240, 247, 180);
-    }
-
-    .btn-div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .update-btn {
-      font-weight: bold;
-      width: 200px;
-      height: 35px;
-      margin-top: 10px;
-      border-radius: 10px;
-      color: white;
-      background-color: rgb(1, 62, 1);
-    }
-
-    .statistics {
-      height: 25vh;
-    }
-
-    .statistics h2 {
-      text-align: center;
-
-    }
-
-    .help {
-      height: 50vh;
-      margin: 0 auto;
-    }
-
-    .help h2 {
-      text-align: center;
-    }
-
-    .help button {
-      font-weight: bold;
-      width: 100px;
-      height: 25px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      color: white;
-      background-color: rgb(1, 62, 1);
-    }
-
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td,
-    th {
-      border: 1px solid black;
-      text-align: left;
-      padding: 8px;
-    }
-
-    tr:nth-child(even) {
-      background-color: rgb(240, 230, 180);
-    }
-  </style>
+  </script>
 </head>
 
 <body>
@@ -451,6 +270,7 @@ $creditScore = $creditScoreRow["creditscore"];
             <p>Total loan repaid: <span>BDT <?php echo $totalLoanRepaid; ?></span></p>
             <p>Current loan amount: <span>BDT <?php echo $crnloanamount ?></span></p>
             <p>Interest Rate: <span><?php echo $crnintrate ?><span></p>
+            <p>Return Date:<span><?php echo $returndate ?></span></p>
             <div>
               <a href="farmerloandetails.php" target="_blank"><button>Show Details</button></a>
               <a href="farmerPayLoan.php?id=<?php echo $farmerID ?>" target='_blank'><button>Repay Loan</button></a>
@@ -576,6 +396,7 @@ $creditScore = $creditScoreRow["creditscore"];
     <div class="statistics" id='statistics'>
       <h2>Statistics</h2>
       <p>Credit Score: <span><?php echo $creditScore  ?></span></p>
+      <div id="curve_chart" style="width: 900px; height: 500px"></div>
     </div>
     <div class='help' id='help'>
       <h2>Help</h2>

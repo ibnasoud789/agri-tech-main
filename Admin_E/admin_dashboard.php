@@ -194,7 +194,7 @@ if ($result->num_rows > 0) {
       ]);
 
       var materialOptions = {
-        width: 900,
+        width: 800,
         chart: {
           title: 'Loan Statistics Year-wise',
           subtitle: 'Loan Amount on the left, Loan Count on the right'
@@ -221,7 +221,7 @@ if ($result->num_rows > 0) {
       };
 
       var classicOptions = {
-        width: 900,
+        width: 800,
         series: {
           0: {
             targetAxisIndex: 0
@@ -288,6 +288,34 @@ if ($result->num_rows > 0) {
       chart.draw(data, options);
     }
   </script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Year', 'Sales', 'Expenses'],
+        ['2004', 1000, 400],
+        ['2005', 1170, 460],
+        ['2006', 660, 1120],
+        ['2007', 1030, 540]
+      ]);
+
+      var options = {
+        title: 'Company Performance',
+        curveType: 'function',
+        legend: {
+          position: 'bottom'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+      chart.draw(data, options);
+    }
+  </script>
 
 </head>
 
@@ -307,8 +335,9 @@ if ($result->num_rows > 0) {
   </div>
   <button id="change-chart">Change to Classic</button>
   <br><br>
-  <div id="chart_div" style="width: 800px; height: 500px;"></div>
+  <div id="chart_div" style="width: 400px; height: 400px;"></div>
   <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+  <div id="curve_chart" style="width: 900px; height: 500px"></div>
   <div>
     <h2>User Table</h2>
     <table>
