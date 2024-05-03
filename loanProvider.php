@@ -108,7 +108,7 @@ $applicationResult = mysqli_query($conn, $applicationQuery);
     .loanapplication {
       display: flex;
       flex-direction: column;
-      height: 70vh;
+      height: 50vh;
       background-color: rgb(194, 247, 238);
       border-radius: 10px;
       padding: 10px 2rem;
